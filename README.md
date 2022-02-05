@@ -5,15 +5,15 @@ In the last few years, COVID19 has affected the lives of every person in a huge 
 
 
 # **Group Members**
-  *Summer Bronson
+  Summer Bronson
   
-  *Wesley Camphouse
+  Wesley Camphouse
   
-  *Brenton Candelaria
+  Brenton Candelaria
   
-  *Johnathan Carsten
+  Johnathan Carsten
   
-  *Samuel Nix
+  Samuel Nix
   
-  *Aedan Wells
+  Aedan Wells
   
