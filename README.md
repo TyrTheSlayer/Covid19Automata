@@ -12,7 +12,7 @@ In the last few years, COVID19 has affected the lives of every person in a huge 
   
   Brenton Candelaria
   
-  Johnathan Carsten
+  Jonathan Carsten
   
   Samuel Nix
   
