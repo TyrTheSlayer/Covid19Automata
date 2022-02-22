@@ -1,30 +1,38 @@
 import random
 import matplotlib.pyplot as plt
 
+#used to cleanup floats
+def truncate(num, n):
+    integer = int(num * (10**n))/(10**n)
+    return float(integer)
+
+
 #To keep the sim from running forever on bad luck, also inits BC's
-t_max = 10000
+t_max = 1000
 I_0 = 0.01
 S_0 = 1-I_0
 R_0 = 0
 D_0 = 0
 
-num_tests = 10
 
 
 #init parameters, feel free to modulate
+num_tests = 10
 pop_size = 50000
-recov_mean = 30
-recov_dev = 20
-p_trans = 0.3
+recov_mean = 20
+recov_dev = 10
+p_trans = 0.05
 mort = 0
+inf_cutoff = 100
+
+#modifiers after each run of the sim, 0 indicates it stays constant
+pop_size_mod = 0
+recov_mean_mod = 0
+recov_dev_mod = 0
+p_trans_mod = 0.05
+mort_mod = 0.01
 
 for count in range(0, num_tests):
-    #modifiers after each run of the sim, 0 indicates it stays constant
-    pop_size_mod = 0
-    recov_mean_mod = 0
-    recov_dev_mod = 0
-    p_trans_mod = 0
-    mort_mod = 0.05
 
     # init counters
     pop = []
@@ -53,13 +61,13 @@ for count in range(0, num_tests):
     d_d = [float(dead/pop_size)]
 
     # Stop the sim on "end"
-    while(t < t_max and infected > 0):
+    while(t < t_max and infected > inf_cutoff):
         t+=1
-    #    print("\n\nSusceptible: " + str(sus) + "\nInfected: " + str(infected) + "\nRecovered: " + str(recovered))
+#        print("\n\nSusceptible: " + str(sus) + "\nInfected: " + str(infected) + "\nRecovered: " + str(recovered) + "\nDead: " + str(dead))
 
         # q is just a dummy counter to track the number of entries that need to be checked
         # The first 'q' entries in pop are guranteed to be non-zero, and thus represetnts the non-suceptible population
-        q = recovered+infected+dead
+        q = pop_size - sus
         for i in range(0, q):
             # this is to ignore recovered or dead individuals
             if(pop[i][0] == 1):
@@ -69,23 +77,24 @@ for count in range(0, num_tests):
                 # (try removing it and you'll see what I mean)
                 if (random.random() < p_trans*(float(sus/pop_size))) and (sus > 0):
                     # update next 0 tuple and update counters
-                    pop[recovered+infected][0] = 1
-                    pop[recovered+infected][1] = int(recov_mean + recov_dev*(random.random()-0.5))
                     infected+=1
                     sus-=1
+                    pop[pop_size-sus-1][0] = 1
+                    pop[pop_size-sus-1][1] = int(recov_mean + recov_dev*(random.random()-0.5))
                 # determine if this individual dies
-                if (random.random() < mort):
-                    pop[i][0] = 3
+                #determine if this individual recovers and/or decrement the recovery time counter
+                if pop[i][1] <= 0:
+                    recovered += 1
+                    infected -= 1
+                    pop[i][0] = 2
                     pop[i][1] = 0
+                else:
+                    pop[i][1] -= 1
+                if random.random() < mort:
                     dead += 1
                     infected -= 1
-                #determine if this individual recovers and/or decrement the recovery time counter
-                if(pop[i][1] > 0):
-                    pop[i][1] -= 1
-                else:
-                    pop[i][0] = 2
-                    recovered+=1
-                    infected-=1
+                    pop[i][0] = 3
+                    pop[i][1] = 0
         # append aggregate data at end of each step
         x1.append(t)
         s_d.append(float(sus/pop_size))
@@ -105,8 +114,8 @@ for count in range(0, num_tests):
     plt.savefig("result_"+str(count+1)+".png")
     plt.clf()
     #modify params for consecutive tests
-    p_trans += p_trans_mod
-    recov_mean += recov_mean_mod
-    recov_dev += recov_dev_mod
+    p_trans = truncate(p_trans + p_trans_mod, 2)
+    recov_mean = truncate(recov_mean + recov_mean_mod, 2)
+    recov_dev = truncate(recov_dev + recov_dev_mod, 2)
     pop_size += pop_size_mod
-    mort += mort_mod
+    mort = truncate(mort + mort_mod, 2)
