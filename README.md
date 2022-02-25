@@ -1,11 +1,11 @@
 # Covid-19 Automata Simulator
 
-**Introduction**
+## Introduction
 
-In the last few years, COVID19 has affected the lives of every person in a huge way. Our goal with this project is to provide visualization for people to further understand the consequences of the deadly pandemic. We hope to use it as an educational tool for people so that they can see a more visual representation of how the virus spreads and affects populations. At first, we want to do this through a cellular automata model but plan on extending the model to be more realistic and representative of the real world, if time permits. We hope our project can be used as a tool that positively impacts the world, and the outlook on the pandemic.
+In the last few years, COVID19 has affected the lives of every person in a large way. Our goal with this project is to provide visualization to further understand the consequences of the deadly pandemic. We want to do this through a cellular automata model and plan on extending the model to be more realistic and representative of the real world, if time permits.
 
+## Group Members
 
-# **Group Members**
   Summer Bronson
   
   Wesley Camphouse
@@ -18,3 +18,6 @@ In the last few years, COVID19 has affected the lives of every person in a huge 
   
   Aedan Wells
   
+## Contents
+
+* diagrams: Contains all UML and assorted diagrams for the project.
