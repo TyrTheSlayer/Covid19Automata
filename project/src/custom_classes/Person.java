@@ -9,7 +9,7 @@ package custom_classes;
 import java.util.ArrayList;
 
 public class Person {
-    private boolean alive;
+    private Status status;
     private int x;
     private int y;
     private Virus virus;
