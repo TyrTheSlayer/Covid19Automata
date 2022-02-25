@@ -20,4 +20,4 @@ In the last few years, COVID19 has affected the lives of every person in a large
   
 ## Contents
 
-*diagrams: Contains all UML and assorted diagrams for the project
+* diagrams: Contains all UML and assorted diagrams for the project.
