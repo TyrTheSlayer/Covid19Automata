@@ -121,7 +121,7 @@ public class GridPanel extends JPanel{
 
 		// paint alive tiles
 		//
-int pant = 0;
+/*int pant = 0;
 		for (int i=0; i<viewableHeight+2; i++) {
 			for (int j=0; j<viewableWidth+2; j++) {
 				Tile tile = gridViewable[i][j];
@@ -145,8 +145,8 @@ int pant = 0;
 
 					}
 					pant ++;
-				}
-				/*
+				}*/
+
 		int pant = 0;
 		for (int i=0; i<viewableHeight+2; i++) {
 			for (int j=0; j<viewableWidth+2; j++) {
@@ -157,7 +157,7 @@ int pant = 0;
 					g2.fillRect(-(tileSize-leftSideOffset)+j*tileSize, -(tileSize-topSideOffset)+i*tileSize, tileSize, tileSize);
 				pant ++;
 				}
-*/
+
 				if (gridOn) {
 					g2.setColor(BORDER_COLOR);
 					g2.drawRect(-(tileSize-leftSideOffset)+j*tileSize, -(tileSize-topSideOffset)+i*tileSize, tileSize, tileSize);

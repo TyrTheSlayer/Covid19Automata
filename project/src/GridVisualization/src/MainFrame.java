@@ -95,6 +95,7 @@ public class MainFrame extends JFrame{
         /// create grid panel
         gridPanel = new GridPanel(20, 20, 15, 20*20, 20*15, 0, 0);
         add(gridPanel, BorderLayout.CENTER);
+        gridPanel.gridOn = !gridPanel.gridOn;
 
 
         this.setMinimumSize(new Dimension(gridPanel.gridPixelWidth-60, gridPanel.gridPixelHeight));
@@ -173,4 +174,13 @@ public class MainFrame extends JFrame{
             gridPanel.gridLock.writeLock().unlock();
         }
     }
+
+    /*private class GridToggleAction extends AbstractAction{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            gridPanel.gridOn = !gridPanel.gridOn;
+            //toolBar.updateGridButton(gridPanel.gridOn);
+            gridPanel.repaint();
+        }*/
 }
