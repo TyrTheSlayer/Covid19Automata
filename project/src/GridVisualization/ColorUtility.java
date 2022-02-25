@@ -1,4 +1,4 @@
-
+package GridVisualization;
 
 import java.awt.Color;
 
