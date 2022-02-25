@@ -95,12 +95,13 @@ public class MainFrame extends JFrame{
         c.setBackground(Color.GREEN);
 
         /// create grid panel
-        gridPanel = new GridPanel(20, 20, 15, 20*20, 20*15, 0, 0);
+        //gridPanel = new GridPanel(20, 20, 15, 20*20, 20*15, 0, 0);
+        gridPanel = new GridPanel(10, 50, 100, 10*101, 10*55, 0, 0);
         add(gridPanel, BorderLayout.CENTER);
-        gridPanel.gridOn = !gridPanel.gridOn;
+        gridPanel.gridOn = !gridPanel.gridOn; // can see the grid visually
 
 
-        this.setMinimumSize(new Dimension(gridPanel.gridPixelWidth-60, gridPanel.gridPixelHeight));
+        this.setMinimumSize(new Dimension(gridPanel.gridPixelWidth, gridPanel.gridPixelHeight));
         //this.setSize(new Dimension(gridPanel.gridPixelWidth, gridPanel.gridPixelHeight));
 
         /// create menu bar
