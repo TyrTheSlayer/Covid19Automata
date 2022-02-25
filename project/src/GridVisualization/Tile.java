@@ -61,6 +61,7 @@ import custom_classes.*;
 public class Tile {
 	private Person occupant;
 	private Building entranceTo;
+	private boolean accessible;
 	private int x;
 	private int y;
 
@@ -71,6 +72,9 @@ public class Tile {
 	 * @param y The y coordinate
 	 */
 	public Tile(int x, int y) {
+		this.occupant = null;
+		this.entranceTo = null;
+		this.accessible = true;
 		changeCoordinates(x, y);
 	}
 
@@ -84,12 +88,25 @@ public class Tile {
 		return x;
 	}
 
+	/**
+	 * Gets the y location of the tile
+	 *
+	 * @return The y location of the tile
+	 */
 	public int getY() {
 		return y;
 	}
 
+	//Methods
+	/**
+	 * Sets the coordinate of the tile
+	 *
+	 * @param x The x location
+	 * @param y The y location
+	 */
 	public void changeCoordinates(int x, int y) {
-		this.x = x; this.y = y;
+		this.x = x;
+		this.y = y;
 	}
 
 }
