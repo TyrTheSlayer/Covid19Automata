@@ -15,6 +15,8 @@ public class Person {
     private Virus virus;
     private ArrayList<Factor> factors;
 
+
+    //Methods
     /**
      * Tells whether or not the person should cough this tick
      *
@@ -22,6 +24,15 @@ public class Person {
      */
     public boolean cough() {
         return false;
+    }
+
+    /**
+     * Kills the person
+     */
+    public void die() {
+        this.status = Status.DEAD;
+        this.x = -666;
+        this.y = -666;
     }
 
     /**
