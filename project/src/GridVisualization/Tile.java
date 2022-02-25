@@ -1,4 +1,4 @@
-package GridVisualization;
+/*package GridVisualization;
 
 import java.awt.Color;
 
@@ -52,4 +52,45 @@ public class Tile {
 	public int getY() {
 		return y;
 	}
+}*/
+
+package GridVisualization;
+
+import custom_classes.*;
+
+public class Tile {
+	private Person occupant;
+	private Building entranceTo;
+	private int x;
+	private int y;
+
+	/**
+	 * Makes a new tile with the given x and y coordinates
+	 *
+	 * @param x The x coordinate
+	 * @param y The y coordinate
+	 */
+	public Tile(int x, int y) {
+		changeCoordinates(x, y);
+	}
+
+	//Getters
+	/**
+	 * Gets the x location of the tile
+	 *
+	 * @return The x location of the tile
+	 */
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void changeCoordinates(int x, int y) {
+		this.x = x; this.y = y;
+	}
+
 }
+
