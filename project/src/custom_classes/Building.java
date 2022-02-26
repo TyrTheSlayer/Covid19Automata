@@ -16,6 +16,27 @@ public class Building {
     Tile[] entrances;
     Tile[] exits;
 
+    //Constructors
+    /**
+     * Makes a building with the given sides, entrances, and exits
+     *
+     * @param size The size of the building
+     * @param entrances The entrances to the building
+     * @param exits The exits to the building
+     */
+    public Building(double size, Tile[] entrances, Tile[] exits) {
+        //Assign the attributes
+        this.size = size;
+        this.entrances = entrances;
+        this.exits = exits;
+
+        //Update the entrances on the tile side
+        for(Tile i : this.entrances) {
+            i.setEntranceTo(this);
+        }
+    }
+
+    //Methods
     /**
      * Allows a person to enter the building
      *

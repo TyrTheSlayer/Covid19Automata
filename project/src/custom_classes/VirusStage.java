@@ -7,7 +7,7 @@
 package custom_classes;
 
 public enum VirusStage {
-    INCUBATING, CONTAGIOUS, SYMPTOMATIC;
+    INCUBATING, CONTAGIOUS, SYMPTOMATIC, FATAL, RECOVERED;
 
     /**
      * Gives the string representation of the stage
@@ -22,6 +22,10 @@ public enum VirusStage {
                 return "Contagious";
             case SYMPTOMATIC:
                 return "Symptomatic";
+            case FATAL:
+                return "Fatal";
+            case RECOVERED:
+                return "Recovered";
             default:
                 return "";
         }
