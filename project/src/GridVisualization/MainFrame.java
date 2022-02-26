@@ -62,7 +62,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame{
-    public GridPanel gridPanel;
+    //public GridPanel gridPanel;
     private Container c;
 
     public MainFrame(String title) {
@@ -96,7 +96,7 @@ public class MainFrame extends JFrame{
 
         /// create grid panel
         //gridPanel = new GridPanel(20, 20, 15, 20*20, 20*15, 0, 0);
-        gridPanel = new GridPanel(10, 50, 100, 10*101, 10*55, 0, 0);
+        /*gridPanel = new GridPanel(10, 50, 100, 10*101, 10*55, 0, 0);
         add(gridPanel, BorderLayout.CENTER);
         gridPanel.gridOn = !gridPanel.gridOn; // can see the grid visually
 
@@ -157,7 +157,7 @@ public class MainFrame extends JFrame{
         setVisible(true);
     }
 
-    public synchronized void updateGrid(ArrayList<ArrayList<Point>> prepareUpdateLists) {
+    /*public synchronized void updateGrid(ArrayList<ArrayList<Point>> prepareUpdateLists) {
         /// update grid
         gridPanel.gridLock.writeLock().lock();
         try {
@@ -176,7 +176,7 @@ public class MainFrame extends JFrame{
         } finally {
             gridPanel.gridLock.writeLock().unlock();
         }
-    }
+    }*/
 
     /*private class GridToggleAction extends AbstractAction{
 

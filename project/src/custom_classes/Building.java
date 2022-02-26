@@ -6,7 +6,7 @@
 
 package custom_classes;
 
-import GridVisualization.Tile;
+import Grid2.Tile;
 
 import java.util.ArrayList;
 
