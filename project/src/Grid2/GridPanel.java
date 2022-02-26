@@ -67,10 +67,12 @@ public class GridPanel extends JPanel {
 
         for (int i=0; i<gridPixelHeight; i++) {
             for (int j = 0; j < gridPixelWidth; j++) {
-                if (j%2 == 0 && i%2 == 0 || i%2 == 1 && j%2 == 1) {
-                    g2.setColor(Color.RED);
-                    g2.fillRect(-(tileSize-leftSideOffset)+j*tileSize, -(tileSize-topSideOffset)+i*tileSize, tileSize, tileSize);
-                }
+                //if (j%2 == 0 && i%2 == 0 || i%2 == 1 && j%2 == 1) {
+                    /*g2.setColor(Color.RED);
+                    g2.fillRect(-(tileSize-leftSideOffset)+j*tileSize, -(tileSize-topSideOffset)+i*tileSize, tileSize, tileSize);*/
+                    g2.setColor(Color.darkGray);
+                    g2.drawRect(-(tileSize-leftSideOffset)+j*tileSize, -(tileSize-topSideOffset)+i*tileSize, tileSize, tileSize);
+                //}
             }
         }
     }
