@@ -21,3 +21,5 @@ In the last few years, COVID19 has affected the lives of every person in a large
 ## Contents
 
 * diagrams: Contains all UML and assorted diagrams for the project.
+* project: Contains the general project code and subsequent modules
+* reports: Contains the reports required for the CSE326 Software Engineering course
