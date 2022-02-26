@@ -59,6 +59,8 @@ package Grid2;
 import custom_classes.Building;
 import custom_classes.Person;
 
+import java.awt.*;
+
 public class Tile {
 	private Person occupant;
 	private Building entranceTo;
@@ -110,5 +112,29 @@ public class Tile {
 		this.y = y;
 	}
 
+	/**
+	 * Draws the tile at it's location, given it's width and height, as well as the graphics environment
+	 *
+	 * @param size The size
+	 * @param canvas The graphics environment
+	 */
+	public void draw(int size, Graphics2D canvas) {
+		//Store the old color
+		Color oldCol = canvas.getColor();
+
+		//Draw the fill of the tile
+		if(this.accessible)
+			canvas.setColor(Color.BLUE);
+		else
+			canvas.setColor(new Color(137, 27, 27));
+		canvas.fillRect(size * this.x, size * this.y, size, size);
+
+		//If there's an occupant, have them draw themselves
+		if(this.occupant != null)
+			this.occupant.draw(size, canvas);
+
+		//Restore the old color
+		canvas.setColor(oldCol);
+	}
 }
 

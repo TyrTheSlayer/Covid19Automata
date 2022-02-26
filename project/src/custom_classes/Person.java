@@ -6,6 +6,7 @@
 
 package custom_classes;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Person {
@@ -60,5 +61,36 @@ public class Person {
      */
     public boolean infect(Person target) {
         return false;
+    }
+
+    /**
+     * Draws the person given the size and graphics environment
+     *
+     * @param size The size of the person
+     * @param canvas The graphics environment
+     */
+    public void draw(int size, Graphics2D canvas) {
+        //Store the old color
+        Color oldCol = canvas.getColor();
+
+        //Determine person color and then draw them
+        switch (this.status) {
+            case ALIVE:
+                canvas.setColor(Color.BLUE);
+                break;
+            case INFECTED:
+                canvas.setColor(Color.MAGENTA);
+                break;
+            case DEAD:
+                canvas.setColor(Color.BLACK);
+                break;
+            case RECOVERED:
+                canvas.setColor(Color.CYAN);
+                break;
+        }
+        canvas.fillOval(size * this.x, size * this.y, size, size);
+
+        //Restore the color
+        canvas.setColor(oldCol);
     }
 }

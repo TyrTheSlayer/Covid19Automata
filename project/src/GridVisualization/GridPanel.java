@@ -22,7 +22,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 @SuppressWarnings("serial")
-public class GridPanel extends JPanel{
+public class GridPanel extends JPanel{}
+	/*
 	// width and height of viewable grid in tiles, excluding the outer border
 	public int viewableHeight;
 	public int viewableWidth;
@@ -147,6 +148,7 @@ public class GridPanel extends JPanel{
 					pant ++;
 				}*/
 
+	/*
 		int pant = 0;
 		for (int i=0; i<viewableHeight+2; i++) {
 			for (int j=0; j<viewableWidth+2; j++) {
@@ -319,7 +321,8 @@ public class GridPanel extends JPanel{
 		
 		repaint();
 	}*/
-	
+
+	/*
 	// this function moves the offset and if the offset is out of range, it calls
 	// the movescreen function as well.
 	public void dragScreen(int dx, int dy) {
@@ -578,4 +581,5 @@ public class GridPanel extends JPanel{
 		}
 
 	}
-}
+
+}*/

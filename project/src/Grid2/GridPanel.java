@@ -23,8 +23,8 @@ public class GridPanel extends JPanel {
     public int topLeftY;
 
     // actual pixel offsets
-    private int leftSideOffset=10;
-    private int topSideOffset=10;
+    private int leftSideOffset=0;
+    private int topSideOffset=0;
 
     // viewable and actual grid
     private Tile[][] gridViewable;
@@ -64,6 +64,13 @@ public class GridPanel extends JPanel {
 
         removeAll();
         g2.fillRect(0, 0, gridPixelWidth, gridPixelHeight);
+
+        //Draw each tile
+        for(int i = 0; i < viewableHeight + 2; i++) {
+            for(int j = 0; j < viewableWidth + 2; j++) {
+                this.gridViewable[i][j].draw(this.tileSize, g2);
+            }
+        }
 
         for (int i=0; i<gridPixelHeight; i++) {
             for (int j = 0; j < gridPixelWidth; j++) {
