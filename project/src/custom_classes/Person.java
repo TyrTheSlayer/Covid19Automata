@@ -16,8 +16,46 @@ public class Person {
     private Virus virus;
     private ArrayList<Factor> factors;
 
+    //Constructors
+    /**
+     * Makes a new, healthy person at the given location, with the given list of factors
+     *
+     * @param x The x location
+     * @param y The y location
+     * @param factors The list of factors
+     */
+    public Person(int x, int y, ArrayList<Factor> factors) {
+        this.x = x;
+        this.y = y;
+        this.factors = factors;
+        this.status = Status.ALIVE;
+        this.virus = null;
+    }
+
+    //Setters
+    /**
+     * Sets the person's location to the given coordinates
+     *
+     * @param x The x coordinate
+     * @param y The y coordinate
+     */
+    public void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 
     //Methods
+    /**
+     * Moves a person the given number of tiles vertically or horizontally
+     *
+     * @param x The horizontal amount
+     * @param y The vertical amount
+     */
+    public void move(int x, int y) {
+        this.x += x;
+        this.y += y;
+    }
+
     /**
      * Tells whether or not the person should cough this tick
      *

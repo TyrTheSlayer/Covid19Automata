@@ -100,6 +100,16 @@ public class Tile {
 		return y;
 	}
 
+	//Setters
+	/**
+	 * Sets the tile to be the entrance to the given building
+	 *
+	 * @param building The building to be and entrance to
+	 */
+	public void setEntranceTo(Building building) {
+		this.entranceTo = building;
+	}
+
 	//Methods
 	/**
 	 * Sets the coordinate of the tile
