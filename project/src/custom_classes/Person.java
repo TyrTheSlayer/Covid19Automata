@@ -44,6 +44,15 @@ public class Person {
         this.y = y;
     }
 
+    /**
+     * Directly set the person to have a given virus instance
+     *
+     * @param virus The virus to infect them with
+     */
+    public void setVirus(Virus virus) {
+        this.virus = virus;
+    }
+
     //Methods
     /**
      * Moves a person the given number of tiles vertically or horizontally
