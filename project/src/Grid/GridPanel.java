@@ -1,3 +1,10 @@
+/**
+ * @author Samuel Nix
+ * @author Summer Bronson
+ *
+ * Sets up a grid to be displayed by Mainframe
+ */
+
 package Grid;
 
 import javax.swing.*;
@@ -30,6 +37,16 @@ public class GridPanel extends JPanel {
     private Tile[][] gridViewable;
     public Map<Point, Integer> grid = new ConcurrentHashMap<Point, Integer>();
 
+    /**
+     * Creates a new GridPanel
+     * @param newtileSize the height and width of any particular cell
+     * @param viewableHeight viewable height of the grid (how many cells are generated + 2)
+     * @param viewableWidth viewable width of the grid (how many cells are generated + 2)
+     * @param gridPixelWidth initial size of the width of window (should be newtileSize * viewableWidth)
+     * @param gridPixelHeight initial size of the height of window (should be newtileSize * viewableHeight)
+     * @param topLeftX coordinate of top left X
+     * @param topLeftY coordinate of top left Y
+     */
     public GridPanel(int newtileSize, int viewableHeight, int viewableWidth, int gridPixelWidth, int gridPixelHeight, int topLeftX, int topLeftY) {
         // setup panel
         super(null);
@@ -53,10 +70,22 @@ public class GridPanel extends JPanel {
         }
         repaint();
     }
+
+    /**
+     * Creates a new Tile
+     * @param xcoord x coordinate
+     * @param ycoord y coordinate
+     * @return
+     */
     private Tile createTile(int xcoord, int ycoord) {
         Tile newTile = new Tile(xcoord, ycoord);
         return newTile;
     }
+
+    /**
+     * Paints a basic grid
+     * @param g the canvas
+     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
