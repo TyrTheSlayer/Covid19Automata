@@ -1,7 +1,17 @@
+/**
+ * @author Samuel Nix
+ * @author Summer Bronson
+ *
+ * Sets up a grid to be displayed by Mainframe
+ */
+
 package Grid;
+
+import custom_classes.Person;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -30,6 +40,19 @@ public class GridPanel extends JPanel {
     private Tile[][] gridViewable;
     public Map<Point, Integer> grid = new ConcurrentHashMap<Point, Integer>();
 
+    //The list of people
+    private ArrayList<Person> people;
+
+    /**
+     * Creates a new GridPanel
+     * @param newtileSize the height and width of any particular cell
+     * @param viewableHeight viewable height of the grid (how many cells are generated + 2)
+     * @param viewableWidth viewable width of the grid (how many cells are generated + 2)
+     * @param gridPixelWidth initial size of the width of window (should be newtileSize * viewableWidth)
+     * @param gridPixelHeight initial size of the height of window (should be newtileSize * viewableHeight)
+     * @param topLeftX coordinate of top left X
+     * @param topLeftY coordinate of top left Y
+     */
     public GridPanel(int newtileSize, int viewableHeight, int viewableWidth, int gridPixelWidth, int gridPixelHeight, int topLeftX, int topLeftY) {
         // setup panel
         super(null);
@@ -44,6 +67,7 @@ public class GridPanel extends JPanel {
         this.topLeftX = topLeftX;
         this.topLeftY = topLeftY;
         gridViewable = new Tile[viewableHeight+2][viewableWidth+2];
+        this.people = new ArrayList<>();
 
         for (int i=0; i<viewableHeight+2; i++) {
             for (int j=0; j<viewableWidth+2; j++) {
@@ -51,12 +75,33 @@ public class GridPanel extends JPanel {
                 gridViewable[i][j] = newTile;
             }
         }
+
+        //Put a person in every 5th tile
+        for(int i = 0; i < viewableHeight + 2; i++) {
+            for(int j = 0; j < viewableWidth + 2; j += 5) {
+                Person p = new Person(j, i, new ArrayList<>());
+                this.people.add(p);
+                this.gridViewable[i][j].setOccupant(p);
+            }
+        }
         repaint();
     }
+
+    /**
+     * Creates a new Tile
+     * @param xcoord x coordinate
+     * @param ycoord y coordinate
+     * @return
+     */
     private Tile createTile(int xcoord, int ycoord) {
         Tile newTile = new Tile(xcoord, ycoord);
         return newTile;
     }
+
+    /**
+     * Paints a basic grid
+     * @param g the canvas
+     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -77,7 +122,7 @@ public class GridPanel extends JPanel {
                 //if (j%2 == 0 && i%2 == 0 || i%2 == 1 && j%2 == 1) {
                     /*g2.setColor(Color.RED);
                     g2.fillRect(-(tileSize-leftSideOffset)+j*tileSize, -(tileSize-topSideOffset)+i*tileSize, tileSize, tileSize);*/
-                    g2.setColor(Color.darkGray);
+                    g2.setColor(Color.BLACK);
                     g2.drawRect(-(tileSize-leftSideOffset)+j*tileSize, -(tileSize-topSideOffset)+i*tileSize, tileSize, tileSize);
                 //}
             }
