@@ -54,7 +54,7 @@ public class Tile {
 	}
 }*/
 
-package Grid2;
+package Grid;
 
 import custom_classes.Building;
 import custom_classes.Person;

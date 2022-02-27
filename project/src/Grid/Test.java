@@ -1,4 +1,4 @@
-package GridVisualization;
+package Grid;
 
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;

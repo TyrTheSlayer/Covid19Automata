@@ -1,4 +1,4 @@
-package Grid2;
+package Grid;
 
 import javax.swing.*;
 import java.awt.*;
