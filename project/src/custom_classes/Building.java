@@ -1,5 +1,5 @@
 /**
- * @author Wesley Camphouse
+ * @author Wesley Camphouse, Aedan Wells
  *
  * The class that represents a building
  */
@@ -43,6 +43,7 @@ public class Building {
      * @param person The person looking to enter
      */
     public void enter(Person person) {
+        person.setPosition(-1, -1);
         this.occupants.add(person);
     }
 

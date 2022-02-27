@@ -1,5 +1,5 @@
 /**
- * @author Wesley Camphouse
+ * @author Wesley Camphouse, Aedan Wells
  *
  * The object representing a type of virus
  */
@@ -18,7 +18,7 @@ public class VirusType {
 
     //Constructors
     /**
-     * Make a new virus type with the given timer bounds
+     * Make a new virus type with the given timer bounds in terms of ticks
      *
      * @param minContagiousTime The minimum time until the virus is contagious
      * @param maxContagiousTime The maximum time until the virus is contagious
@@ -31,14 +31,14 @@ public class VirusType {
      */
     public VirusType(int minContagiousTime, int maxContagiousTime, int minSymptomaticTime, int maxSymptomaticTime,
                      int minRecoveryTime, int maxRecoveryTime, int minDeathTime, int maxDeathTime) {
-        this.minContagiousTime = minContagiousTime;
-        this.maxContagiousTime = maxContagiousTime;
-        this.minSymptomaticTime = minSymptomaticTime;
-        this.maxSymptomaticTime = maxSymptomaticTime;
-        this.minRecoveryTime = minRecoveryTime;
-        this.maxRecoveryTime = maxRecoveryTime;
-        this.minDeathTime = minDeathTime;
-        this.maxDeathTime = maxDeathTime;
+        this.minContagiousTime = 60;
+        this.maxContagiousTime = 300;
+        this.minSymptomaticTime = 780;
+        this.maxSymptomaticTime = 2280;
+        this.minRecoveryTime = 840;
+        this.maxRecoveryTime = 2520;
+        this.minDeathTime = 1110;
+        this.maxDeathTime = 3000;
     }
 
     //Methods
