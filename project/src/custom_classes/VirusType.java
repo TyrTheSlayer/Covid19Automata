@@ -109,4 +109,36 @@ public class VirusType {
     public int getMaxDeathTime() {
         return maxDeathTime;
     }
+
+    public void setMinContagiousTime(int minContagiousTime) {
+        this.minContagiousTime = minContagiousTime;
+    }
+
+    public void setMaxContagiousTime(int maxContagiousTime) {
+        this.maxContagiousTime = maxContagiousTime;
+    }
+
+    public void setMinSymptomaticTime(int minSymptomaticTime) {
+        this.minSymptomaticTime = minSymptomaticTime;
+    }
+
+    public void setMaxSymptomaticTime(int maxSymptomaticTime) {
+        this.maxSymptomaticTime = maxSymptomaticTime;
+    }
+
+    public void setMinRecoveryTime(int minRecoveryTime) {
+        this.minRecoveryTime = minRecoveryTime;
+    }
+
+    public void setMaxRecoveryTime(int maxRecoveryTime) {
+        this.maxRecoveryTime = maxRecoveryTime;
+    }
+
+    public void setMinDeathTime(int minDeathTime) {
+        this.minDeathTime = minDeathTime;
+    }
+
+    public void setMaxDeathTime(int maxDeathTime) {
+        this.maxDeathTime = maxDeathTime;
+    }
 }
