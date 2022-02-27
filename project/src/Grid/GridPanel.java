@@ -8,6 +8,7 @@
 package Grid;
 
 import custom_classes.Person;
+import custom_classes.VirusType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -83,6 +84,12 @@ public class GridPanel extends JPanel {
                 this.people.add(p);
                 this.gridViewable[i][j].setOccupant(p);
             }
+        }
+
+        //Infect every 10th person, starting with the first
+        VirusType basic = new VirusType();
+        for(int i = 0; i < this.people.size(); i += 10) {
+            this.people.get(i).setVirus(basic.genVirus(this.people.get(i)));
         }
         repaint();
     }

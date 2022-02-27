@@ -6,6 +6,8 @@
 
 package custom_classes;
 
+import java.util.Random;
+
 public class VirusType {
     private int minContagiousTime;
     private int maxContagiousTime;
@@ -31,6 +33,20 @@ public class VirusType {
      */
     public VirusType(int minContagiousTime, int maxContagiousTime, int minSymptomaticTime, int maxSymptomaticTime,
                      int minRecoveryTime, int maxRecoveryTime, int minDeathTime, int maxDeathTime) {
+        this.minContagiousTime = minContagiousTime;
+        this.maxContagiousTime = maxContagiousTime;
+        this.minSymptomaticTime = minSymptomaticTime;
+        this.maxSymptomaticTime = maxSymptomaticTime;
+        this.minRecoveryTime = minRecoveryTime;
+        this.maxRecoveryTime = maxRecoveryTime;
+        this.minDeathTime = minDeathTime;
+        this.maxDeathTime = maxDeathTime;
+    }
+
+    /**
+     * Make a virus type with the default values
+     */
+    public VirusType() {
         this.minContagiousTime = 60;
         this.maxContagiousTime = 300;
         this.minSymptomaticTime = 780;
@@ -44,11 +60,20 @@ public class VirusType {
     //Methods
     /**
      * Generates a new instance of this type of virus for the person provided
+     * Very placeholder for now
      *
      * @param person The person
      * @return The new virus
      */
     public Virus genVirus(Person person) {
-        return null;
+        //Randomly generate all of the timers
+        Random rand = new Random();
+        int cTime = rand.nextInt(this.maxContagiousTime - this.minContagiousTime + 1) + this.minContagiousTime;
+        int sTime = rand.nextInt(this.maxSymptomaticTime - this.minSymptomaticTime + 1) + this.minSymptomaticTime;
+        int rTime = rand.nextInt(this.maxRecoveryTime - this.minRecoveryTime + 1) + this.minRecoveryTime;
+        int dTime = rand.nextInt(this.maxDeathTime - this.minDeathTime + 1) + this.minDeathTime;
+
+        //Assign them to the new virus
+        return new Virus(this, cTime, sTime, rTime, dTime);
     }
 }

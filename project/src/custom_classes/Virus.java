@@ -43,6 +43,15 @@ public class Virus {
         return stage;
     }
 
+    /**
+     * Gets the type of the virus
+     *
+     * @return The type of the virus
+     */
+    public VirusType getType() {
+        return type;
+    }
+
     //Methods
     /**
      * Ticks all of the timers of the virus
