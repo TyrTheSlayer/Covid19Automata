@@ -1,7 +1,10 @@
 package Grid;
 
+import custom_classes.Person;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -30,6 +33,9 @@ public class GridPanel extends JPanel {
     private Tile[][] gridViewable;
     public Map<Point, Integer> grid = new ConcurrentHashMap<Point, Integer>();
 
+    //The list of people
+    private ArrayList<Person> people;
+
     public GridPanel(int newtileSize, int viewableHeight, int viewableWidth, int gridPixelWidth, int gridPixelHeight, int topLeftX, int topLeftY) {
         // setup panel
         super(null);
@@ -44,11 +50,21 @@ public class GridPanel extends JPanel {
         this.topLeftX = topLeftX;
         this.topLeftY = topLeftY;
         gridViewable = new Tile[viewableHeight+2][viewableWidth+2];
+        this.people = new ArrayList<>();
 
         for (int i=0; i<viewableHeight+2; i++) {
             for (int j=0; j<viewableWidth+2; j++) {
                 Tile newTile = createTile(topLeftX+j, topLeftY+i);
                 gridViewable[i][j] = newTile;
+            }
+        }
+
+        //Put a person in every 5th tile
+        for(int i = 0; i < viewableHeight + 2; i++) {
+            for(int j = 0; j < viewableWidth + 2; j += 5) {
+                Person p = new Person(j, i, new ArrayList<>());
+                this.people.add(p);
+                this.gridViewable[i][j].setOccupant(p);
             }
         }
         repaint();
