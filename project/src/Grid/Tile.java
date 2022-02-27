@@ -167,7 +167,7 @@ public class Tile {
 		Color oldCol = canvas.getColor();
 
 		//Draw the fill of the tile
-		if(this.accessible)
+		if(this.accessible || this.occupant != null)
 			canvas.setColor(Color.DARK_GRAY);
 		else
 			canvas.setColor(new Color(99, 10, 10));
