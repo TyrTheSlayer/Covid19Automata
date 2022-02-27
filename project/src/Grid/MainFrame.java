@@ -31,12 +31,26 @@ public class MainFrame extends JFrame{
         }
         setLayout(new BorderLayout());
         // creates a new gridPanel
-        gridPanel = new GridPanel(20, 10, 10, 0, 0);
+        gridPanel = new GridPanel(20, 30, 30, 0, 0);
 
         add(gridPanel, BorderLayout.CENTER);
         // set minimum size for window
         this.setMinimumSize(new Dimension(gridPanel.gridPixelWidth, gridPanel.gridPixelHeight));
         this.setResizable(false);
+
+        JPanel buttonPanel = new JPanel();
+
+        JButton start = new JButton("Play");
+        JButton pause = new JButton("Pause");
+        JButton speedUp = new JButton("Speed Up");
+        JButton speedDown = new JButton("Slow Down");
+
+        buttonPanel.add(start);
+        buttonPanel.add(pause);
+        buttonPanel.add(speedUp);
+        buttonPanel.add(speedDown);
+
+        add(buttonPanel, BorderLayout.SOUTH);
 
         pack();
         // open window
