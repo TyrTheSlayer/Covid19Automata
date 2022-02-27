@@ -49,12 +49,10 @@ public class GridPanel extends JPanel {
      * @param newtileSize the height and width of any particular cell
      * @param viewableHeight viewable height of the grid (how many cells are generated + 2)
      * @param viewableWidth viewable width of the grid (how many cells are generated + 2)
-     * @param gridPixelWidth initial size of the width of window (should be newtileSize * viewableWidth)
-     * @param gridPixelHeight initial size of the height of window (should be newtileSize * viewableHeight)
-     * @param topLeftX coordinate of top left X
-     * @param topLeftY coordinate of top left Y
+     * @param topLeftX coordinate of top left X usually 0
+     * @param topLeftY coordinate of top left Y usually 0
      */
-    public GridPanel(int newtileSize, int viewableHeight, int viewableWidth, int gridPixelWidth, int gridPixelHeight, int topLeftX, int topLeftY) {
+    public GridPanel(int newtileSize, int viewableHeight, int viewableWidth, int topLeftX, int topLeftY) {
         // setup panel
         super(null);
         setLayout(null);
@@ -63,13 +61,14 @@ public class GridPanel extends JPanel {
         this.tileSize = newtileSize;
         this.viewableHeight = viewableHeight;
         this.viewableWidth = viewableWidth;
-        this.gridPixelWidth = gridPixelWidth;
-        this.gridPixelHeight = gridPixelHeight;
+        this.gridPixelWidth = newtileSize * viewableWidth + 13; //don't ask why it is 13
+        this.gridPixelHeight = newtileSize * viewableHeight + 35; //35 pixels is offset for bar at top of window
         this.topLeftX = topLeftX;
         this.topLeftY = topLeftY;
         gridViewable = new Tile[viewableHeight+2][viewableWidth+2];
         this.people = new ArrayList<>();
 
+        //create the grid
         for (int i=0; i<viewableHeight+2; i++) {
             for (int j=0; j<viewableWidth+2; j++) {
                 Tile newTile = createTile(topLeftX+j, topLeftY+i);
@@ -124,14 +123,11 @@ public class GridPanel extends JPanel {
             }
         }
 
+        // generates the grey outline for the grid
         for (int i=0; i<gridPixelHeight; i++) {
             for (int j = 0; j < gridPixelWidth; j++) {
-                //if (j%2 == 0 && i%2 == 0 || i%2 == 1 && j%2 == 1) {
-                    /*g2.setColor(Color.RED);
-                    g2.fillRect(-(tileSize-leftSideOffset)+j*tileSize, -(tileSize-topSideOffset)+i*tileSize, tileSize, tileSize);*/
                     g2.setColor(Color.BLACK);
                     g2.drawRect(-(tileSize-leftSideOffset)+j*tileSize, -(tileSize-topSideOffset)+i*tileSize, tileSize, tileSize);
-                //}
             }
         }
     }
