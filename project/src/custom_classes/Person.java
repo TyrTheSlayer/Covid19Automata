@@ -144,7 +144,8 @@ public class Person {
                 canvas.setColor(Color.CYAN);
                 break;
         }
-        canvas.fillOval((size * this.x) + size/4, (size * this.y) + size/4, size/2, size/2);
+        canvas.fillOval((size * this.x) + size/4, (size * this.y) + size/4,
+                (int)Math.ceil((double)size/2), (int)Math.ceil((double)size/2));
 
         //Restore the color
         canvas.setColor(oldCol);
