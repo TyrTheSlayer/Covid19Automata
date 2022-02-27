@@ -60,8 +60,8 @@ public class GridPanel extends JPanel {
         this.tileSize = newtileSize;
         this.viewableHeight = viewableHeight;
         this.viewableWidth = viewableWidth;
-        this.gridPixelWidth = (newtileSize + 1) * viewableWidth;
-        this.gridPixelHeight = (newtileSize + 3) * viewableHeight;
+        this.gridPixelWidth = newtileSize * viewableWidth + 13; //don't ask why it is 13
+        this.gridPixelHeight = newtileSize * viewableHeight + 35; //35 pixels is offset for bar at top of window
         this.topLeftX = topLeftX;
         this.topLeftY = topLeftY;
         gridViewable = new Tile[viewableHeight+2][viewableWidth+2];
