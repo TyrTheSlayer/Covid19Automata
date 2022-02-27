@@ -170,7 +170,7 @@ public class Tile {
 		if(this.accessible || this.occupant != null)
 			canvas.setColor(Color.DARK_GRAY);
 		else
-			canvas.setColor(new Color(99, 10, 10));
+			canvas.setColor(Color.LIGHT_GRAY);
 		canvas.fillRect(size * this.x, size * this.y, size, size);
 
 		//If there's an occupant, have them draw themselves
