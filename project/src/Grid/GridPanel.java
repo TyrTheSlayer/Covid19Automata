@@ -8,6 +8,7 @@
 package Grid;
 
 import custom_classes.Person;
+import custom_classes.VirusType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -43,6 +44,8 @@ public class GridPanel extends JPanel {
     //The list of people
     private ArrayList<Person> people;
 
+    private BehaviorAgent agent;
+
     /**
      * Creates a new GridPanel
      * @param newtileSize the height and width of any particular cell
@@ -56,12 +59,14 @@ public class GridPanel extends JPanel {
         super(null);
         setLayout(null);
 
+        this.agent = new BehaviorAgent(this);
+
         this.baseTileSize = newtileSize;
         this.tileSize = newtileSize;
         this.viewableHeight = viewableHeight;
         this.viewableWidth = viewableWidth;
-        this.gridPixelWidth = (newtileSize + 1) * viewableWidth;
-        this.gridPixelHeight = (newtileSize + 3) * viewableHeight;
+        this.gridPixelWidth = newtileSize * viewableWidth + 13; //don't ask why it is 13
+        this.gridPixelHeight = newtileSize * viewableHeight + 35; //35 pixels is offset for bar at top of window
         this.topLeftX = topLeftX;
         this.topLeftY = topLeftY;
         gridViewable = new Tile[viewableHeight+2][viewableWidth+2];
@@ -83,6 +88,12 @@ public class GridPanel extends JPanel {
                 this.gridViewable[i][j].setOccupant(p);
             }
         }
+
+        //Infect every 10th person, starting with the first
+        VirusType basic = new VirusType();
+        for(int i = 0; i < this.people.size(); i += 10) {
+            this.people.get(i).setVirus(basic.genVirus(this.people.get(i)));
+        }
         repaint();
     }
 
@@ -95,6 +106,21 @@ public class GridPanel extends JPanel {
     private Tile createTile(int xcoord, int ycoord) {
         Tile newTile = new Tile(xcoord, ycoord);
         return newTile;
+    }
+
+    public int getViewableHeight() { return this.viewableHeight; }
+    public int getViewableWidth() { return this.viewableWidth; }
+
+    public Tile getTile(int x, int y) {
+        if (((x >= 0) && (x < viewableWidth)) && ((x >= 0) && (y < viewableHeight))) return gridViewable[x][y];
+        return null;
+    }
+
+
+    public void step() {
+        for(Person p : people) {
+            agent.roam(p);
+        }
     }
 
     /**

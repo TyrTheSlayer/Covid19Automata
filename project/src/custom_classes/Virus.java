@@ -4,7 +4,10 @@
  * The class used to represent a given instance of a virus
  */
 
+
 package custom_classes;
+
+import java.util.Random;
 
 public class Virus {
     private VirusType type;
@@ -33,6 +36,19 @@ public class Virus {
         this.stage = VirusStage.INCUBATING;
     }
 
+    /*
+    // Need to work on a much better way to randomize virus instances... - Brenton
+    public Virus(VirusType type) {
+        Random rand = new Random();
+        this.type = type;
+        this.timeToContagious = (int) (rand.nextGaussian() * (type.getMaxContagiousTime() - type.getMinContagiousTime()) + ((type.getMinContagiousTime() + type.getMaxContagiousTime())/2));
+        this.timeToSymptomatic = (int) (rand.nextGaussian() * (type.getMaxSymptomaticTime() - type.getMinSymptomaticTime()) + ((type.getMinSymptomaticTime()+type.getMaxSymptomaticTime())/2));
+        this.timeToRecovery = (int) (rand.nextGaussian() * (type.getMinRecoveryTime() - type.getMaxRecoveryTime()) + ((type.getMinRecoveryTime()+type.getMaxRecoveryTime())/2));
+        this.timeToDeath = (int) (rand.nextGaussian() * (type.getMinDeathTime() - type.getMaxDeathTime()) + ((type.getMinDeathTime())+type.getMaxDeathTime())/2);
+        this.stage = VirusStage.INCUBATING;
+    }
+    */
+
     //Getters
     /**
      * Gets the stage of the virus
@@ -41,6 +57,15 @@ public class Virus {
      */
     public VirusStage getStage() {
         return stage;
+    }
+
+    /**
+     * Gets the type of the virus
+     *
+     * @return The type of the virus
+     */
+    public VirusType getType() {
+        return type;
     }
 
     //Methods

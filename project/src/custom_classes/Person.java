@@ -8,6 +8,7 @@ package custom_classes;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Person {
     private Status status;
@@ -44,6 +45,9 @@ public class Person {
         this.y = y;
     }
 
+    public int getX() { return this.x; }
+    public int getY() { return this.y; }
+
     /**
      * Directly set the person to have a given virus instance
      *
@@ -51,6 +55,7 @@ public class Person {
      */
     public void setVirus(Virus virus) {
         this.virus = virus;
+        this.status = Status.INFECTED;
     }
 
     //Methods
@@ -80,6 +85,23 @@ public class Person {
      * @return True if they should, false otherwise
      */
     public boolean cough() {
+        //Don't cough if they're not sick
+        if(this.virus == null)
+            return false;
+
+        //If they're sick, there's a chance they'll cough
+        Random rand = new Random();
+
+        //Calculate the chance using the factors
+        double chance = 0.3;
+        for(Factor i : this.factors) {
+            chance = i.applyFactorGive(chance);
+        }
+
+        //Check if a random number beats the calculated chance
+        if(rand.nextDouble() < chance) {
+            return true;
+        }
         return false;
     }
 
@@ -112,10 +134,31 @@ public class Person {
     /**
      * Tries to infect a person with this one's virus, applying it if they succeed
      *
-     * @param target The other person
-     * @return True if the other person was infected, false otherwise
+     * @param infector The person who is trying to infect us
+     * @return True if we are infected, false otherwise
      */
-    public boolean infect(Person target) {
+    public boolean infect(Person infector) {
+        //Auto reject if we're already infected
+        if(this.virus != null)
+            return false;
+
+        //Base chance
+        double chance = 0.016;
+
+        //Apply all the factors to the chance
+        for(Factor i : this.factors) {
+            chance = i.applyFactorGet(chance);
+        }
+
+        //Check if a random number beats the chance
+        Random rand = new Random();
+        chance *= 100;
+        //If it does, give us the virus, return true
+        if(rand.nextDouble() < chance) {
+            this.virus = infector.virus.getType().genVirus(this);
+            this.status = Status.INFECTED;
+            return true;
+        }
         return false;
     }
 

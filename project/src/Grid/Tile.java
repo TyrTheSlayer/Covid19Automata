@@ -118,6 +118,7 @@ public class Tile {
 	public void setOccupant(Person person) {
 		this.occupant = person;
 		this.occupant.setPosition(this.x, this.y);
+		this.setAccessible(false);
 	}
 
 	/**
@@ -128,6 +129,8 @@ public class Tile {
 	public void setAccessible(boolean accessible) {
 		this.accessible = accessible;
 	}
+
+	public boolean isAccessible() { return this.accessible; }
 	//Methods
 	/**
 	 * Sets the coordinate of the tile
@@ -149,6 +152,8 @@ public class Tile {
 		this.occupant = tile.occupant;
 		tile.occupant = null;
 		this.occupant.setPosition(this.x, this.y);
+		this.setAccessible(false);
+		tile.setAccessible(true);
 	}
 
 	/**
@@ -162,10 +167,10 @@ public class Tile {
 		Color oldCol = canvas.getColor();
 
 		//Draw the fill of the tile
-		if(this.accessible)
+		if(this.accessible || this.occupant != null)
 			canvas.setColor(Color.DARK_GRAY);
 		else
-			canvas.setColor(new Color(99, 10, 10));
+			canvas.setColor(Color.LIGHT_GRAY);
 		canvas.fillRect(size * this.x, size * this.y, size, size);
 
 		//If there's an occupant, have them draw themselves

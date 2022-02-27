@@ -16,6 +16,7 @@ public class MainFrame extends JFrame{
 
     public MainFrame(String title) {
         super(title);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
@@ -30,7 +31,7 @@ public class MainFrame extends JFrame{
         }
         setLayout(new BorderLayout());
         // creates a new gridPanel
-        gridPanel = new GridPanel(15, 15, 15, 0, 0);
+        gridPanel = new GridPanel(20, 10, 10, 0, 0);
 
         add(gridPanel, BorderLayout.CENTER);
         // set minimum size for window
