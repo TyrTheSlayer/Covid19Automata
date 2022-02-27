@@ -44,6 +44,8 @@ public class GridPanel extends JPanel {
     //The list of people
     private ArrayList<Person> people;
 
+    private BehaviorAgent agent;
+
     /**
      * Creates a new GridPanel
      * @param newtileSize the height and width of any particular cell
@@ -56,6 +58,8 @@ public class GridPanel extends JPanel {
         // setup panel
         super(null);
         setLayout(null);
+
+        this.agent = new BehaviorAgent(this);
 
         this.baseTileSize = newtileSize;
         this.tileSize = newtileSize;
@@ -102,6 +106,21 @@ public class GridPanel extends JPanel {
     private Tile createTile(int xcoord, int ycoord) {
         Tile newTile = new Tile(xcoord, ycoord);
         return newTile;
+    }
+
+    public int getViewableHeight() { return this.viewableHeight; }
+    public int getViewableWidth() { return this.viewableWidth; }
+
+    public Tile getTile(int x, int y) {
+        if (((x >= 0) && (x < viewableWidth)) && ((x >= 0) && (y < viewableHeight))) return gridViewable[x][y];
+        return null;
+    }
+
+
+    public void step() {
+        for(Person p : people) {
+            agent.roam(p);
+        }
     }
 
     /**
