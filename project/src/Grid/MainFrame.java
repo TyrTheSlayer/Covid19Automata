@@ -16,6 +16,7 @@ public class MainFrame extends JFrame{
 
     public MainFrame(String title) {
         super(title);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
