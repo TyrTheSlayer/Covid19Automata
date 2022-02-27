@@ -57,6 +57,15 @@ public class Person {
     }
 
     /**
+     * Adds a factor to the person
+     *
+     * @param factor The factor to add
+     */
+    public void addFactor(Factor factor) {
+        this.factors.add(factor);
+    }
+
+    /**
      * Tells whether or not the person should cough this tick
      *
      * @return True if they should, false otherwise

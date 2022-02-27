@@ -134,9 +134,9 @@ public class Tile {
 
 		//Draw the fill of the tile
 		if(this.accessible)
-			canvas.setColor(Color.BLUE);
+			canvas.setColor(Color.DARK_GRAY);
 		else
-			canvas.setColor(new Color(137, 27, 27));
+			canvas.setColor(new Color(99, 10, 10));
 		canvas.fillRect(size * this.x, size * this.y, size, size);
 
 		//If there's an occupant, have them draw themselves
