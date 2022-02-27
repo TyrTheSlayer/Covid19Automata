@@ -1,5 +1,5 @@
 /**
- * @author Wesley Camphouse, Aedan Wells
+ * @author Wesley Camphouse, Aedan Wells, Jonathan Carsten
  *
  * The object representing a type of virus
  */
