@@ -71,6 +71,27 @@ public class Person {
     }
 
     /**
+     * Updates the person's virus
+     */
+    public void updateVirus() {
+        //Auto-leave the method if the person is uninfected
+        if(this.virus == null)
+            return;
+
+        //Update any timers on the virus
+        this.virus.tick();
+
+        //Update the person based on the virus stage
+        switch (this.virus.getStage()) {
+            case RECOVERED: //They recovered
+                this.virus = null;
+                this.status = Status.RECOVERED;
+            case FATAL: //They died
+                this.die();
+        }
+    }
+
+    /**
      * Adds a factor to the person
      *
      * @param factor The factor to add
@@ -110,6 +131,7 @@ public class Person {
      */
     public void die() {
         this.status = Status.DEAD;
+        this.virus = null;
         this.x = -666;
         this.y = -666;
     }
