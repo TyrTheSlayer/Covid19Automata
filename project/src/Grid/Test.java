@@ -1,3 +1,9 @@
+/**
+ * @author Samuel Nix
+ *
+ * A program to test that the MainFrame and GridPanel work
+ */
+
 package Grid;
 
 import java.awt.*;

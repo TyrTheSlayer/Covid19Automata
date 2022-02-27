@@ -1,6 +1,5 @@
 /**
- * @author Wesley Camphouse
- * @author Jonathan Carsten
+ * @author Wesley Camphouse, Aedan Wells
  *
  * The object representing a type of virus
  */
@@ -19,7 +18,7 @@ public class VirusType {
 
     //Constructors
     /**
-     * Make a new virus type with the given timer bounds
+     * Make a new virus type with the given timer bounds in terms of ticks
      *
      * @param minContagiousTime The minimum time until the virus is contagious
      * @param maxContagiousTime The maximum time until the virus is contagious
@@ -30,15 +29,16 @@ public class VirusType {
      * @param minDeathTime The minimum time it takes to die from the virus
      * @param maxDeathTime The maximum time it takes to die from the virus
      */
-    public VirusType() {
-        this.minContagiousTime = minContagiousTime;
-        this.maxContagiousTime = maxContagiousTime;
-        this.minSymptomaticTime = minSymptomaticTime;
-        this.maxSymptomaticTime = maxSymptomaticTime;
-        this.minRecoveryTime = minRecoveryTime;
-        this.maxRecoveryTime = maxRecoveryTime;
-        this.minDeathTime = minDeathTime;
-        this.maxDeathTime = maxDeathTime;
+    public VirusType(int minContagiousTime, int maxContagiousTime, int minSymptomaticTime, int maxSymptomaticTime,
+                     int minRecoveryTime, int maxRecoveryTime, int minDeathTime, int maxDeathTime) {
+        this.minContagiousTime = 60;
+        this.maxContagiousTime = 300;
+        this.minSymptomaticTime = 780;
+        this.maxSymptomaticTime = 2280;
+        this.minRecoveryTime = 840;
+        this.maxRecoveryTime = 2520;
+        this.minDeathTime = 1110;
+        this.maxDeathTime = 3000;
     }
 
     //Methods
@@ -50,69 +50,5 @@ public class VirusType {
      */
     public Virus genVirus(Person person) {
         return null;
-    }
-
-    public int getMinContagiousTime() {
-        return minContagiousTime;
-    }
-
-    public void setMinContagiousTime(int minContagiousTime) {
-        this.minContagiousTime = minContagiousTime;
-    }
-
-    public int getMaxContagiousTime() {
-        return maxContagiousTime;
-    }
-
-    public void setMaxContagiousTime(int maxContagiousTime) {
-        this.maxContagiousTime = maxContagiousTime;
-    }
-
-    public int getMinSymptomaticTime() {
-        return minSymptomaticTime;
-    }
-
-    public void setMinSymptomaticTime(int minSymptomaticTime) {
-        this.minSymptomaticTime = minSymptomaticTime;
-    }
-
-    public int getMaxSymptomaticTime() {
-        return maxSymptomaticTime;
-    }
-
-    public void setMaxSymptomaticTime(int maxSymptomaticTime) {
-        this.maxSymptomaticTime = maxSymptomaticTime;
-    }
-
-    public int getMinRecoveryTime() {
-        return minRecoveryTime;
-    }
-
-    public void setMinRecoveryTime(int minRecoveryTime) {
-        this.minRecoveryTime = minRecoveryTime;
-    }
-
-    public int getMaxRecoveryTime() {
-        return maxRecoveryTime;
-    }
-
-    public void setMaxRecoveryTime(int maxRecoveryTime) {
-        this.maxRecoveryTime = maxRecoveryTime;
-    }
-
-    public int getMinDeathTime() {
-        return minDeathTime;
-    }
-
-    public void setMinDeathTime(int minDeathTime) {
-        this.minDeathTime = minDeathTime;
-    }
-
-    public int getMaxDeathTime() {
-        return maxDeathTime;
-    }
-
-    public void setMaxDeathTime(int maxDeathTime) {
-        this.maxDeathTime = maxDeathTime;
     }
 }

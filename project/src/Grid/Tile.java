@@ -110,6 +110,24 @@ public class Tile {
 		this.entranceTo = building;
 	}
 
+	/**
+	 * Sets the tile to hold the given person
+	 *
+	 * @param person The person to hold
+	 */
+	public void setOccupant(Person person) {
+		this.occupant = person;
+		this.occupant.setPosition(this.x, this.y);
+	}
+
+	/**
+	 * Sets whether or not the tile is accessible
+	 *
+	 * @param accessible True if it should be, false otherwise
+	 */
+	public void setAccessible(boolean accessible) {
+		this.accessible = accessible;
+	}
 	//Methods
 	/**
 	 * Sets the coordinate of the tile
@@ -120,6 +138,17 @@ public class Tile {
 	public void changeCoordinates(int x, int y) {
 		this.x = x;
 		this.y = y;
+	}
+
+	/**
+	 * Gives a person to this tile, with the person coming from the given tile
+	 *
+	 * @param tile The tile to pull the person from
+	 */
+	public void takePerson(Tile tile) {
+		this.occupant = tile.occupant;
+		tile.occupant = null;
+		this.occupant.setPosition(this.x, this.y);
 	}
 
 	/**
@@ -134,9 +163,9 @@ public class Tile {
 
 		//Draw the fill of the tile
 		if(this.accessible)
-			canvas.setColor(Color.BLUE);
+			canvas.setColor(Color.DARK_GRAY);
 		else
-			canvas.setColor(new Color(137, 27, 27));
+			canvas.setColor(new Color(99, 10, 10));
 		canvas.fillRect(size * this.x, size * this.y, size, size);
 
 		//If there's an occupant, have them draw themselves

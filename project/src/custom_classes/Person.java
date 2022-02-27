@@ -44,6 +44,15 @@ public class Person {
         this.y = y;
     }
 
+    /**
+     * Directly set the person to have a given virus instance
+     *
+     * @param virus The virus to infect them with
+     */
+    public void setVirus(Virus virus) {
+        this.virus = virus;
+    }
+
     //Methods
     /**
      * Moves a person the given number of tiles vertically or horizontally
@@ -54,6 +63,15 @@ public class Person {
     public void move(int x, int y) {
         this.x += x;
         this.y += y;
+    }
+
+    /**
+     * Adds a factor to the person
+     *
+     * @param factor The factor to add
+     */
+    public void addFactor(Factor factor) {
+        this.factors.add(factor);
     }
 
     /**
@@ -126,7 +144,8 @@ public class Person {
                 canvas.setColor(Color.CYAN);
                 break;
         }
-        canvas.fillOval(size * this.x, size * this.y, size, size);
+        canvas.fillOval((size * this.x) + size/4, (size * this.y) + size/4,
+                (int)Math.ceil((double)size/2), (int)Math.ceil((double)size/2));
 
         //Restore the color
         canvas.setColor(oldCol);
