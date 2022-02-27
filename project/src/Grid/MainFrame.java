@@ -1,3 +1,10 @@
+/**
+ * @author Samuel Nix
+ * @author Summer Bronson
+ *
+ * A frame to display the simulation
+ */
+
 package Grid;
 
 import javax.swing.*;
@@ -12,6 +19,9 @@ public class MainFrame extends JFrame{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
+    /**
+     * Starts the window for the simulation
+     */
     public void startWindow() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -20,7 +30,7 @@ public class MainFrame extends JFrame{
         }
         setLayout(new BorderLayout());
         // creates a new gridPanel
-        gridPanel = new GridPanel(15, 50, 50, 20*50, 15*50, 0, 0);
+        gridPanel = new GridPanel(15, 50, 50, 15*50, 15*50, 0, 0);
 
         add(gridPanel, BorderLayout.CENTER);
         // set minimum size for window
