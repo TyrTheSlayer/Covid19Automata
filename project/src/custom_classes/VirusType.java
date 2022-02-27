@@ -65,6 +65,7 @@ public class VirusType {
      * @param person The person
      * @return The new virus
      */
+
     public Virus genVirus(Person person) {
         //Randomly generate all of the timers
         Random rand = new Random();
@@ -75,5 +76,37 @@ public class VirusType {
 
         //Assign them to the new virus
         return new Virus(this, cTime, sTime, rTime, dTime);
+    }
+
+    public int getMinContagiousTime() {
+        return minContagiousTime;
+    }
+
+    public int getMaxContagiousTime() {
+        return maxContagiousTime;
+    }
+
+    public int getMinSymptomaticTime() {
+        return minSymptomaticTime;
+    }
+
+    public int getMaxSymptomaticTime() {
+        return maxSymptomaticTime;
+    }
+
+    public int getMinRecoveryTime() {
+        return minRecoveryTime;
+    }
+
+    public int getMaxRecoveryTime() {
+        return maxRecoveryTime;
+    }
+
+    public int getMinDeathTime() {
+        return minDeathTime;
+    }
+
+    public int getMaxDeathTime() {
+        return maxDeathTime;
     }
 }
