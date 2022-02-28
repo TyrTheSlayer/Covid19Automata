@@ -71,8 +71,8 @@ public class GridPanel extends JPanel implements Runnable {
         this.tileSize = newtileSize;
         this.viewableHeight = viewableHeight;
         this.viewableWidth = viewableWidth;
-        this.gridPixelWidth = newtileSize * viewableWidth + 13; //don't ask why it is 13
-        this.gridPixelHeight = newtileSize * viewableHeight + 35; //35 pixels is offset for bar at top of window
+        this.gridPixelWidth = newtileSize * viewableWidth + 13; //don't ask why it's 13
+        this.gridPixelHeight = newtileSize * viewableHeight + 70; //70 pixels is offset for bar at top and bottom of window
         this.topLeftX = topLeftX;
         this.topLeftY = topLeftY;
         gridViewable = new Tile[viewableHeight][viewableWidth];
