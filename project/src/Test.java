@@ -1,10 +1,10 @@
 /**
- * @author Samuel Nix
+ * @author Samuel Nix, Jonathan Carsten
  *
- * A program to test that the MainFrame and GridPanel work
+ * Main function for simulation
  */
 
-package Grid;
+import Grid.MainFrame;
 
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
