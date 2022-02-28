@@ -45,9 +45,6 @@ public class Person {
         this.y = y;
     }
 
-    public int getX() { return this.x; }
-    public int getY() { return this.y; }
-
     /**
      * Directly set the person to have a given virus instance
      *
@@ -57,6 +54,10 @@ public class Person {
         this.virus = virus;
         this.status = Status.INFECTED;
     }
+
+    //Getters
+    public int getX() { return this.x; }
+    public int getY() { return this.y; }
 
     //Methods
     /**
