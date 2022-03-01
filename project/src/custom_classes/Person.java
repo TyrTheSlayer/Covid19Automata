@@ -183,7 +183,7 @@ public class Person {
             this.status = Status.INFECTED;
             return true;
         }
-        System.out.println("Resisted Virus");
+
         return false;
     }
 
