@@ -53,7 +53,7 @@ public class VirusType {
         this.maxSymptomaticTime = 2280;
         this.minRecoveryTime = 840;
         this.maxRecoveryTime = 2520;
-        /* By current program logic, these numbers should give roughly 50/50 shot at survival
+        /* By current program logic, these numbers give roughly 50/50 shot at survival
         this.minRecoveryTime = 1950;
         this.maxRecoveryTime = 5580;
         */
