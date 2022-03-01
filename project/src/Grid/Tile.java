@@ -100,6 +100,15 @@ public class Tile {
 		return y;
 	}
 
+	/**
+	 * Gets the occupant of the tile
+	 *
+	 * @return The occupant of the tile
+	 */
+	public Person getOccupant() {
+		return occupant;
+	}
+
 	//Setters
 	/**
 	 * Sets the tile to be the entrance to the given building
@@ -119,6 +128,14 @@ public class Tile {
 		this.occupant = person;
 		this.occupant.setPosition(this.x, this.y);
 		this.setAccessible(false);
+	}
+
+	/**
+	 * Sets the tile to have not occupant. Should only be called on tile that currently have an occupant.
+	 */
+	public void clearOccupant() {
+		this.occupant = null;
+		this.setAccessible(true);
 	}
 
 	/**
@@ -151,8 +168,10 @@ public class Tile {
 	public void takePerson(Tile tile) {
 		this.occupant = tile.occupant;
 		tile.occupant = null;
-		this.occupant.setPosition(this.x, this.y);
-		this.setAccessible(false);
+		if(this.occupant != null) {
+			this.occupant.setPosition(this.x, this.y);
+			this.setAccessible(false);
+		}
 		tile.setAccessible(true);
 	}
 

@@ -15,7 +15,8 @@ import java.awt.event.ActionListener;
 
 public class MainFrame extends JFrame{
     public GridPanel gridPanel;
-
+    private boolean playing = false;
+    private float rate = 2;
     public MainFrame(String title) {
         super(title);
         setLocationRelativeTo(null);
@@ -34,7 +35,7 @@ public class MainFrame extends JFrame{
         setLayout(new BorderLayout());
         // creates a new gridPanel
         gridPanel = new GridPanel(20, 30, 30, 0, 0);
-
+        gridPanel.setPause_len((long) (1000/60)); // Init the pause len for the sim
         add(gridPanel, BorderLayout.CENTER);
         // set minimum size for window
         this.setMinimumSize(new Dimension(gridPanel.gridPixelWidth, gridPanel.gridPixelHeight));
@@ -42,29 +43,41 @@ public class MainFrame extends JFrame{
 
         ActionListener playSim = new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-
+            public void actionPerformed(ActionEvent e) { // Used to allow this to track sim status
+                if(!playing) {
+                    playing = true;
+                    gridPanel.start();
+                }
             }
         };
 
         ActionListener pauseSim = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                if (playing) {
+                    playing = false;
+                    gridPanel.pause();
+                }
             }
         };
 
         ActionListener speedUpSim = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                rate *= 2;
+                if (rate > 256)
+                    rate = 256;
+                gridPanel.setPause_len((long) (1000/rate));
             }
         };
 
         ActionListener slowDownSim = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                rate *= 0.5;
+                if (rate < 1)
+                    rate = 1;
+                gridPanel.setPause_len((long) (1000/rate));
             }
         };
 
