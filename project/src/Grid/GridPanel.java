@@ -134,6 +134,32 @@ public class GridPanel extends JPanel implements Runnable {
     }
 
     /**
+     * Gets the neighbors of the tile at coordinates (x, y)
+     *
+     * @param x The x location of the tile
+     * @param y The y location of the tile
+     */
+    public Tile[] getNeighborsForTile(int x, int y) {
+        //Auto-return null if the x and y are bad
+        if(x < 0 || x >= this.viewableWidth || y < 0 || y >= this.viewableHeight)
+            return null;
+
+        //Make the array, fill it with neighbors
+        ArrayList<Tile> neighbors = new ArrayList<>();
+        for(int i = y - 1; i <= y + 1; i++) {
+            for(int j = x - 1; j <= x + 1; j++) {
+                //Add the tile if x and y are valid and this isn't the tile we're on
+                if(j >= 0 && j < this.viewableWidth && i >= 0 && i < this.viewableHeight &&
+                        (j != x || i != y))
+                    neighbors.add(this.gridViewable[i][j]);
+            }
+        }
+
+        return neighbors.toArray(new Tile[1]);
+    }
+
+    //Methods
+    /**
      * A method to tick. Currently handles actions for each Person object in the sim via the BehaviorAgent and ascribes intents when they expire
      */
     public void step() {
@@ -142,6 +168,35 @@ public class GridPanel extends JPanel implements Runnable {
                 intents.set(i, agent.genIntent());
             }
             agent.action(people.get(i), intents.get(i));
+        }
+
+        //Update the infection
+        for(Person i : this.people) {
+            int oldX = i.getX();
+            int oldY = i.getY();
+
+            //If they're already dead, continue to the next person
+            if(oldX == -666 && oldY == -666)
+                continue;
+
+            //Update everyone's infection
+            i.updateVirus();
+
+            //If they died, clear their tile and go to the next loop
+            if(i.getX() == -666 && i.getY() == -666) {
+                this.gridViewable[oldY][oldX].clearOccupant();
+                continue;
+            }
+
+            //Try and infect people
+            if(i.cough()) {
+                //Find all of the neighbors, try to infect them
+                Tile[] targets = getNeighborsForTile(i.getX(), i.getY());
+                for(Tile j : targets) {
+                    if(j.getOccupant() != null)
+                        j.getOccupant().infect(i);
+                }
+            }
         }
     }
 

@@ -80,6 +80,10 @@ public class BehaviorAgent {
         int x = p.getX();
         int y = p.getY();
 
+        //Auto return if someone's dead
+        if(x == -666 && y == -666)
+            return 1;
+
         // Choose a random adjacent cell
         y += rand.nextInt(3) - 1;
         x += rand.nextInt(3) - 1;

@@ -87,8 +87,10 @@ public class Person {
             case RECOVERED: //They recovered
                 this.virus = null;
                 this.status = Status.RECOVERED;
+                break;
             case FATAL: //They died
                 this.die();
+                break;
         }
     }
 
