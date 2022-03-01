@@ -101,7 +101,7 @@ public class GridPanel extends JPanel implements Runnable {
 
         //Infect every 10th person, starting with the first
         VirusType basic = new VirusType();
-        for(int i = 0; i < this.people.size(); i += 10) {
+        for(int i = 0; i < this.people.size(); i += 10000000) {
             this.people.get(i).setVirus(basic.genVirus(this.people.get(i)));
         }
         repaint();
@@ -146,11 +146,11 @@ public class GridPanel extends JPanel implements Runnable {
 
         //Make the array, fill it with neighbors
         ArrayList<Tile> neighbors = new ArrayList<>();
-        for(int i = y - 1; i <= y + 1; i++) {
-            for(int j = x - 1; j <= x + 1; j++) {
+        for(int i = x - 1; i <= x + 1; i++) {
+            for(int j = y - 1; j <= y + 1; j++) {
                 //Add the tile if x and y are valid and this isn't the tile we're on
-                if(j >= 0 && j < this.viewableWidth && i >= 0 && i < this.viewableHeight &&
-                        (j != x || i != y))
+                if(j >= 0 && j < this.viewableHeight && i >= 0 && i < this.viewableWidth &&
+                        (j != y || i != x))
                     neighbors.add(this.gridViewable[i][j]);
             }
         }
