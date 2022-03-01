@@ -87,8 +87,10 @@ public class Person {
             case RECOVERED: //They recovered
                 this.virus = null;
                 this.status = Status.RECOVERED;
+                break;
             case FATAL: //They died
                 this.die();
+                break;
         }
     }
 
@@ -108,7 +110,7 @@ public class Person {
      */
     public boolean cough() {
         //Don't cough if they're not sick
-        if(this.virus == null)
+        if(!this.isContagious())
             return false;
 
         //If they're sick, there's a chance they'll cough
@@ -161,8 +163,8 @@ public class Person {
      * @return True if we are infected, false otherwise
      */
     public boolean infect(Person infector) {
-        //Auto reject if we're already infected
-        if(this.virus != null)
+        //Auto reject if we're already infected or recovered
+        if(this.virus != null || this.status == Status.RECOVERED)
             return false;
 
         //Base chance
