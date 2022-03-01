@@ -177,13 +177,13 @@ public class Person {
 
         //Check if a random number beats the chance
         Random rand = new Random();
-        chance *= 100;
         //If it does, give us the virus, return true
         if(rand.nextDouble() < chance) {
             this.virus = infector.virus.getType().genVirus(this);
             this.status = Status.INFECTED;
             return true;
         }
+
         return false;
     }
 
