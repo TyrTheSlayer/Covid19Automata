@@ -4,10 +4,11 @@
  * @description UI for users to put in parameters for the simulation
  */
 
-package UI;
+package UI.UI;
 
 import Grid.MainFrame;
 import custom_classes.SimSettings;
+
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -15,6 +16,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.InvocationTargetException;
 
 import static javax.swing.SwingUtilities.paintComponent;
 
@@ -35,6 +37,8 @@ public class UI extends JFrame{
 
   //  MainFrame sett = new MainFrame("Title");
     SimSettings simSet = new SimSettings();
+
+
 
     JFrame frame = new JFrame();
     try {
@@ -366,6 +370,17 @@ vir.addActionListener(new ActionListener() {
     public void actionPerformed(ActionEvent e) {
         frame.setSize(700, 650) ;
     }
+});
+
+go.addActionListener(new ActionListener() {
+ @Override
+ public void actionPerformed(ActionEvent e) {
+
+  MainFrame mainFrame = new MainFrame("Test");
+  mainFrame.startWindow();
+
+
+ }
 });
 
 
