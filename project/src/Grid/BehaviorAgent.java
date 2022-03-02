@@ -50,10 +50,10 @@ public class BehaviorAgent {
         switch(i.getIntent()) {
             // Most of these are as of yet unimplemented, but should not be too difficult
             case SLEEP:
-                break;
+                return i.tickIntent();
 
             case DEAD:
-                break;
+                return -666;
 
             case ROAM:
                 return roam(p);
@@ -62,7 +62,7 @@ public class BehaviorAgent {
                 break;
 
             case QUARANTINE:
-                break;
+                return i.tickIntent();
 
             default:
                 break;

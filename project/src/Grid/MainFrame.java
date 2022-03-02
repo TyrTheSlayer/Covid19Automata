@@ -16,7 +16,8 @@ import java.awt.event.ActionListener;
 public class MainFrame extends JFrame{
     public GridPanel gridPanel;
     private boolean playing = false;
-    private float rate = 2;
+    private float rate = 16;
+    private JLabel rateLabel = new JLabel("Rate: " + rate);
     public MainFrame(String title) {
         super(title);
         setLocationRelativeTo(null);
@@ -47,6 +48,7 @@ public class MainFrame extends JFrame{
                 if(!playing) {
                     playing = true;
                     gridPanel.start();
+                    rateLabel.setText("Rate: " + rate);
                 }
             }
         };
@@ -57,6 +59,7 @@ public class MainFrame extends JFrame{
                 if (playing) {
                     playing = false;
                     gridPanel.pause();
+                    rateLabel.setText("Paused");
                 }
             }
         };
@@ -68,6 +71,7 @@ public class MainFrame extends JFrame{
                 if (rate > 256)
                     rate = 256;
                 gridPanel.setPause_len((long) (1000/rate));
+                rateLabel.setText("Rate: " + rate);
             }
         };
 
@@ -78,6 +82,7 @@ public class MainFrame extends JFrame{
                 if (rate < 1)
                     rate = 1;
                 gridPanel.setPause_len((long) (1000/rate));
+                rateLabel.setText("Rate: " + rate);
             }
         };
 
@@ -97,6 +102,7 @@ public class MainFrame extends JFrame{
         buttonPanel.add(pause);
         buttonPanel.add(speedUp);
         buttonPanel.add(speedDown);
+        buttonPanel.add(rateLabel);
 
         add(buttonPanel, BorderLayout.SOUTH);
 

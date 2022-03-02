@@ -100,7 +100,7 @@ public class GridPanel extends JPanel implements Runnable {
                 factor.add(factors);
                 Person p = new Person(j, i, factor);
                 this.people.add(p);
-                this.intents.add(new Intent(Intent.Behavior.ROAM, 99)); // This line forces all people to roam, to test the roam method
+                this.intents.add(agent.genIntent()); // This line forces all people to roam, to test the roam method
                 this.gridViewable[i][j].setOccupant(p);
             }
         }
