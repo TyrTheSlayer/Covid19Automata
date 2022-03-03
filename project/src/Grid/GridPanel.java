@@ -81,7 +81,6 @@ public class GridPanel extends JPanel implements Runnable {
         gridViewable = new Tile[viewableWidth][viewableHeight];
         this.people = new ArrayList<>();
         this.intents = new ArrayList<>();
-        this.factor = new ArrayList<>();
         t = new Thread(this);
         this.agent = new BehaviorAgent(this);
 
@@ -96,9 +95,7 @@ public class GridPanel extends JPanel implements Runnable {
         //Put a person in every 5th tile 6X30
         for(int i = 0; i < viewableWidth; i++) {
             for(int j = 0; j < viewableHeight; j += 5) {
-                Factor factors = new Factor(0.5, 0.016, 0.5*(i*j));
-                factor.add(factors);
-                Person p = new Person(j, i, factor);
+                Person p = new Person(j, i, new ArrayList<>());
                 this.people.add(p);
                 this.intents.add(agent.genIntent()); // This line forces all people to roam, to test the roam method
                 this.gridViewable[i][j].setOccupant(p);

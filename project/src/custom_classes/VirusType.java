@@ -58,7 +58,7 @@ public class VirusType {
         this.maxRecoveryTime = 5580;
         */
         this.minDeathTime = 1110;
-        this.maxDeathTime = 3000;
+        this.maxDeathTime = 2800;
     }
 
     //Methods
