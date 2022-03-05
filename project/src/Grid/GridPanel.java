@@ -1,12 +1,14 @@
 /**
  * @author Samuel Nix
  * @author Summer Bronson
+ * @author Aedan Wells
  *
  * Sets up a grid to be displayed by Mainframe
  */
 
 package Grid;
 
+import custom_classes.Factor;
 import custom_classes.Person;
 import custom_classes.VirusType;
 
@@ -44,6 +46,7 @@ public class GridPanel extends JPanel implements Runnable {
     //The list of people and their intents
     private ArrayList<Person> people;
     private ArrayList<Intent> intents;
+    private ArrayList<Factor> factor;
 
     private BehaviorAgent agent;
 
@@ -75,33 +78,33 @@ public class GridPanel extends JPanel implements Runnable {
         this.gridPixelHeight = newtileSize * viewableHeight + 70; //70 pixels is offset for bar at top and bottom of window
         this.topLeftX = topLeftX;
         this.topLeftY = topLeftY;
-        gridViewable = new Tile[viewableHeight][viewableWidth];
+        gridViewable = new Tile[viewableWidth][viewableHeight];
         this.people = new ArrayList<>();
         this.intents = new ArrayList<>();
         t = new Thread(this);
         this.agent = new BehaviorAgent(this);
 
         //create the grid
-        for (int i=0; i<viewableHeight; i++) {
-            for (int j=0; j<viewableWidth; j++) {
+        for (int i=0; i<viewableWidth; i++) {
+            for (int j=0; j<viewableHeight; j++) {
                 Tile newTile = createTile(topLeftX+i, topLeftY+j); // This might need to be reversed - Brenton
                 gridViewable[i][j] = newTile;
             }
         }
 
-        //Put a person in every 5th tile
-        for(int i = 0; i < viewableHeight; i++) {
-            for(int j = 0; j < viewableWidth; j += 5) {
+        //Put a person in every 5th tile 6X30
+        for(int i = 0; i < viewableWidth; i++) {
+            for(int j = 0; j < viewableHeight; j += 5) {
                 Person p = new Person(j, i, new ArrayList<>());
                 this.people.add(p);
-                this.intents.add(new Intent(Intent.Behavior.ROAM, 99)); // This line forces all people to roam, to test the roam method
+                this.intents.add(agent.genIntent()); // This line forces all people to roam, to test the roam method
                 this.gridViewable[i][j].setOccupant(p);
             }
         }
 
         //Infect every 10th person, starting with the first
         VirusType basic = new VirusType();
-        for(int i = 0; i < this.people.size(); i += 10) {
+        for(int i = 0; i < this.people.size(); i += 10000000) {
             this.people.get(i).setVirus(basic.genVirus(this.people.get(i)));
         }
         repaint();
@@ -146,11 +149,11 @@ public class GridPanel extends JPanel implements Runnable {
 
         //Make the array, fill it with neighbors
         ArrayList<Tile> neighbors = new ArrayList<>();
-        for(int i = y - 1; i <= y + 1; i++) {
-            for(int j = x - 1; j <= x + 1; j++) {
+        for(int i = x - 1; i <= x + 1; i++) {
+            for(int j = y - 1; j <= y + 1; j++) {
                 //Add the tile if x and y are valid and this isn't the tile we're on
-                if(j >= 0 && j < this.viewableWidth && i >= 0 && i < this.viewableHeight &&
-                        (j != x || i != y))
+                if(j >= 0 && j < this.viewableHeight && i >= 0 && i < this.viewableWidth &&
+                        (j != y || i != x))
                     neighbors.add(this.gridViewable[i][j]);
             }
         }
@@ -184,7 +187,7 @@ public class GridPanel extends JPanel implements Runnable {
 
             //If they died, clear their tile and go to the next loop
             if(i.getX() == -666 && i.getY() == -666) {
-                this.gridViewable[oldY][oldX].clearOccupant();
+                this.gridViewable[oldX][oldY].clearOccupant();
                 continue;
             }
 
@@ -235,8 +238,8 @@ public class GridPanel extends JPanel implements Runnable {
         g2.fillRect(0, 0, gridPixelWidth, gridPixelHeight);
 
         //Draw each tile
-        for(int i = 0; i < viewableHeight; i++) {
-            for(int j = 0; j < viewableWidth; j++) {
+        for(int i = 0; i < viewableWidth; i++) {
+            for(int j = 0; j < viewableHeight; j++) {
                 this.gridViewable[i][j].draw(this.tileSize, g2);
             }
         }
