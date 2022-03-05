@@ -6,6 +6,7 @@
 
 import Grid.MainFrame;
 import custom_classes.SimSettings;
+import UI.UI.UI;
 
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
@@ -27,12 +28,12 @@ public class Test {
          */
         System.out.println("Calling runSim()");
 
-        MainFrame mainFrame = new MainFrame("Test");
+        //MainFrame mainFrame = new MainFrame("Test");
 
         try {
             EventQueue.invokeAndWait(new Runnable() {
                 public void run() {
-                    mainFrame.startWindow();
+                    //mainFrame.startWindow();
                 }
             });
         } catch (InvocationTargetException e1) {

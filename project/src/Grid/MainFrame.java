@@ -7,6 +7,8 @@
 
 package Grid;
 
+import custom_classes.SimSettings;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.BorderLayout;
@@ -18,10 +20,12 @@ public class MainFrame extends JFrame{
     private boolean playing = false;
     private float rate = 16;
     private JLabel rateLabel = new JLabel("Rate: " + rate);
-    public MainFrame(String title) {
+    private SimSettings settings;
+    public MainFrame(String title, SimSettings settings) {
         super(title);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.settings = settings;
     }
 
     /**
@@ -35,7 +39,7 @@ public class MainFrame extends JFrame{
         }
         setLayout(new BorderLayout());
         // creates a new gridPanel
-        gridPanel = new GridPanel(20, 30, 30, 0, 0);
+        gridPanel = new GridPanel(20, 30, 30, 0, 0, settings);
         gridPanel.setPause_len((long) (1000/60)); // Init the pause len for the sim
         add(gridPanel, BorderLayout.CENTER);
         // set minimum size for window

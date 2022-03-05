@@ -2,6 +2,7 @@
  * @author Samuel Nix
  * @author Summer Bronson
  * @author Aedan Wells
+ * @author Jonathan Carsten
  *
  * Sets up a grid to be displayed by Mainframe
  */
@@ -10,12 +11,14 @@ package Grid;
 
 import custom_classes.Factor;
 import custom_classes.Person;
+import custom_classes.SimSettings;
 import custom_classes.VirusType;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class GridPanel extends JPanel implements Runnable {
@@ -56,6 +59,7 @@ public class GridPanel extends JPanel implements Runnable {
     private boolean initialized = false;
     private int i = 0;
 
+    private SimSettings settings;
     /**
      * Creates a new GridPanel
      * @param newtileSize the height and width of any particular cell
@@ -64,7 +68,7 @@ public class GridPanel extends JPanel implements Runnable {
      * @param topLeftX coordinate of top left X usually 0
      * @param topLeftY coordinate of top left Y usually 0
      */
-    public GridPanel(int newtileSize, int viewableHeight, int viewableWidth, int topLeftX, int topLeftY) {
+    public GridPanel(int newtileSize, int viewableHeight, int viewableWidth, int topLeftX, int topLeftY, SimSettings settings) {
         // setup panel
         super(null);
         setLayout(null);
@@ -83,6 +87,7 @@ public class GridPanel extends JPanel implements Runnable {
         this.intents = new ArrayList<>();
         t = new Thread(this);
         this.agent = new BehaviorAgent(this);
+        this.settings = settings;
 
         //create the grid
         for (int i=0; i<viewableWidth; i++) {
@@ -93,6 +98,7 @@ public class GridPanel extends JPanel implements Runnable {
         }
 
         //Put a person in every 5th tile 6X30
+/*
         for(int i = 0; i < viewableWidth; i++) {
             for(int j = 0; j < viewableHeight; j += 5) {
                 Person p = new Person(j, i, new ArrayList<>());
@@ -107,6 +113,42 @@ public class GridPanel extends JPanel implements Runnable {
         for(int i = 0; i < this.people.size(); i += 10000000) {
             this.people.get(i).setVirus(basic.genVirus(this.people.get(i)));
         }
+        repaint();
+        */
+
+        initPeople(settings.getInitialInfected(), settings.getPopulation());
+    }
+
+
+    /**
+     * Populate People arraylist
+     * place people on grid randomly and set the number of infected people
+     * @param infected infected initially
+     * @param population total population
+     */
+
+    public void initPeople(double infected, int population){
+        Random rn = new Random();
+        int i = 0;
+        while(i < population) {
+            int randx = rn.nextInt(this.viewableWidth);
+            int randy = rn.nextInt(this.viewableHeight);
+            if (this.gridViewable[randx][randy].getOccupant() == null) {
+                Person p = new Person(randx, randy, new ArrayList<>());
+                this.people.add(p);
+                this.intents.add(agent.genIntent());
+                this.gridViewable[randx][randy].setOccupant(p);
+                i++;
+            }
+        }
+
+        VirusType basic = new VirusType();
+        int numInfected = (int) Math.floor(infected * population);
+
+        for(int j = 0; j < this.people.size(); j += population / numInfected){
+            this.people.get(j).setVirus(basic.genVirus(this.people.get(j)));
+        }
+
         repaint();
     }
 

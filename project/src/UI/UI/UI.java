@@ -22,25 +22,13 @@ import static javax.swing.SwingUtilities.paintComponent;
 
 
 public class UI extends JFrame{
-
-
-    private JButton button1;
-
-    public void UI() {
-
-
-    }
-
-
-   public static void main(String[] args) {
+    public static void main(String[] args) {
     //   UI frame = new UI();
 
-  //  MainFrame sett = new MainFrame("Title");
+    //  MainFrame sett = new MainFrame("Title");
     SimSettings simSet = new SimSettings();
-
-
-
     JFrame frame = new JFrame();
+
     try {
      // UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
      UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -50,7 +38,7 @@ public class UI extends JFrame{
 
 
     /**
-     * Create Default, Costumize Settings, and Start buttons
+     * Create Default, Cufstomize Settings, and Start buttons
       */
 
 
@@ -62,9 +50,9 @@ public class UI extends JFrame{
     go.setBounds(495, 20, 85, 40);
     frame.add(go);
 
-       JButton cust = new JButton("Costumize Settings");
-       cust.setBounds(277, 20, 150, 40);
-       frame.add(cust);
+    JButton cust = new JButton("Customize Settings");
+    cust.setBounds(277, 20, 150, 40);
+    frame.add(cust);
 
 
 
@@ -376,7 +364,7 @@ go.addActionListener(new ActionListener() {
  @Override
  public void actionPerformed(ActionEvent e) {
 
-  MainFrame mainFrame = new MainFrame("Test");
+  MainFrame mainFrame = new MainFrame("Test", simSet);
   mainFrame.startWindow();
 
 

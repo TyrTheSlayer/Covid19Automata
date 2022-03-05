@@ -42,7 +42,7 @@ public class SimSettings {
      * defaults first and then have users set the values later.
      */
     public SimSettings(){
-        this.population = 1500;
+        this.population = 600;
         this.initialInfected = .05;
         this.vaxRate = .65;
         this.maskRate = .44;
