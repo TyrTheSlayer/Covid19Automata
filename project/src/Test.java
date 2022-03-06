@@ -4,9 +4,7 @@
  * Main function for simulation
  */
 
-import Grid.MainFrame;
-import custom_classes.SimSettings;
-import UI.UI.UI;
+import Simulator.SimSettings;
 
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;

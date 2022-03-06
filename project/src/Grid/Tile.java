@@ -56,8 +56,7 @@ public class Tile {
 
 package Grid;
 
-import custom_classes.Building;
-import custom_classes.Person;
+import DataObjects.Person;
 
 import java.awt.*;
 

@@ -9,10 +9,12 @@
 
 package Grid;
 
-import custom_classes.Factor;
-import custom_classes.Person;
-import custom_classes.SimSettings;
-import custom_classes.VirusType;
+import Simulator.BehaviorAgent;
+import Simulator.Factor;
+import DataObjects.Person;
+import Simulator.Intent;
+import Simulator.SimSettings;
+import DataObjects.VirusType;
 
 import javax.swing.*;
 import java.awt.*;
