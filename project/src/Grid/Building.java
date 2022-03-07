@@ -11,7 +11,13 @@ import DataObjects.Person;
 import java.util.ArrayList;
 
 public class Building {
+    private double capacity;
     private double size;
+    //OpeningTime is when people can enter or exit a building. The tick time % 60, remainder will be time
+    private int openingTime;
+    private int closingTime;
+    private boolean maskMandate;
+    private boolean vaccMandate;
     ArrayList<Person> occupants;
     Tile[] entrances;
     Tile[] exits;
@@ -24,11 +30,16 @@ public class Building {
      * @param entrances The entrances to the building
      * @param exits The exits to the building
      */
-    public Building(double size, Tile[] entrances, Tile[] exits) {
+    public Building(double size, Tile[] entrances, Tile[] exits, int openingTime, int closingTime, boolean maskMandate, boolean vaccMandate, double capacity) {
         //Assign the attributes
         this.size = size;
         this.entrances = entrances;
         this.exits = exits;
+        this.openingTime = openingTime;
+        this.closingTime = closingTime;
+        this.maskMandate = maskMandate;
+        this.vaccMandate = vaccMandate;
+        this.capacity = capacity;
 
         //Update the entrances on the tile side
         for(Tile i : this.entrances) {

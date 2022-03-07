@@ -1,0 +1,30 @@
+---
+#YAML file defining buildings, user defined buildings appended to the end
+hospital:
+  size: 100
+  capacity: 50
+  openingTime: NULL
+  closingTime: NULL
+  maskMandate: true
+  vaccMandate: true
+casino:
+  size: 100
+  capacity: 75
+  openingTime: 15
+  closingTime: 8
+  maskMandate: true
+  vaccMandate: false
+grocer:
+  size: 144
+  capacity: 100
+  openingTime: 15
+  closingTime: 50
+  maskMandate: true
+  vaccMandate: false
+mall:
+  size: 225
+  capacity: 175
+  openingTime: 15
+  closingTime: 53
+  maskMandate: false
+  vaccMandate: false
