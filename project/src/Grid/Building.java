@@ -21,6 +21,7 @@ public class Building {
     ArrayList<Person> occupants;
     Tile[] entrances;
     Tile[] exits;
+    ArrayList<Tile> space;
 
     //Constructors
     /**
