@@ -9,7 +9,9 @@
 package Simulator;
 
 import DataObjects.VirusType;
+import Grid.Building;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SimSettings {
@@ -21,7 +23,7 @@ public class SimSettings {
     private boolean isTestRequired;
     private boolean isQuaranRequired;
     private boolean treatmentExists;
-    private int numBuildings;
+    private ArrayList<Building> buildings;
     private double beta;
     private String[] variants;
     private int simDuration;
@@ -52,7 +54,7 @@ public class SimSettings {
         this.isTestRequired = true;
         this.isQuaranRequired = false;
         this.treatmentExists = false;
-        this.numBuildings = 0;
+        this.buildings = new ArrayList<>();
         this.beta = .016; // beta per sympomatic contact, pulled from covasim
         this.variants = new String[] {"Alpha", "", ""};
         this.simDuration = 150; // user defines duration in terms of days
@@ -111,13 +113,13 @@ public class SimSettings {
         isQuaranRequired = quaranRequired;
     }
 
-    public int getNumBuildings() {
-        return numBuildings;
-    }
+    //public int getNumBuildings() {
+      //  return numBuildings;
+    //}
 
-    public void setNumBuildings(int numBuildings) {
-        this.numBuildings = numBuildings;
-    }
+    //public void setNumBuildings(int numBuildings) {
+        //this.numBuildings = numBuildings;
+    //}
 
     public boolean isTreatmentExists() {
         return treatmentExists;
@@ -214,7 +216,7 @@ public class SimSettings {
                 ", isTestRequired=" + isTestRequired +
                 ", isQuaranRequired=" + isQuaranRequired +
                 ", treatmentExists=" + treatmentExists +
-                ", numBuildings=" + numBuildings +
+                ", Buildings=" + buildings +
                 ", beta=" + beta +
                 ", variants=" + Arrays.toString(variants) +
                 ", simDuration=" + simDuration +
