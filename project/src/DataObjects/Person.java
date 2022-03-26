@@ -6,6 +6,7 @@
 
 package DataObjects;
 
+import Grid.Building;
 import Simulator.Factor;
 
 import java.awt.*;
@@ -18,6 +19,7 @@ public class Person {
     private int y;
     private Virus virus;
     private ArrayList<Factor> factors;
+    private DailySchedule schedule;
 
     //Constructors
     /**
@@ -57,6 +59,15 @@ public class Person {
         this.status = Status.INFECTED;
     }
 
+    /**
+     * Sets the person to use a given schedule
+     *
+     * @param schedule The schedule to assign
+     */
+    public void setSchedule(DailySchedule schedule) {
+        this.schedule = schedule;
+    }
+
     //Getters
     public int getX() { return this.x; }
     public int getY() { return this.y; }
@@ -71,6 +82,31 @@ public class Person {
     public void move(int x, int y) {
         this.x += x;
         this.y += y;
+    }
+
+    /**
+     * Tells where the person should go, based on their schedule
+     *
+     * @param time The time of day, as a tick
+     * @param dayLength The length of a day, in ticks
+     * @return The building they should go to, or null if their schedule doesn't say
+     */
+    public Building getTarget(int time, int dayLength) {
+        //Auto-return null if the person has no schedule
+        if(this.schedule == null)
+            return null;
+
+        //Crash if length is less than time
+        if(time > dayLength) {
+            System.out.println("getTarget saw a time greater than dayLength");
+            System.exit(1);
+        }
+
+        //Convert time into a percentage
+        double percentTime = (time * 1.0)/dayLength;
+
+        //Return what the schedule says
+        return this.schedule.getTarget(percentTime);
     }
 
     /**
