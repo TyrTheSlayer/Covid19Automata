@@ -4,5 +4,5 @@ df = plotgen()
 
 df.printdf()
 
-df.generate_plot()
+df.plot_line("asfd")
 
