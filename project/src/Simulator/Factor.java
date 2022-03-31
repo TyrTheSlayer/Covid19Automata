@@ -32,6 +32,9 @@ public class Factor {
         this.vaccination_effectivity = vaccination_effectivity;
     }
 
+    /**
+     * A default constructor, randomizes a Person's factors
+     */
     public Factor() {
         this.severityGet = 1;
         this.severityGive = 1;
@@ -40,12 +43,14 @@ public class Factor {
         this.wfr = 0.5; // Eventually add some randomness here
         this.vaccination_effectivity = 0.5; // Figure out how to pull this from SimSettings
     }
-
-    public Factor vaccinate() {
+    
+    /**
+     * A method to vaccinate individuals
+     */
+    public void vaccinate() {
         this.vaccinated = true;
         this.severityGet *= vaccination_effectivity;
         this.severityGive *= vaccination_effectivity;
-        return this;
     }
 
     //Methods
