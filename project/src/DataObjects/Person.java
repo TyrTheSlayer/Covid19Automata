@@ -18,7 +18,7 @@ public class Person {
     private int x;
     private int y;
     private Virus virus;
-    private ArrayList<Factor> factors;
+    private Factor factors;
     private DailySchedule schedule;
 
     //Constructors
@@ -29,7 +29,7 @@ public class Person {
      * @param y The y location
      * @param factors The list of factors
      */
-    public Person(int x, int y, ArrayList<Factor> factors) {
+    public Person(int x, int y, Factor factors) {
         this.x = x;
         this.y = y;
         this.factors = factors;
@@ -132,15 +132,16 @@ public class Person {
         }
     }
 
+    /*
     /**
      * Adds a factor to the person
      *
      * @param factor The factor to add
-     */
+     *
     public void addFactor(Factor factor) {
         this.factors.add(factor);
     }
-
+    */
     /**
      * Tells whether or not the person should cough this tick
      *
@@ -156,9 +157,8 @@ public class Person {
 
         //Calculate the chance using the factors
         double chance = 0.3;
-        for(Factor i : this.factors) {
-            chance = i.applyFactorGive(chance);
-        }
+        chance = this.factors.applyFactorGive(chance);
+
 
         //Check if a random number beats the calculated chance
         if(rand.nextDouble() < chance) {
@@ -209,9 +209,7 @@ public class Person {
         double chance = 0.016;
 
         //Apply all the factors to the chance
-        for(Factor i : this.factors) {
-            chance = i.applyFactorGet(chance);
-        }
+        chance = this.factors.applyFactorGet(chance);
 
         //Check if a random number beats the chance
         Random rand = new Random();

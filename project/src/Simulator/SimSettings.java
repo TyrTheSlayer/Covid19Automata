@@ -28,6 +28,7 @@ public class SimSettings {
     private String[] variants;
     private int simDuration;
     private int ticksPerDay;
+    private double vaccination_effectivity;
 
     // VirusType specific attributes
     private VirusType virus;
@@ -59,6 +60,7 @@ public class SimSettings {
         this.variants = new String[] {"Alpha", "", ""};
         this.simDuration = 150; // user defines duration in terms of days
         this.ticksPerDay = 60; // tentative, for now say 60 ticks = 1 day, (60 fps -> 1 sec = 1 day, idk)
+        this.vaccination_effectivity = 0.8; // Vaccination is 80% effective, reduces transmission by 80%
 
         // VirusType defaults
         this.virus = new VirusType();
@@ -112,6 +114,10 @@ public class SimSettings {
     public void setQuaranRequired(boolean quaranRequired) {
         isQuaranRequired = quaranRequired;
     }
+
+    public void setVaccination_effectivity(float vaccination_effectivity) { this.vaccination_effectivity = vaccination_effectivity; }
+
+    public double getVaccination_effectivity() { return this.vaccination_effectivity; }
 
     //public int getNumBuildings() {
       //  return numBuildings;
