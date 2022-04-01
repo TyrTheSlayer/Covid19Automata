@@ -60,19 +60,59 @@ public class Building {
      * Allows a person to enter the building
      *
      * @param person The person looking to enter
+     * @return True if the entrance was successful, false otherwise
      */
-    public void enter(Person person) {
+    public boolean enter(Person person) {
+        //Auto return if the building is at capacity
+        if(this.occupants.size() >= this.capacity)
+            return false;
+
+        //Auto return if the building is closed
+        //Cannot currently be done, as building has no access to the time
+
+        //Clear the tile the person is standing on (it should be an entrance)
+        for(Tile i : this.entrances) {
+            if(i.getX() == person.getX() && i.getY() == person.getY())
+                i.clearOccupant();
+        }
+
+        //Give the person a bogus position
         person.setPosition(-1, -1);
+
+        //Add them to the building
         this.occupants.add(person);
+
+        return true;
     }
 
     /**
      * Allows a person to exit the building
      *
      * @param person The person looking to leave
+     * @return True if they exited, false otherwise
      */
-    public void exit(Person person) {
+    public boolean exit(Person person) {
+        //Find a valid exit, auto return if we can't
+        Tile exit = null;
+        for(Tile i : this.exits) {
+            if(i.isAccessible()) {
+                exit = i;
+                break;
+            }
+        }
+        if(exit == null)
+            return false;
+
+        //Add ourselves to the tile
+        exit.setOccupant(person);
+
+        //Copy it's position
+        person.setPosition(exit.getX(), exit.getY());
+
+        //Exit the building arraylist
         this.occupants.remove(person);
+
+        return true;
     }
 
     /**
@@ -89,8 +129,9 @@ public class Building {
                 for(int j = 0; j < 8; j++) {
                     int index = rand.nextInt(this.capacity);
 
+                    //Try to infect the person if the infector didn't miss
                     if(index < this.occupants.size()) {
-                        this.occupants.get(index).infect(i); //Otherwise, try to infect them
+                        this.occupants.get(index).infect(i);
                     }
                 }
             }
