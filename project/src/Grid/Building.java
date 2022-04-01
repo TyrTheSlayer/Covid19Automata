@@ -9,9 +9,10 @@ package Grid;
 import DataObjects.Person;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Building {
-    private double capacity;
+    private int capacity;
     private double size;
     //OpeningTime is when people can enter or exit a building. The tick time % 60, remainder will be time
     private int openingTime;
@@ -31,7 +32,8 @@ public class Building {
      * @param entrances The entrances to the building
      * @param exits The exits to the building
      */
-    public Building(double size, Tile[] entrances, Tile[] exits, int openingTime, int closingTime, boolean maskMandate, boolean vaccMandate, double capacity) {
+    public Building(double size, Tile[] entrances, Tile[] exits, int openingTime, int closingTime, boolean maskMandate,
+                    boolean vaccMandate, int capacity, ArrayList<Tile> spaces) {
         //Assign the attributes
         this.size = size;
         this.entrances = entrances;
@@ -41,11 +43,16 @@ public class Building {
         this.maskMandate = maskMandate;
         this.vaccMandate = vaccMandate;
         this.capacity = capacity;
+        this.space = spaces;
 
         //Update the entrances on the tile side
         for(Tile i : this.entrances) {
             i.setEntranceTo(this);
         }
+
+        //Block all of the tiles that are in the building
+        for(Tile i : this.space)
+            i.setAccessible(false);
     }
 
     //Methods
@@ -66,5 +73,30 @@ public class Building {
      */
     public void exit(Person person) {
         this.occupants.remove(person);
+    }
+
+    /**
+     * Infects the people in the building
+     */
+    public void tickInfect() {
+        //Loop through the occupants
+        for(Person i : this.occupants) {
+            //Check if they cough
+            if(i.cough()) {
+                Random rand = new Random();
+
+                //They get 8 chances to infect
+                for(int j = 0; j < 8; j++) {
+                    int index = rand.nextInt(this.capacity);
+
+                    if(index >= this.occupants.size()) //Automatically continue if they miss
+                        continue;
+
+                    else {
+                        this.occupants.get(index).infect(i); //Otherwise, try to infect them
+                    }
+                }
+            }
+        }
     }
 }
