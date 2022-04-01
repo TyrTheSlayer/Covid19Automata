@@ -254,4 +254,13 @@ public class Person {
         //Restore the color
         canvas.setColor(oldCol);
     }
+
+    /**
+     * Returns the factors object for a specific person
+     *
+     * @return factors
+     */
+    public Factor getFactors() {
+        return this.factors;
+    }
 }
