@@ -87,6 +87,7 @@ public class GridPanel extends JPanel implements Runnable {
         gridViewable = new Tile[viewableWidth][viewableHeight];
         this.people = new ArrayList<>();
         this.intents = new ArrayList<>();
+        this.factor = new ArrayList<>();
         t = new Thread(this);
         this.agent = new BehaviorAgent(this);
         this.settings = settings;

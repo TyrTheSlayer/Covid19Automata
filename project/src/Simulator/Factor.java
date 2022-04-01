@@ -43,7 +43,7 @@ public class Factor {
         this.wfr = 0.5; // Eventually add some randomness here
         this.vaccination_effectivity = 0.5; // Figure out how to pull this from SimSettings
     }
-    
+
     /**
      * A method to vaccinate individuals
      */
