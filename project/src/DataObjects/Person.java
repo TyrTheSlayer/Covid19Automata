@@ -37,6 +37,20 @@ public class Person {
         this.virus = null;
     }
 
+    /**
+     * Return the status of this person
+     * @return The Status
+     */
+    public Status getStatus() {
+        return this.status;
+    }
+
+    public Factor getFactors() {
+        return this.factors;
+    }
+
+
+
     //Setters
     /**
      * Sets the person's location to the given coordinates
