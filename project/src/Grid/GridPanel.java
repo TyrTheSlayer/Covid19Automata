@@ -1,8 +1,5 @@
 /**
- * @author Samuel Nix
- * @author Summer Bronson
- * @author Aedan Wells
- * @author Jonathan Carsten
+ * @author Samuel Nix, Summer Bronson, Aedan Wells, Janathan Carsten
  *
  * Sets up a grid to be displayed by Mainframe
  */
@@ -15,6 +12,7 @@ import DataObjects.Person;
 import Simulator.Intent;
 import Simulator.SimSettings;
 import DataObjects.VirusType;
+import Simulator.DataOut;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,6 +25,10 @@ public class GridPanel extends JPanel implements Runnable {
     // width and height of viewable grid in tiles, excluding the outer border
     public int viewableHeight;
     public int viewableWidth;
+    private int ticks = 0;
+    private final int TICKS_PER_RECORD = 360;
+
+
 
     // width and height of window in pixels, including visible borders
     public int gridPixelWidth;
@@ -52,6 +54,8 @@ public class GridPanel extends JPanel implements Runnable {
     private ArrayList<Person> people;
     private ArrayList<Intent> intents;
     private ArrayList<Factor> factor;
+
+    private DataOut data = new DataOut(100);
 
     private BehaviorAgent agent;
 
@@ -218,6 +222,17 @@ public class GridPanel extends JPanel implements Runnable {
                 intents.set(i, agent.genIntent());
             }
             agent.action(people.get(i), intents.get(i));
+            if((intents.get(i).getIntent() == Intent.Behavior.QUARANTINE) && (intents.get(i).getDuration()==0)) {
+                Random rn = new Random();
+                int randx = rn.nextInt(this.viewableWidth);
+                int randy = rn.nextInt(this.viewableHeight);
+                while(this.gridViewable[randx][randy].getOccupant() != null) {
+                    randx = rn.nextInt(this.viewableWidth);
+                    randy = rn.nextInt(this.viewableHeight);
+                }
+                people.get(i).setPosition(randx, randy);
+                this.gridViewable[randx][randy].setOccupant(people.get(i));
+            }
         }
 
         //Update the infection
@@ -225,8 +240,8 @@ public class GridPanel extends JPanel implements Runnable {
             int oldX = i.getX();
             int oldY = i.getY();
 
-            //If they're already dead, continue to the next person
-            if(oldX == -666 && oldY == -666)
+            //If they're not in the sim, continue
+            if(oldX < 0)
                 continue;
 
             //Update everyone's infection
@@ -314,10 +329,33 @@ public class GridPanel extends JPanel implements Runnable {
             if (running) {
                 step(); // Process tick
                 repaint(); // Repaint
+                ticks++;
             }
 
 
             // Post-tick code
+
+            //This should write out to the record
+            if (ticks % TICKS_PER_RECORD == 0) {
+                int s = 0;
+                int i = 0;
+                int r = 0;
+                int d = 0;
+                int v = 0;
+                for (Person p : people) {
+                    switch(p.getStatus()) {
+                        case DEAD: d++; break;
+                        case INFECTED: i++; break;
+                        case ALIVE: s++; break;
+                        case RECOVERED: r++; break;
+                    }
+                    if(p.getFactors().isVaccinated()) v++;
+                }
+                data.addRecord(s, i, r, d, v);
+            }
+
+
+            // Final code, to maintain framerate
             long diff = System.currentTimeMillis() - old; // Find exTime
             if (diff < pause_len) { // Wait if necessary to maintain FPS
                 try {

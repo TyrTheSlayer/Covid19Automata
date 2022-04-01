@@ -1,5 +1,6 @@
 /**
  * Written by Wesley Camphouse
+ *
  * Simple data storage for a scheduled obligation a person might have
  */
 
