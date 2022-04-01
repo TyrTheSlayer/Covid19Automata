@@ -44,11 +44,7 @@ public class Person {
     public Status getStatus() {
         return this.status;
     }
-
-    public Factor getFactors() {
-        return this.factors;
-    }
-
+    
 
 
     //Setters
