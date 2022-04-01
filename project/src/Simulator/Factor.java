@@ -1,5 +1,5 @@
 /**
- * @author Wesley Camphouse, Aedan Wells
+ * @author Wesley Camphouse, Aedan Wells, Samuel Nix
  *
  * The class that represents a single factor influencing infection
  */
@@ -13,8 +13,6 @@ public class Factor {
     private boolean vaccinated = false;
     private double wfr; // Should be bounded between 0 and 1, 0 is unruly, 1 is following all rules always
     private double vaccination_effectivity;
-
-
 
     //Constructors
     /**
@@ -38,7 +36,7 @@ public class Factor {
     public Factor() {
         this.severityGet = 1;
         this.severityGive = 1;
-        this.age = 0; // Left for poisson distribution
+        this.age = getPoisson(1.75); //lamda of 1.75 achieves an age range of around 0-80
         this.vaccinated = false;
         this.wfr = 0.5; // Eventually add some randomness here
         this.vaccination_effectivity = 0.5; // Figure out how to pull this from SimSettings
@@ -91,4 +89,21 @@ public class Factor {
         return this.age;
     }
 
+    /**
+     * Finds a random number along a poisson distribution curve (not perfect but should work)
+     * @param lambda the factor
+     * @return an age for a particular person
+     */
+    public static int getPoisson(double lambda) {
+        double L = Math.exp(-lambda);
+        double p = 4.0;
+        int k = 0;
+
+        do {
+            k++;
+            p *= Math.random();
+        } while (p > L);
+
+        return (int) (((k - 1) * 10) + (Math.random() * (11)));
+    }
 }
