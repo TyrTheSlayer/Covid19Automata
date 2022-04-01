@@ -50,7 +50,7 @@ public class BehaviorAgent {
      * @return
      */
     public int action(Person p, Intent i) {
-        if (p.getStatus() == Status.DEAD) {
+        if ((p.getStatus() == Status.DEAD) && (p.getX() > 0)){
             grid.getTile(p.getX(), p.getY()).setAccessible(true);
             grid.getTile(p.getX(), p.getY()).clearOccupant();
             i.setIntent(Intent.Behavior.DEAD, 1);

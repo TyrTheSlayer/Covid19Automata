@@ -315,6 +315,10 @@ public class GridPanel extends JPanel implements Runnable {
         }
     }
 
+    public void writeData() {
+        data.writeOut();
+    }
+
     /**
      * Our rynnable thread. Step() should be used to handle all per-tick operations, while this enables pre-tick and post-tick operations to be done between frames.
      */
