@@ -13,7 +13,6 @@ import java.util.Random;
 
 public class Building {
     private int capacity;
-    private double size;
     //OpeningTime is when people can enter or exit a building. The tick time % 60, remainder will be time
     private int openingTime;
     private int closingTime;
@@ -28,14 +27,18 @@ public class Building {
     /**
      * Makes a building with the given sides, entrances, and exits
      *
-     * @param size The size of the building
      * @param entrances The entrances to the building
      * @param exits The exits to the building
+     * @param openingTime The time the building opens
+     * @param closingTime The time the building closes
+     * @param maskMandate Whether or not the building has a mask mandate
+     * @param vaccMandate Whether or not the building has a mask mandate
+     * @param capacity The maxiumum number of people that can fit into the buidling
+     * @param spaces The tiles that the building occupies
      */
-    public Building(double size, Tile[] entrances, Tile[] exits, int openingTime, int closingTime, boolean maskMandate,
+    public Building(Tile[] entrances, Tile[] exits, int openingTime, int closingTime, boolean maskMandate,
                     boolean vaccMandate, int capacity, ArrayList<Tile> spaces) {
         //Assign the attributes
-        this.size = size;
         this.entrances = entrances;
         this.exits = exits;
         this.openingTime = openingTime;
@@ -60,15 +63,17 @@ public class Building {
      * Allows a person to enter the building
      *
      * @param person The person looking to enter
+     * @param time The time in the simulation
      * @return True if the entrance was successful, false otherwise
      */
-    public boolean enter(Person person) {
+    public boolean enter(Person person, int time) {
         //Auto return if the building is at capacity
         if(this.occupants.size() >= this.capacity)
             return false;
 
         //Auto return if the building is closed
-        //Cannot currently be done, as building has no access to the time
+        if(time < this.openingTime || time > this.closingTime)
+            return false;
 
         //Clear the tile the person is standing on (it should be an entrance)
         for(Tile i : this.entrances) {
