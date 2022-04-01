@@ -64,6 +64,11 @@ public class BehaviorAgent {
                 break;
 
             case QUARANTINE:
+                if (p.getX() > 0) {
+                    grid.getTile(p.getX(), p.getY()).setAccessible(true);
+                    grid.getTile(p.getX(), p.getY()).clearOccupant();
+                    p.setPosition(-1, -1);
+                }
                 return i.tickIntent();
 
             default:

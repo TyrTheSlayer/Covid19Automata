@@ -16,7 +16,7 @@ public class Intent {
         // Method to get a random behavior
         public static Behavior getRandomBehavior() {
             Random rand = new Random();
-            return values()[rand.nextInt(values().length)];
+            return values()[rand.nextInt(values().length-1)];
         }
     }
 

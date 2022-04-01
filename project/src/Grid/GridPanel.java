@@ -225,6 +225,17 @@ public class GridPanel extends JPanel implements Runnable {
                 intents.set(i, agent.genIntent());
             }
             agent.action(people.get(i), intents.get(i));
+            if((intents.get(i).getIntent() == Intent.Behavior.QUARANTINE) && (intents.get(i).getDuration()==0)) {
+                Random rn = new Random();
+                int randx = rn.nextInt(this.viewableWidth);
+                int randy = rn.nextInt(this.viewableHeight);
+                while(this.gridViewable[randx][randy].getOccupant() != null) {
+                    randx = rn.nextInt(this.viewableWidth);
+                    randy = rn.nextInt(this.viewableHeight);
+                }
+                people.get(i).setPosition(randx, randy);
+                this.gridViewable[randx][randy].setOccupant(people.get(i));
+            }
         }
 
         //Update the infection
@@ -232,8 +243,8 @@ public class GridPanel extends JPanel implements Runnable {
             int oldX = i.getX();
             int oldY = i.getY();
 
-            //If they're already dead, continue to the next person
-            if(oldX == -666 && oldY == -666)
+            //If they're not in the sim, continue
+            if(oldX < 0)
                 continue;
 
             //Update everyone's infection

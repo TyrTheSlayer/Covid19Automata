@@ -44,7 +44,7 @@ public class Person {
     public Status getStatus() {
         return this.status;
     }
-    
+
 
 
     //Setters
