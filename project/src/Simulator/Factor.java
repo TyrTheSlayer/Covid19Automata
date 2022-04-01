@@ -51,6 +51,14 @@ public class Factor {
         this.severityGive *= vaccination_effectivity;
     }
 
+    /**
+     * Returns whether this factor includes vaccination
+     * @return Whether or not this is vaccinated
+     */
+    public boolean isVaccinated() {
+        return this.vaccinated;
+    }
+
     //Methods
     /**
      * Applies the effect this factor has on the current chance to get infected

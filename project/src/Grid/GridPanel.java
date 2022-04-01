@@ -12,6 +12,7 @@ import DataObjects.Person;
 import Simulator.Intent;
 import Simulator.SimSettings;
 import DataObjects.VirusType;
+import Simulator.DataOut;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,6 +25,10 @@ public class GridPanel extends JPanel implements Runnable {
     // width and height of viewable grid in tiles, excluding the outer border
     public int viewableHeight;
     public int viewableWidth;
+    private int ticks = 0;
+    private final int TICKS_PER_RECORD = 360;
+
+
 
     // width and height of window in pixels, including visible borders
     public int gridPixelWidth;
@@ -49,6 +54,8 @@ public class GridPanel extends JPanel implements Runnable {
     private ArrayList<Person> people;
     private ArrayList<Intent> intents;
     private ArrayList<Factor> factor;
+
+    private DataOut data = new DataOut(100);
 
     private BehaviorAgent agent;
 
@@ -311,10 +318,33 @@ public class GridPanel extends JPanel implements Runnable {
             if (running) {
                 step(); // Process tick
                 repaint(); // Repaint
+                ticks++;
             }
 
 
             // Post-tick code
+
+            //This should write out to the record
+            if (ticks % TICKS_PER_RECORD == 0) {
+                int s = 0;
+                int i = 0;
+                int r = 0;
+                int d = 0;
+                int v = 0;
+                for (Person p : people) {
+                    switch(p.getStatus()) {
+                        case DEAD: d++; break;
+                        case INFECTED: i++; break;
+                        case ALIVE: s++; break;
+                        case RECOVERED: r++; break;
+                    }
+                    if(p.getFactors().isVaccinated()) v++;
+                }
+                data.addRecord(s, i, r, d, v);
+            }
+
+
+            // Final code, to maintain framerate
             long diff = System.currentTimeMillis() - old; // Find exTime
             if (diff < pause_len) { // Wait if necessary to maintain FPS
                 try {
