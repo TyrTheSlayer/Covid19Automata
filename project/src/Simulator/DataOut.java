@@ -1,5 +1,11 @@
 package Simulator;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class DataOut {
 
     private class Array {
@@ -22,6 +28,11 @@ public class DataOut {
                 arr = newArr;
             }
             arr[size++] = a;
+        }
+
+        public int get(int i) {
+            if (i >= 0 && i < size) return arr[i];
+            return -1;
         }
     }
     private Array infected;
@@ -55,7 +66,36 @@ public class DataOut {
     }
 
     public void writeOut() {
-        // insert code to write to YAML
+        String YAMLs= new String();
+        String YAMLi = new String();
+        String YAMLr = new String();
+        String YAMLd = new String();
+        String YAMLv = new String();
+        YAMLs = "susceptible: \r\n";
+        YAMLi = "infected: \r\n";
+        YAMLr = "recovered: \r\n";
+        YAMLd = "dead: \r\n";
+        YAMLv = "vaccinated: \r\n";
+
+        for(int i = 0; i < susceptible.size; i++) {
+            YAMLs += "- " + susceptible.get(i) + "\r\n";
+            YAMLi += "- " + infected.get(i) + "\r\n";
+            YAMLr += "- " + recovered.get(i) + "\r\n";
+            YAMLd += "- " + dead.get(i) + "\r\n";
+            YAMLv += "- " + vaccinated.get(i) + "r\n";
+        }
+        try {
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("mm-dd-yyyy_HH-mm-ss");
+            LocalDateTime now = LocalDateTime.now();
+            String pathname = new String();
+            pathname = "../../../postsim/simulation_" + dtf.format(now);
+            File outFile = new File(pathname);
+            outFile.createNewFile();
+            FileWriter writer = new FileWriter(pathname);
+            writer.write(YAMLs + YAMLi + YAMLr + YAMLd + YAMLv);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

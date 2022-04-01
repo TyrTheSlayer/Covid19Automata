@@ -8,6 +8,7 @@ package Simulator;
 
 import java.util.Random;
 import DataObjects.Person;
+import DataObjects.Status;
 import Grid.GridPanel;
 import Grid.Tile;
 
@@ -49,6 +50,13 @@ public class BehaviorAgent {
      * @return
      */
     public int action(Person p, Intent i) {
+        if (p.getStatus() == Status.DEAD) {
+            grid.getTile(p.getX(), p.getY()).setAccessible(true);
+            grid.getTile(p.getX(), p.getY()).clearOccupant();
+            i.setIntent(Intent.Behavior.DEAD, 1);
+            p.setPosition(-666, -666);
+            return -666;
+        }
         switch(i.getIntent()) {
             // Most of these are as of yet unimplemented, but should not be too difficult
             case SLEEP:
