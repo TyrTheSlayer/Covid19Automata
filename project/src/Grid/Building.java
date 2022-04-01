@@ -89,10 +89,7 @@ public class Building {
                 for(int j = 0; j < 8; j++) {
                     int index = rand.nextInt(this.capacity);
 
-                    if(index >= this.occupants.size()) //Automatically continue if they miss
-                        continue;
-
-                    else {
+                    if(index < this.occupants.size()) {
                         this.occupants.get(index).infect(i); //Otherwise, try to infect them
                     }
                 }
