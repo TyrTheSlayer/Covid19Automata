@@ -1,8 +1,5 @@
 /**
- * @author Samuel Nix
- * @author Summer Bronson
- * @author Aedan Wells
- * @author Jonathan Carsten
+ * @author Samuel Nix, Summer Bronson, Aedan Wells, Janathan Carsten
  *
  * Sets up a grid to be displayed by Mainframe
  */
