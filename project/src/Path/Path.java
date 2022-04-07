@@ -145,8 +145,19 @@ public class Path {
         int j = 1;
 
         while (gridDist[dest.getX()][dest.getY()] <= 0) {
-            ++dx;
-            ++dy;
+            if (dx >= 0 && dy >= 0) {
+                ++dx;
+                ++dy;
+            } else if (dx >= 0 && dy < 0) {
+                ++dx;
+                --dy;
+            } else if (dx < 0 && dy >= 0) {
+                --dx;
+                ++dy;
+            } else {
+                --dx;
+                --dy;
+            }
             --i;
             --j;
             for (; i <= abs(dx); i++) {
