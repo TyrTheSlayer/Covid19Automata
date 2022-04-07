@@ -23,14 +23,28 @@ public class Path {
         for (int i = 0; i < grid.viewableWidth; i++) {
             for(int j = 0; j < grid.viewableHeight; j++) {
                 gridDist[i][j] = -2;
+                if(!grid.getTile(i, j).isAccessible()) gridDist[i][j] = -1;
             }
         }
-
         gridDist[src.getX()][src.getY()] = 0;
     }
 
+    private int findMax(int x, int y) {
+        int max = -3;
+        for (int i = -1; i < 2; i++) {
+            for (int j = -1; j < 2; j++) {
+                if ( !inBounds(x + i, y + j) )
+                    continue;
+                if ((gridDist[x + i][y + j] > max) && (gridDist[x + i][y + j] > -1)) {
+                    max = gridDist[x + i][y + j];
+                }
+            }
+        }
+        return max;
+    }
+
     private int findMinNeighbor(int x, int y) {
-        int min = -1;
+        int min = findMax(x, y);
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
                 if ( !inBounds(x + i, y + j) )
@@ -44,7 +58,7 @@ public class Path {
     }
 
     public int getLength() {
-        return this.Path.size();
+        return this.Path == null ? -1 : this.Path.size();
     }
 
     private ArrayList<Tile> getPath() {
@@ -52,27 +66,47 @@ public class Path {
     }
 
     public Tile nextStep() {
+        if (Path.size() < 1) {
+            this.Path = null;
+            return null;
+        }
+        if (Path.size() == 1) {
+            Tile t = Path.get(0);
+            this.Path = null;
+            return t;
+        }
         Tile t = Path.get(1);
         if (t.isAccessible()) {
             Path.remove(0);
             return t;
         }
-        Path p = new Path(this.grid, Path.get(0));
-        p.findPath(Path.get(0), t);
-        for(int i = 0; i < p.getPath().size(); i++) {
-            Path.add(i+1, p.getPath().get(i));
+        if (Path.size() >= 3) {
+            Path p = new Path(this.grid, Path.get(0));
+            p.findPath(Path.get(0), Path.get(2));
+            if (p.getPath() == null) return Path.get(0);
+            p.getPath().remove(p.getPath().size()-1);
+            p.getPath().remove(0);
+            Path.remove(1);
+            for (int i = 0; i < p.getPath().size(); i++) {
+                Path.add(i + 1, p.getPath().get(i));
+            }
+            t = Path.get(1);
+            Path.remove(0);
+            return t;
         }
-        t = Path.get(1);
-        Path.remove(0);
-        return t;
+        return Path.get(0);
     }
 
-    public void findPath(Tile src, Tile dest) {
+    public boolean findPath(Tile src, Tile dest) {
         if (greedyBFS(src, dest)) {
             buildPath(dest);
-            return;
+            return true;
         }
         square(src, dest);
+        if (gridDist[dest.getX()][dest.getY()] > -1) buildPath(dest);
+        if (Path.size() > 0) return true;
+        Path = null;
+        return false;
     }
 
     private void buildPath(Tile dest) {
@@ -81,15 +115,17 @@ public class Path {
         while (gridDist[x.getX()][x.getY()] > 0) {
             for(int i = -1; i < 2; i++) {
                 for(int j = -1; j < 2; j++) {
-                    if (gridDist[x.getX() + i][x.getY() + j] == gridDist[x.getX()][x.getY()] - 1) {
+                    if (!inBounds(x.getX() + i, x.getY() + j)) continue;
+                    if (gridDist[x.getX() + i][x.getY() + j] == (gridDist[x.getX()][x.getY()] - 1)) {
                         Path.add(0, x);
                         x = grid.getTile(x.getX() + i, x.getY() + j);
                         i = 2;
-                        break;
+                        j = 2;
                     }
                 }
             }
         }
+        Path.add(0, x);
     }
 
 
@@ -190,21 +226,33 @@ public class Path {
     }
 
     private void square(Tile src, Tile dest) {
-        int dx = dest.getX()-src.getX() - 1;
-        int dy = dest.getY()-src.getY() - 1;
-        int i = 1;
-        int j = 1;
+        int dx = dest.getX()-src.getX();
+        int dy = dest.getY()-src.getY();
+        int i = 0;
+        int j = 0;
         int oldi = i;
         int oldj = j;
 
         int left = Math.min(dest.getX(),src.getX());
-        int right = Math.min(grid.getViewableWidth() - dest.getX(), grid.getViewableWidth() - src.getX());
-        int up = Math.min(grid.getViewableHeight() - dest.getY(), grid.getViewableHeight() - src.getY());
+        int right = Math.max(grid.getViewableWidth() - dest.getX(), grid.getViewableWidth() - src.getX());
+        int up = Math.max(grid.getViewableHeight() - dest.getY(), grid.getViewableHeight() - src.getY());
         int down = Math.min(dest.getY(),src.getY());
 
-        while (gridDist[dest.getX()][dest.getY()] <= 0) {
+        while (gridDist[dest.getX()][dest.getY()] == -2 && inBounds(Math.abs(dx), Math.abs(dy))) {
             //bounds checking
 
+
+            //important stuff
+            for (i = oldi; i <= Math.abs(dx); i++) {
+                for (j = oldj; j <= Math.abs(dy); j++) {
+                    // if cases are pathing for different directions
+                    if(gridDist[src.getX() + i * (int) Math.signum(dx) ][src.getY() + j * (int) Math.signum(dy) ] == -2) {
+                        int q = findMinNeighbor(src.getX() + i * (int) Math.signum(dx), src.getY() + j * (int) Math.signum(dy));
+                        boolean accessible = grid.getTile(src.getX() + i * (int) Math.signum(dx), src.getY() + j * (int) Math.signum(dy)).isAccessible();
+                        gridDist[src.getX() + i * (int) Math.signum(dx)][src.getY() + j * (int) Math.signum(dy)] = ((q >= 0) && accessible ? q + 1 : -1);
+                    }
+                }
+            }
 
             //incrementing right
             if(dx >= 0 && right > 0){
@@ -231,29 +279,9 @@ public class Path {
             }
 
             //incrementing down
-            if (down > 0){
+            if (down > 0) {
                 --j;
                 --down;
-            }
-
-            //important stuff
-            for (i = oldi; i <= Math.abs(dx); i++) {
-                for (i = oldj; j <= Math.abs(dy); j++) {
-                    // if cases are pathing for different directions
-                    if (dx >= 0 && dy >= 0) {
-                        int q = findMinNeighbor(src.getX() + i, src.getY() + j);
-                        gridDist[src.getX() + i][src.getY() + j] = q > 0 ? q : -1;
-                    } else if (dx >= 0 && dy < 0) {
-                        int q = findMinNeighbor(src.getX() + i, src.getY() - j);
-                        gridDist[src.getX() + i][src.getY() - j] = q > 0 ? q : -1;
-                    } else if (dx < 0 && dy >= 0) {
-                        int q = findMinNeighbor(src.getX() - i, src.getY() + j);
-                        gridDist[src.getX() - i][src.getY() + j] = q > 0 ? q : -1;
-                    } else {
-                        int q = findMinNeighbor(src.getX() - i, src.getY() - j);
-                        gridDist[src.getX() - i][src.getY() - j] = q > 0 ? q : -1;
-                    }
-                }
             }
         }
     }

@@ -234,7 +234,6 @@ public class GridPanel extends JPanel implements Runnable {
                 this.gridViewable[randx][randy].setOccupant(people.get(i));
             }
         }
-
         //Update the infection
         for(Person i : this.people) {
             int oldX = i.getX();

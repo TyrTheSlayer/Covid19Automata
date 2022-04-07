@@ -115,6 +115,7 @@ public class Tile {
 	 * @param tile The tile to pull the person from
 	 */
 	public void takePerson(Tile tile) {
+		if (tile == this) return;
 		this.occupant = tile.occupant;
 		tile.occupant = null;
 		if(this.occupant != null) {

@@ -13,12 +13,12 @@ import Grid.Tile;
 public class Intent {
     // Enumerate potential actions
     public enum Behavior {
-        SLEEP, ROAM, PATHTO, QUARANTINE, DEAD;
+        SLEEP, ROAM, QUARANTINE, PATHTO, DEAD;
 
         // Method to get a random behavior
         public static Behavior getRandomBehavior() {
             Random rand = new Random();
-            return values()[rand.nextInt(values().length-1)];
+            return values()[rand.nextInt(values().length-2)]; // Change back to -1 after fixing things
         }
     }
 

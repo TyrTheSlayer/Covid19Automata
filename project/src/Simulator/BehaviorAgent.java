@@ -39,7 +39,8 @@ public class BehaviorAgent {
             int x = rand.nextInt(width);
             int y = rand.nextInt(height);
             Path path = new Path(grid, grid.getTile(p.getX(), p.getY()));
-            path.findPath(grid.getTile(p.getX(), p.getY()), grid.getTile(x, y));
+            if (!path.findPath(grid.getTile(p.getX(), p.getY()), grid.getTile(x, y)))
+                return i = new Intent(Intent.Behavior.SLEEP, rand.nextInt(20));
             i.setPath(grid.getTile(x, y), path);
             i.setIntent(Intent.Behavior.PATHTO, path.getLength());
         }
@@ -73,11 +74,20 @@ public class BehaviorAgent {
                 return roam(p);
 
             case PATHTO:
-                Path path = i.getPath();
+                /*
+                Path path;
+                if((path = i.getPath()) == null) {
+
+                }
                 Tile t = path.nextStep();
+                if (t == null) {
+                    i = this.genIntent(p);
+                    return 0;
+                }
                 t.takePerson(grid.getTile(p.getX(), p.getY()));
                 return i.tickIntent();
-
+                */
+                return 1;
             case QUARANTINE:
                 if (p.getX() > 0) {
                     grid.getTile(p.getX(), p.getY()).setAccessible(true);
