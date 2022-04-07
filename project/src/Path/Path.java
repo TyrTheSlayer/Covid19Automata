@@ -1,9 +1,17 @@
+/**
+ * @author Samuel Nix, Summer Bronson
+ *
+ * Pathing algorithms
+ */
+
 package Path;
 
 import Grid.GridPanel;
 import Grid.Tile;
 
 import java.util.ArrayList;
+
+import static java.lang.Math.abs;
 
 public class Path {
     private ArrayList<Tile> Path;
@@ -64,13 +72,23 @@ public class Path {
     private Path square(Tile src, Tile dest) {
         int dx = dest.getX()-src.getX();
         int dy = dest.getY()-src.getY();
+        Path p = new Path(grid, src, dest);
 
-        for (int i = dest.getX(); i <= dest.getX() + dx; i++) {
-            for (int j = dest.getY(); j <= dest.getY() + dy; j++) {
-                if(findMinNeighbor(i,j) == -1) {
-
+        for (int i = 0; i <= abs(dx); i++) {
+            for (int j = 0; j <= abs(dy); j++) {
+                // if cases are pathing for different directions
+                if (dx >= 0 && dy >= 0) {
+                    int q = findMinNeighbor(src.getX() + i, src.getY() + j);
+                    p.gridDist[src.getX() + i][src.getY() + j] = q > 0 ? q : -1;
+                } else if (dx >= 0 && dy < 0) {
+                    int q = findMinNeighbor(src.getX() + i, src.getY() - j);
+                    p.gridDist[src.getX() + i][src.getY() - j] = q > 0 ? q : -1;
+                } else if (dx < 0 && dy >= 0) {
+                    int q = findMinNeighbor(src.getX() - i, src.getY() + j);
+                    p.gridDist[src.getX() - i][src.getY() + j] = q > 0 ? q : -1;
                 } else {
-
+                    int q = findMinNeighbor(src.getX() - i, src.getY() - j);
+                    p.gridDist[src.getX() - i][src.getY() - j] = q > 0 ? q : -1;
                 }
             }
         }
