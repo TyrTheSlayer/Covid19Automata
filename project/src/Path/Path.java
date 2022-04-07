@@ -49,7 +49,7 @@ public class Path {
     }
 
     private int getDir(Tile src, Tile dest) {
-        double dx = dest.getX()-src.getX();
+        double dx = dest.getX() - src.getX();
         double dy = dest.getY() - src.getY();
         double hyp = Math.sqrt( Math.pow(dx,2) + Math.pow(dy, 2) );
         double cos = dx/hyp;
