@@ -43,15 +43,15 @@ public class Path {
         return min;
     }
 
-    private Path findPath(Tile src, Tile dest) {
+    private void findPath(Tile src, Tile dest) {
         if (greedyBFS(src, dest)) {
-            return buildPath(dest);
+            buildPath(dest);
+            return;
         }
-
-        return square(src, dest);
+        square(src, dest);
     }
 
-    private Path buildPath(Tile dest) {
+    private void buildPath(Tile dest) {
         Path.add(0, dest);
         Tile x = dest;
         while (gridDist[x.getX()][x.getY()] > 0) {
@@ -138,39 +138,35 @@ public class Path {
         return (int) (Math.ceil(theta * 4 / Math.PI) % 8); // Return grid direction to search
     }
 
-    private Path square(Tile src, Tile dest) {
+    private void square(Tile src, Tile dest) {
         int dx = dest.getX()-src.getX() - 1;
         int dy = dest.getY()-src.getY() - 1;
         int i = 1;
         int j = 1;
-        Path p = new Path(grid, src, dest);
 
-        while (p.gridDist[dest.getX()][dest.getY()] <= 0) {
+        while (gridDist[dest.getX()][dest.getY()] <= 0) {
             ++dx;
             ++dy;
             --i;
             --j;
-
             for (; i <= abs(dx); i++) {
                 for (; j <= abs(dy); j++) {
                     // if cases are pathing for different directions
                     if (dx >= 0 && dy >= 0) {
                         int q = findMinNeighbor(src.getX() + i, src.getY() + j);
-                        p.gridDist[src.getX() + i][src.getY() + j] = q > 0 ? q : -1;
+                        gridDist[src.getX() + i][src.getY() + j] = q > 0 ? q : -1;
                     } else if (dx >= 0 && dy < 0) {
                         int q = findMinNeighbor(src.getX() + i, src.getY() - j);
-                        p.gridDist[src.getX() + i][src.getY() - j] = q > 0 ? q : -1;
+                        gridDist[src.getX() + i][src.getY() - j] = q > 0 ? q : -1;
                     } else if (dx < 0 && dy >= 0) {
                         int q = findMinNeighbor(src.getX() - i, src.getY() + j);
-                        p.gridDist[src.getX() - i][src.getY() + j] = q > 0 ? q : -1;
+                        gridDist[src.getX() - i][src.getY() + j] = q > 0 ? q : -1;
                     } else {
                         int q = findMinNeighbor(src.getX() - i, src.getY() - j);
-                        p.gridDist[src.getX() - i][src.getY() - j] = q > 0 ? q : -1;
+                        gridDist[src.getX() - i][src.getY() - j] = q > 0 ? q : -1;
                     }
                 }
             }
         }
-
-        return p;
     }
 }
