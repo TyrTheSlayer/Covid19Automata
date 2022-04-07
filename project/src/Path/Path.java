@@ -44,7 +44,15 @@ public class Path {
         int dx = dest.getX()-src.getX();
         int dy = dest.getY()-src.getY();
 
+        for (int i = dest.getX(); i <= dest.getX() + dx; i++) {
+            for (int j = dest.getY(); j <= dest.getY() + dy; j++) {
+                if(findMinNeighbor(i,j) == -1) {
 
+                } else {
+
+                }
+            }
+        }
 
         return null;
     }
