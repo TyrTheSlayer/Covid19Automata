@@ -19,4 +19,13 @@ public class Path {
         int dy = dest.getY()-src.getY();
         return grid.getTile(src.getX() + dx, src.getY() + dy);
     }
+
+    private Path square(Tile src, Tile dest) {
+        int dx = dest.getX()-src.getX();
+        int dy = dest.getY()-src.getY();
+
+
+
+        return null;
+    }
 }
