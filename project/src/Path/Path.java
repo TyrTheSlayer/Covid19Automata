@@ -11,8 +11,6 @@ import Grid.Tile;
 
 import java.util.ArrayList;
 
-import static java.lang.Math.abs;
-
 public class Path {
     private ArrayList<Tile> Path;
     private GridPanel grid;
