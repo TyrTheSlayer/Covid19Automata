@@ -43,6 +43,31 @@ public class Path {
         return min;
     }
 
+    private Path findPath(Tile src, Tile dest) {
+        if (greedyBFS(src, dest)) {
+            return buildPath(dest);
+        }
+
+        return square(src, dest);
+    }
+
+    private Path buildPath(Tile dest) {
+        Path.add(0, dest);
+        Tile x = dest;
+        while (gridDist[x.getX()][x.getY()] > 0) {
+            for(int i = -1; i < 2; i++) {
+                for(int j = -1; j < 2; j++) {
+                    if (gridDist[x.getX() + i][x.getY() + j] == gridDist[x.getX()][x.getY()] - 1) {
+                        Path.add(0, x);
+                        x = grid.getTile(x.getX() + i, x.getY() + j);
+                        i = 2;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
     private Boolean greedyBFS(Tile src, Tile dest) {
         if ((src.getX() == dest.getX()) && (src.getY() == dest.getY())) {
             gridDist[dest.getX()][dest.getY()] = findMinNeighbor(dest.getX(), dest.getY()) + 1;
