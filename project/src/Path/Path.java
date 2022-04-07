@@ -35,6 +35,8 @@ public class Path {
         int min = -1;
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
+                if ( !inBounds(x + i, y + j) )
+                    continue;
                 if ((gridDist[x + i][y + j] < min) && (gridDist[x + i][y + j] > -1)) {
                     min = gridDist[x + i][y + j];
                 }
@@ -92,7 +94,14 @@ public class Path {
         }
     }
 
+
+    private boolean inBounds(int x, int y) {
+        if (   ( (x < 0) || (x >= grid.viewableWidth) )   ||   (  (y < 0) || (y >= grid.viewableHeight)  )  ) return false;
+        return true;
+    }
+
     private Boolean greedyBFS(Tile src, Tile dest) {
+        if (src == null) return false;
         if ((src.getX() == dest.getX()) && (src.getY() == dest.getY())) {
             gridDist[dest.getX()][dest.getY()] = findMinNeighbor(dest.getX(), dest.getY()) + 1;
             return true;
@@ -102,7 +111,13 @@ public class Path {
         if (selection % 2 == 0) { // Selection aligns to grid
             if (selection %4 == 0) { // Selection has same x coord
                 for(int i = -1; i < 2; i++) {
-                    gridDist[src.getX()][src.getY() + i] = grid.getTile(src.getX(), src.getY() + i).isAccessible() ? dist + 1 : -1;
+                    if (selection == 0) {
+                        if (!inBounds(src.getX() + 1, src.getY() + i)) continue;
+                        gridDist[src.getX() + 1][src.getY() + i] = grid.getTile(src.getX(), src.getY() + i).isAccessible() ? dist + 1 : -1;
+                    } else {
+                        if (!inBounds(src.getX() - 1, src.getY() + i)) continue;
+                        gridDist[src.getX() - 1][src.getY() + i] = grid.getTile(src.getX(), src.getY() + i).isAccessible() ? dist + 1 : -1;
+                    }
                 }
                 if (selection == 0) {
                     return greedyBFS(grid.getTile(src.getX() + 1, src.getY()), dest);
@@ -110,7 +125,13 @@ public class Path {
                 return greedyBFS(grid.getTile(src.getX() - 1, src.getY()), dest);
             } else { // Selection has same y cord
                 for(int i = -1; i < 2; i++) {
-                    gridDist[src.getX() + i][src.getY()] = grid.getTile(src.getX() + i, src.getY()).isAccessible() ? dist + 1 : -1;
+                    if (selection == 2) {
+                        if (!inBounds(src.getX() + i, src.getY() + 1)) continue;
+                        gridDist[src.getX() + i][src.getY()] = grid.getTile(src.getX() + i, src.getY() + 1).isAccessible() ? dist + 1 : -1;
+                    } else {
+                        if (!inBounds(src.getX() + i, src.getY() - 1)) continue;
+                        gridDist[src.getX() + i][src.getY()] = grid.getTile(src.getX() + i, src.getY() - 1).isAccessible() ? dist + 1 : -1;
+                    }
                 }
                 if (selection == 2) {
                     return greedyBFS(grid.getTile(src.getX(), src.getY() + 1), dest);
@@ -119,27 +140,35 @@ public class Path {
             }
         } else { // Diagonal
             if (selection > 4) { // need to check 6
-                gridDist[src.getX()][src.getY()-1] = grid.getTile(src.getX(), src.getY() - 1).isAccessible() ? dist + 1 : -1;
+                if (inBounds(src.getX(), src.getY() - 1))
+                    gridDist[src.getX()][src.getY()-1] = grid.getTile(src.getX(), src.getY() - 1).isAccessible() ? dist + 1 : -1;
             } else { // Need to check 2
-                gridDist[src.getX()][src.getY()+1] = grid.getTile(src.getX(), src.getY() + 1).isAccessible() ? dist + 1 : -1;
+                if (inBounds(src.getX(), src.getY() + 1))
+                    gridDist[src.getX()][src.getY()+1] = grid.getTile(src.getX(), src.getY() + 1).isAccessible() ? dist + 1 : -1;
             }
 
             if ((selection - 1) % 6 == 0) { // Need to check 0
-                gridDist[src.getX() + 1][src.getY()] = grid.getTile(src.getX() + 1, src.getY()).isAccessible() ? dist + 1 : -1;
+                if (inBounds(src.getX() + 1, src.getY()))
+                    gridDist[src.getX() + 1][src.getY()] = grid.getTile(src.getX() + 1, src.getY()).isAccessible() ? dist + 1 : -1;
             } else {
-                gridDist[src.getX() - 1][src.getY()] = grid.getTile(src.getX() - 1, src.getY()).isAccessible() ? dist + 1 : -1;
+                if (inBounds(src.getX() - 1, src.getY()))
+                    gridDist[src.getX() - 1][src.getY()] = grid.getTile(src.getX() - 1, src.getY()).isAccessible() ? dist + 1 : -1;
             }
             switch (selection) {
                 case 1:
+                    if (!inBounds(src.getX() + 1, src.getY() + 1)) return false;
                     gridDist[src.getX() + 1][src.getY() + 1] = grid.getTile(src.getX() + 1, src.getY() + 1).isAccessible() ?  dist + 1 : -1;
                     return greedyBFS(grid.getTile(src.getX() + 1, src.getY() + 1), dest);
                 case 3:
+                    if (!inBounds(src.getX() - 1, src.getY() + 1)) return false;
                     gridDist[src.getX() - 1][src.getY() + 1] = grid.getTile(src.getX() - 1, src.getY() + 1).isAccessible() ? dist + 1 : -1;
                     return greedyBFS(grid.getTile(src.getX() - 1, src.getY() + 1), dest);
                 case 5:
+                    if (!inBounds(src.getX() - 1, src.getY() - 1)) return false;
                     gridDist[src.getX() - 1][src.getY() - 1] = grid.getTile(src.getX() -1, src.getY() - 1).isAccessible() ? dist + 1 : -1;
                     return greedyBFS(grid.getTile(src.getX() - 1, src.getY() - 1), dest);
                 case 7:
+                    if (!inBounds(src.getX() + 1, src.getY() - 1)) return false;
                     gridDist[src.getX() + 1][src.getY() - 1] = grid.getTile(src.getX() + 1, src.getY() - 1).isAccessible() ? dist + 1 : -1;
                     return greedyBFS(grid.getTile(src.getX() + 1, src.getY() - 1), dest);
                 default:
