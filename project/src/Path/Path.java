@@ -11,8 +11,6 @@ import Grid.Tile;
 
 import java.util.ArrayList;
 
-import static java.lang.Math.abs;
-
 public class Path {
     private ArrayList<Tile> Path;
     private GridPanel grid;
@@ -196,25 +194,51 @@ public class Path {
         int dy = dest.getY()-src.getY() - 1;
         int i = 1;
         int j = 1;
+        int oldi = i;
+        int oldj = j;
+
+        int left = Math.min(dest.getX(),src.getX());
+        int right = Math.min(grid.getViewableWidth() - dest.getX(), grid.getViewableWidth() - src.getX());
+        int up = Math.min(grid.getViewableHeight() - dest.getY(), grid.getViewableHeight() - src.getY());
+        int down = Math.min(dest.getY(),src.getY());
 
         while (gridDist[dest.getX()][dest.getY()] <= 0) {
-            if (dx >= 0 && dy >= 0) {
+            //bounds checking
+
+
+            //incrementing right
+            if(dx >= 0 && right > 0){
                 ++dx;
-                ++dy;
-            } else if (dx >= 0 && dy < 0) {
-                ++dx;
-                --dy;
-            } else if (dx < 0 && dy >= 0) {
+                --right;
+            } else if (dx < 0 && right > 0){
                 --dx;
-                ++dy;
-            } else {
-                --dx;
-                --dy;
+                --right;
             }
-            --i;
-            --j;
-            for (; i <= abs(dx); i++) {
-                for (; j <= abs(dy); j++) {
+
+            //incrementing up
+            if(dy >= 0 && up > 0){
+                ++dy;
+                --up;
+            } else if (dy < 0 && up > 0){
+                --dy;
+                --up;
+            }
+
+            //incrementing left
+            if(left > 0){
+                --i;
+                --left;
+            }
+
+            //incrementing down
+            if (down > 0){
+                --j;
+                --down;
+            }
+
+            //important stuff
+            for (i = oldi; i <= Math.abs(dx); i++) {
+                for (i = oldj; j <= Math.abs(dy); j++) {
                     // if cases are pathing for different directions
                     if (dx >= 0 && dy >= 0) {
                         int q = findMinNeighbor(src.getX() + i, src.getY() + j);
