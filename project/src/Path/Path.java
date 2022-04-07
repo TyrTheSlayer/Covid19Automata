@@ -18,7 +18,7 @@ public class Path {
     private GridPanel grid;
     private int gridDist[][];
 
-    public Path(GridPanel grid, Tile src, Tile dest) {
+    public Path(GridPanel grid, Tile src) {
         this.Path = new ArrayList<>();
         this.grid = grid;
         this.gridDist = new int[grid.viewableWidth][grid.viewableHeight];
@@ -43,7 +43,31 @@ public class Path {
         return min;
     }
 
-    private void findPath(Tile src, Tile dest) {
+    public int getLength() {
+        return this.Path.size();
+    }
+
+    private ArrayList<Tile> getPath() {
+        return this.Path;
+    }
+
+    public Tile nextStep() {
+        Tile t = Path.get(1);
+        if (t.isAccessible()) {
+            Path.remove(0);
+            return t;
+        }
+        Path p = new Path(this.grid, Path.get(0));
+        p.findPath(Path.get(0), t);
+        for(int i = 0; i < p.getPath().size(); i++) {
+            Path.add(i+1, p.getPath().get(i));
+        }
+        t = Path.get(1);
+        Path.remove(0);
+        return t;
+    }
+
+    public void findPath(Tile src, Tile dest) {
         if (greedyBFS(src, dest)) {
             buildPath(dest);
             return;

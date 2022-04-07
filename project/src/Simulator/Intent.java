@@ -7,6 +7,8 @@
 package Simulator;
 
 import java.util.Random;
+import Path.Path;
+import Grid.Tile;
 
 public class Intent {
     // Enumerate potential actions
@@ -22,17 +24,16 @@ public class Intent {
 
     private Behavior intent;
     private int duration;
-    private int x;
-    private int y;
-
+    private Tile dest;
+    private Path path;
     /**
      * Default constructor, sets a cell to be asleep and off the grid
      */
     public Intent() {
         this.intent  = Behavior.SLEEP;
         this.duration = 0;
-        this.x = -1;
-        this.y = -1;
+        this.dest = null;
+        this.path = null;
     }
 
     /**
@@ -43,8 +44,8 @@ public class Intent {
     public Intent(Behavior b, int dur) {
         this.intent = b;
         this.duration = dur;
-        this.x = -1;
-        this.y = -1;
+        this.dest = null;
+        this.path = null;
     }
 
     /**
@@ -54,15 +55,13 @@ public class Intent {
     public Intent(Intent i) {
         this.intent = i.intent;
         this.duration = i.duration;
-        this.x = i.x;
-        this.y = i.y;
+        this.dest = i.dest;
+        this.path = i.path;
     }
 
     // Getters
     public Behavior getIntent() { return this.intent; }
     public int getDuration() { return this.duration; }
-    public int getX() { return this.x; }
-    public int getY() { return this.y; }
 
     /**
      * Setter to overwrite intent, only partially filled to change a state (perhaps from SLEEP to QUARANTINE)
@@ -72,8 +71,6 @@ public class Intent {
     public void setIntent(Behavior b, int dur) {
         this.intent = b;
         this.duration = dur;
-        this.x = -1;
-        this.y = -1;
     }
 
     /**
@@ -81,6 +78,8 @@ public class Intent {
      * @return The remaining duration
      */
     public int tickIntent() {
+        if (path != null)
+            this.duration = path.getLength();
         if (this.duration > 0) {
             this.duration--;
             return this.duration;
@@ -88,16 +87,18 @@ public class Intent {
         return -1;
     }
 
+    public Path getPath() {
+        return this.path;
+    }
+
     /**
      * Sets a path for a person if it intends to travel somewhere
-     * @param x The x coordinate of the destination cell
-     * @param y The y coordinate of the destination cell
      */
-    public void setPath(int x, int y) {
+    public void setPath(Tile dest, Path p) {
         this.intent = Behavior.PATHTO;
-        this.duration = 10;
-        this.x = x;
-        this.y = y;
+        this.duration = p.getLength();
+        this.dest = dest;
+        this.path = p;
     }
 
 }
