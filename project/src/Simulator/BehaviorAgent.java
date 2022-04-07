@@ -11,6 +11,7 @@ import DataObjects.Person;
 import DataObjects.Status;
 import Grid.GridPanel;
 import Grid.Tile;
+import Path.Path;
 
 public class BehaviorAgent {
     private GridPanel grid;
@@ -31,13 +32,16 @@ public class BehaviorAgent {
      * Generates a random intent for a cell to act on
      * @return A fully initialized Intent object
      */
-    public Intent genIntent() {
+    public Intent genIntent(Person p) {
         Random rand = new Random();
         Intent i = new Intent(Intent.Behavior.getRandomBehavior(), rand.nextInt(20)); // Generates a random intent with max duration of 20 ticks
         if (i.getIntent() == Intent.Behavior.PATHTO) { // Initializes a random destination cell if the person wants to path somewhere
             int x = rand.nextInt(width);
             int y = rand.nextInt(height);
-            i.setPath(x, y);
+            Path path = new Path(grid, grid.getTile(p.getX(), p.getY()));
+            path.findPath(grid.getTile(p.getX(), p.getY()), grid.getTile(x, y));
+            i.setPath(grid.getTile(x, y), path);
+            i.setIntent(Intent.Behavior.PATHTO, path.getLength());
         }
         // Return the intent
         return i;
@@ -69,7 +73,10 @@ public class BehaviorAgent {
                 return roam(p);
 
             case PATHTO:
-                break;
+                Path path = i.getPath();
+                Tile t = path.nextStep();
+                t.takePerson(grid.getTile(p.getX(), p.getY()));
+                return i.tickIntent();
 
             case QUARANTINE:
                 if (p.getX() > 0) {

@@ -145,7 +145,7 @@ public class GridPanel extends JPanel implements Runnable {
                 Person p = new Person(randx, randy, f);
                 this.factor.add(f);
                 this.people.add(p);
-                this.intents.add(agent.genIntent());
+                this.intents.add(agent.genIntent(p));
                 this.gridViewable[randx][randy].setOccupant(p);
                 i++;
             }
@@ -219,7 +219,7 @@ public class GridPanel extends JPanel implements Runnable {
     public void step() {
         for (int i = 0 ;i < people.size(); i++) {
             if(intents.get(i).tickIntent() < 0) {
-                intents.set(i, agent.genIntent());
+                intents.set(i, agent.genIntent(people.get(i)));
             }
             agent.action(people.get(i), intents.get(i));
             if((intents.get(i).getIntent() == Intent.Behavior.QUARANTINE) && (intents.get(i).getDuration()==0)) {
