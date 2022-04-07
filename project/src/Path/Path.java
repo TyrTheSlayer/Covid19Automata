@@ -60,4 +60,21 @@ public class Path {
         }
         return (int) (Math.ceil(theta * 4 / Math.PI) % 8); // Return grid direction to search
     }
+
+    private Path square(Tile src, Tile dest) {
+        int dx = dest.getX()-src.getX();
+        int dy = dest.getY()-src.getY();
+
+        for (int i = dest.getX(); i <= dest.getX() + dx; i++) {
+            for (int j = dest.getY(); j <= dest.getY() + dy; j++) {
+                if(findMinNeighbor(i,j) == -1) {
+
+                } else {
+
+                }
+            }
+        }
+
+        return null;
+    }
 }
