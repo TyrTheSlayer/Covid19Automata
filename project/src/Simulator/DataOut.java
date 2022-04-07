@@ -8,6 +8,9 @@ import java.time.format.DateTimeFormatter;
 
 public class DataOut {
 
+    /**
+     * An inner class for dynamically sized arrays, for data collection/storage
+     */
     private class Array {
         private int arr[];
         private int size = 0;
