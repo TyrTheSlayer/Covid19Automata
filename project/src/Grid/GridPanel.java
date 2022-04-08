@@ -6,6 +6,7 @@
 
 package Grid;
 
+import DataObjects.Status;
 import Simulator.BehaviorAgent;
 import Simulator.Factor;
 import DataObjects.Person;
@@ -236,6 +237,7 @@ public class GridPanel extends JPanel implements Runnable {
         }
         //Update the infection
         for(Person i : this.people) {
+
             int oldX = i.getX();
             int oldY = i.getY();
 
@@ -247,7 +249,7 @@ public class GridPanel extends JPanel implements Runnable {
             i.updateVirus();
 
             //If they died, clear their tile and go to the next loop
-            if(i.getX() == -666 && i.getY() == -666) {
+            if(i.getStatus() == Status.DEAD) {
                 this.gridViewable[oldX][oldY].clearOccupant();
                 continue;
             }
