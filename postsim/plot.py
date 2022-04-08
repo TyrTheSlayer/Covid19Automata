@@ -1,8 +1,8 @@
-from package1 import plotgen
+from package1.plotgen import plotgen
 
 df = plotgen()
 
 df.printdf()
 
-df.plot_line("asfd")
+df.plot_line()
 
