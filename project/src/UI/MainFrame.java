@@ -17,6 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import org.python.util.PythonInterpreter;
 
 public class MainFrame extends JFrame{
     public GridPanel gridPanel;
@@ -33,6 +34,8 @@ public class MainFrame extends JFrame{
         this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 gridPanel.writeData();
+                PythonInterpreter inter = new PythonInterpreter();
+                //inter.execfile("postsim/plot.py");
             }
         });
     }
