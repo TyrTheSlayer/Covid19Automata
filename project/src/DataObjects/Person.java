@@ -252,7 +252,8 @@ public class Person {
                 canvas.setColor(Color.MAGENTA);
                 break;
             case DEAD:
-                canvas.setColor(Color.BLACK);
+                canvas.setColor(Color.RED);
+                System.out.println(this.toString());
                 break;
             case RECOVERED:
                 canvas.setColor(Color.CYAN);
@@ -272,5 +273,16 @@ public class Person {
      */
     public Factor getFactors() {
         return this.factors;
+    }
+
+    /**
+     * Gives the string representation of the person
+     *
+     * @return The string representation of the person
+     */
+    public String toString() {
+        String string = "Status: " + this.status + "\n";
+        string += "Location: (" + this.x + ", " + this.y + ")";
+        return string;
     }
 }
