@@ -79,9 +79,7 @@ public class DataOut {
             CSV += vaccinated.get(i) + "\r\n";
         }
         try {
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM-dd-yyyy_HH-mm-ss");
-            LocalDateTime now = LocalDateTime.now();
-            String pathname = "./postsim/simulation_" + dtf.format(now) + ".csv";
+            String pathname = "./postsim/simulation.csv";
             File outFile = new File(pathname);
             outFile.createNewFile();
             FileWriter writer = new FileWriter(pathname);

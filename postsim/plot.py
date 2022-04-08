@@ -1,4 +1,4 @@
-from plotgen import plotgen
+from package1 import plotgen
 
 df = plotgen()
 
