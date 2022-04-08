@@ -7,6 +7,7 @@
 package Grid;
 
 import DataObjects.Person;
+import DataObjects.Status;
 
 import java.awt.*;
 
@@ -143,8 +144,15 @@ public class Tile {
 		canvas.fillRect(size * this.x, size * this.y, size, size);
 
 		//If there's an occupant, have them draw themselves
-		if(this.occupant != null)
-			this.occupant.draw(size, canvas);
+		if(this.occupant != null) {
+			//If they're dead, clear this tile
+			if(this.occupant.getStatus() == Status.DEAD) {
+				this.clearOccupant();
+			}
+			//Otherwise, draw
+			else
+				this.occupant.draw(size, canvas);
+		}
 
 		//Restore the old color
 		canvas.setColor(oldCol);
