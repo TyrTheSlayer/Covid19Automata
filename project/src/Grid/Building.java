@@ -47,15 +47,65 @@ public class Building {
         this.vaccMandate = vaccMandate;
         this.capacity = capacity;
         this.space = spaces;
+        this.occupants = new ArrayList<>();
 
         //Update the entrances on the tile side
         for(Tile i : this.entrances) {
             i.setEntranceTo(this);
         }
 
-        //Block all of the tiles that are in the building
-        for(Tile i : this.space)
+        //Block all of the tiles that are in the building, taking occupants
+        for(Tile i : this.space) {
+            if (i.getOccupant() != null) {
+                //Give the person a bogus position
+                i.getOccupant().setPosition(-1, -1);
+                this.occupants.add(i.getOccupant());
+                i.clearOccupant();
+            }
+
             i.setAccessible(false);
+        }
+    }
+
+    /**
+     * Makes a building with the given sides, entrances, and exits, that never closes
+     *
+     * @param entrances The entrances to the building
+     * @param exits The exits to the building
+     * @param maskMandate Whether or not the building has a mask mandate
+     * @param vaccMandate Whether or not the building has a mask mandate
+     * @param capacity The maxiumum number of people that can fit into the buidling
+     * @param spaces The tiles that the building occupies
+     */
+    public Building(Tile[] entrances, Tile[] exits, boolean maskMandate,
+                    boolean vaccMandate, int capacity, ArrayList<Tile> spaces) {
+        //Assign the attributes
+        this.entrances = entrances;
+        this.exits = exits;
+        this.openingTime = 0;
+        this.closingTime = 999999999;
+        this.maskMandate = maskMandate;
+        this.vaccMandate = vaccMandate;
+        this.capacity = capacity;
+        this.space = spaces;
+        this.occupants = new ArrayList<>();
+
+        //Update the entrances on the tile side
+        for(Tile i : this.entrances) {
+            i.setEntranceTo(this);
+        }
+
+        //Block all of the tiles that are in the building, taking occupants
+        for(Tile i : this.space) {
+            if (i.getOccupant() != null) {
+                //Give the person a bogus position
+                i.getOccupant().setPosition(-1, -1);
+                this.occupants.add(i.getOccupant());
+                i.clearOccupant();
+            }
+
+            i.setAccessible(false);
+        }
     }
 
     //Methods
@@ -141,5 +191,53 @@ public class Building {
                 }
             }
         }
+    }
+
+    /**
+     * Generates building from the given array of types
+     *
+     * @param types The types to generate
+     * @param tiles The tiles to use
+     * @return An arraylist of buildings
+     */
+    public static ArrayList<Building> generateBuildings(BuildingType[] types, Tile[][] tiles) {
+        int x = 3;
+        int y = 3;
+        int maxHeight = 0; //The max recorded height of a building in the current row
+        boolean failFlag = false;
+        ArrayList<Building> buildings = new ArrayList<>();
+
+        //Loop through the types
+        for(int i = 0; i < types.length; i++) {
+            ArrayList<Tile> needed = types[i].allocateTiles(tiles, x, y);
+
+            //Check for an error
+            if(needed == null) {
+                //Multiple consecutive fails, something is actually wrong
+                if(failFlag) {
+                    System.out.println("Building generation failed");
+                    System.exit(-1);
+                }
+
+                //First fail, we probably just need to move down
+                else {
+                    y += maxHeight + 3;
+                    maxHeight = 0;
+                    x = 3;
+                    failFlag = true;
+                    continue;
+                }
+            }
+
+            //No error, actually make the building
+            x += types[i].getW() + 3;
+            Tile[] entrance = new Tile[1];
+            entrance[0] = tiles[x + (types[i].getW()/2) - 1][y + types[i].getH() + 1];
+            Tile[] exit = new Tile[1];
+            exit[0] = tiles[x + (types[i].getW()/2) + 1][y + types[i].getH() + 1];
+            buildings.add(new Building(entrance, exit, false, false, 999, needed));
+        }
+
+        return buildings;
     }
 }
