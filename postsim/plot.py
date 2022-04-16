@@ -1,8 +1,22 @@
-from package1.plotgen import plotgen
+from plotgen import plotgen
+import argparse
 
-df = plotgen()
+def main():
+	parser = argparse.ArgumentParser()
+	parser.add_argument("-d", "--density", action="store_true")
+	parser.add_argument("-l", "--line", help="argument should be \"infected\", \"dead\", \"recovered\", or \"susceptible\"")
+	args = parser.parse_args()
 
-df.printdf()
+	plotter = plotgen()
 
-df.plot_line()
+	# plot a density chart
+	if(args.density == True):
+		plotter.plot_density()
+	elif(args.line != None):
+		print type(args.l)
+		plotter.plot_line(args.l)
+
+
+if __name__ == "__main__":
+	main()
 
