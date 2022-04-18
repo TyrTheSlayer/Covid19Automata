@@ -6,11 +6,15 @@
 
 package DataObjects;
 import Grid.Building;
+
+import java.sql.Time;
 import java.util.ArrayList;
 
 public class DailySchedule {
     //Static list of valid schedules
-    private static ArrayList<DailySchedule> schedules = new ArrayList<>();
+    private static ArrayList<DailySchedule> schedules = new ArrayList<>(); //General
+    private static ArrayList<DailySchedule> workSchedules = new ArrayList<>(); //Work Schedules
+    private static ArrayList<DailySchedule> errandSchedules = new ArrayList<>(); //Errand schedules
 
     //Schedule parts
     private String name;
@@ -47,20 +51,30 @@ public class DailySchedule {
     }
 
     /**
-     * Get the schedule with the given name
+     * Get the arraylist of schedules
      *
-     * @param name The name to look for. Is case sensitive.
-     * @return The matching schedule, or null if none were found
+     * @return The general list of schedules
      */
-    public static DailySchedule getSchedule(String name) {
-        //Look for the schedule in the list
-        for(DailySchedule i : schedules) {
-            if(i.name.equals(name))
-                return i; //Return if found
-        }
+    public static ArrayList<DailySchedule> getSchedules() {
+        return schedules;
+    }
 
-        //Otherwise, return null
-        return null;
+    /**
+     * Get the arraylist of work schedules
+     *
+     * @return The list of work schedules
+     */
+    public static ArrayList<DailySchedule> getWorkSchedules() {
+        return workSchedules;
+    }
+
+    /**
+     * Get the arraylist of errand schedules
+     *
+     * @return The list of errand schedules
+     */
+    public static ArrayList<DailySchedule> getErrandSchedules() {
+        return errandSchedules;
     }
 
     /**
@@ -76,6 +90,47 @@ public class DailySchedule {
         schedules.add(schedule);
 
         //Return the schedule
+        return schedule;
+    }
+
+    /**
+     * Make a simple work schedule, using the given building as a workplace
+     *
+     * @param workplace The workplace
+     * @return The schedule
+     */
+    public static DailySchedule makeWorkSchedule(Building workplace) {
+        ArrayList<TimeCard> obligations = new ArrayList<>();
+
+        //Add the home, the workplace, then the home again
+        obligations.add(new TimeCard(workplace, 0.1, 0.9));
+
+        //Add it to the workplace schedules
+        DailySchedule schedule = makeSchedule("BasicWorkSchedule", obligations);
+        workSchedules.add(schedule);
+
+        return schedule;
+    }
+
+    /**
+     * Make a simple errand schedule, using the array of buildings as the targets
+     *
+     * @param targets The targets
+     * @return The schedule
+     */
+    public static DailySchedule makeErrandSchedule(Building[] targets) {
+        ArrayList<TimeCard> obligations = new ArrayList<>();
+
+        //Iterate through, making time cards for each building
+        double l = 0.8 / targets.length;
+        for(int i = 0; i < targets.length; i++) {
+            obligations.add(new TimeCard(targets[i], (l * i) + 0.1, (l * (i + 1)) + 0.1));
+        }
+
+        //Add it to the errand schedules
+        DailySchedule schedule = makeSchedule("BasicErrandSchedule", obligations);
+        errandSchedules.add(schedule);
+
         return schedule;
     }
 }
