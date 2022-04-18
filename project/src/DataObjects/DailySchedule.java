@@ -60,12 +60,21 @@ public class DailySchedule {
     }
 
     /**
-     * Get the arraylist of schedules
+     * Get the arraylist of work schedules
      *
-     * @return The general list of schedules
+     * @return The list of work schedules
      */
     public static ArrayList<DailySchedule> getWorkSchedules() {
         return workSchedules;
+    }
+
+    /**
+     * Get the arraylist of errand schedules
+     *
+     * @return The list of errand schedules
+     */
+    public static ArrayList<DailySchedule> getErrandSchedules() {
+        return errandSchedules;
     }
 
     /**
@@ -119,8 +128,8 @@ public class DailySchedule {
         }
 
         //Add it to the errand schedules
-        DailySchedule schedule = makeSchedule("BasicWorkSchedule", obligations);
-        workSchedules.add(schedule);
+        DailySchedule schedule = makeSchedule("BasicErrandSchedule", obligations);
+        errandSchedules.add(schedule);
 
         return schedule;
     }
