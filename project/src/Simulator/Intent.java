@@ -18,7 +18,7 @@ public class Intent {
         // Method to get a random behavior
         public static Behavior getRandomBehavior() {
             Random rand = new Random();
-            return values()[rand.nextInt(values().length-2)]; // Change back to -1 after fixing things
+            return values()[rand.nextInt(values().length-1)]; // Change back to -1 after fixing things
         }
     }
 

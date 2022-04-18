@@ -38,9 +38,13 @@ public class BehaviorAgent {
         if (i.getIntent() == Intent.Behavior.PATHTO) { // Initializes a random destination cell if the person wants to path somewhere
             int x = rand.nextInt(width);
             int y = rand.nextInt(height);
+            while (!grid.getTile(x, y).isAccessible()) {
+                x = rand.nextInt(width);
+                y = rand.nextInt(height);
+            }
             Path path = new Path(grid, grid.getTile(p.getX(), p.getY()));
             if (!path.findPath(grid.getTile(p.getX(), p.getY()), grid.getTile(x, y)))
-                return i = new Intent(Intent.Behavior.SLEEP, rand.nextInt(20));
+                return new Intent(Intent.Behavior.SLEEP, rand.nextInt(20));
             i.setPath(grid.getTile(x, y), path);
             i.setIntent(Intent.Behavior.PATHTO, path.getLength());
         }
@@ -55,13 +59,6 @@ public class BehaviorAgent {
      * @return
      */
     public int action(Person p, Intent i) {
-        if ((p.getStatus() == Status.DEAD) && (p.getX() > 0)){
-            grid.getTile(p.getX(), p.getY()).setAccessible(true);
-            grid.getTile(p.getX(), p.getY()).clearOccupant();
-            i.setIntent(Intent.Behavior.DEAD, 1);
-            p.setPosition(-666, -666);
-            return -666;
-        }
         switch(i.getIntent()) {
             // Most of these are as of yet unimplemented, but should not be too difficult
             case SLEEP:
@@ -74,20 +71,24 @@ public class BehaviorAgent {
                 return roam(p);
 
             case PATHTO:
-                /*
                 Path path;
                 if((path = i.getPath()) == null) {
-
+                    i.setPath(null, null);
+                    i.setIntent(Intent.Behavior.SLEEP, 1);
+                    return i.tickIntent();
                 }
                 Tile t = path.nextStep();
                 if (t == null) {
-                    i = this.genIntent(p);
-                    return 0;
+                    return genIntent(p).tickIntent();
+                }
+                if (grid.getTile(p.getX(), p.getY()) == null) return -1;
+                if ((grid.getTile(p.getX(), p.getY()) == t) && (path.getLength() > 0)){
+                    t = path.courtesyStep();
                 }
                 t.takePerson(grid.getTile(p.getX(), p.getY()));
                 return i.tickIntent();
-                */
-                return 1;
+
+                //return 1;
             case QUARANTINE:
                 if (p.getX() > 0) {
                     grid.getTile(p.getX(), p.getY()).setAccessible(true);

@@ -30,12 +30,12 @@ public class Path {
     }
 
     private int findMax(int x, int y) {
-        int max = -3;
+        int max = -1;
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
                 if ( !inBounds(x + i, y + j) )
                     continue;
-                if ((gridDist[x + i][y + j] > max) && (gridDist[x + i][y + j] > -1)) {
+                if ((gridDist[x + i][y + j] > -1) && (gridDist[x + i][y + j] > max)) {
                     max = gridDist[x + i][y + j];
                 }
             }
@@ -49,7 +49,7 @@ public class Path {
             for (int j = -1; j < 2; j++) {
                 if ( !inBounds(x + i, y + j) )
                     continue;
-                if ((gridDist[x + i][y + j] < min) && (gridDist[x + i][y + j] > -1)) {
+                if ( (gridDist[x + i][y + j] > -1) && (gridDist[x + i][y + j] < min)) {
                     min = gridDist[x + i][y + j];
                 }
             }
@@ -70,8 +70,9 @@ public class Path {
             this.Path = null;
             return null;
         }
-        if (Path.size() == 1) {
+        if (Path.size() < 3) {
             Tile t = Path.get(0);
+            Path.remove(0);
             this.Path = null;
             return t;
         }
@@ -80,19 +81,34 @@ public class Path {
             Path.remove(0);
             return t;
         }
-        if (Path.size() >= 3) {
-            Path p = new Path(this.grid, Path.get(0));
-            p.findPath(Path.get(0), Path.get(2));
-            if (p.getPath() == null) return Path.get(0);
-            p.getPath().remove(p.getPath().size()-1);
-            p.getPath().remove(0);
-            Path.remove(1);
-            for (int i = 0; i < p.getPath().size(); i++) {
-                Path.add(i + 1, p.getPath().get(i));
+        int i = 2;
+        for(;i < Path.size() && !Path.get(i).isAccessible(); i++);
+        if (i == Path.size()) return Path.get(0);
+        Path p = new Path(this.grid, Path.get(0));
+        p.findPath(Path.get(0), Path.get(i));
+        if (p.getPath() == null) return Path.get(0);
+        p.getPath().remove(p.getPath().size()-1);
+        p.getPath().remove(0);
+        for(int j = 1; j < i; j++) Path.remove(j);
+        for (i = 0; i < p.getPath().size(); i++) Path.add(i + 1, p.getPath().get(i));
+        t = Path.get(1);
+        Path.remove(0);
+        return t;
+    }
+
+    public Tile courtesyStep() {
+        for (int i = -1; i < 2; i++) {
+            for (int j = -1; j < 2; j++) {
+                if ((i == 0) && (j == 0)) continue;
+                int x = Path.get(0).getX() + i;
+                int y = Path.get(0).getY() + j;
+                if (!inBounds(x,y)) continue;
+                Tile t = grid.getTile(x, y);
+                if (t.isAccessible()) {
+                    Path.add(0, t);
+                    return t;
+                }
             }
-            t = Path.get(1);
-            Path.remove(0);
-            return t;
         }
         return Path.get(0);
     }
@@ -121,9 +137,10 @@ public class Path {
                         x = grid.getTile(x.getX() + i, x.getY() + j);
                         i = 2;
                         j = 2;
-                    }
+                    } else if ((x.getX() == dest.getX()) && (x.getY() == dest.getY())) break;
                 }
             }
+            if ((x.getX() == dest.getX()) && (x.getY() == dest.getY())) break;
         }
         Path.add(0, x);
     }
@@ -135,9 +152,8 @@ public class Path {
     }
 
     private Boolean greedyBFS(Tile src, Tile dest) {
-        if (src == null) return false;
+        if (src == null || dest == null) return false;
         if ((src.getX() == dest.getX()) && (src.getY() == dest.getY())) {
-            gridDist[dest.getX()][dest.getY()] = findMinNeighbor(dest.getX(), dest.getY()) + 1;
             return true;
         }
         int selection = getDir(src, dest);
@@ -146,10 +162,10 @@ public class Path {
             if (selection %4 == 0) { // Selection has same x coord
                 for(int i = -1; i < 2; i++) {
                     if (selection == 0) {
-                        if (!inBounds(src.getX() + 1, src.getY() + i)) continue;
+                        if (!inBounds(src.getX() + 1, src.getY() + i) || i == 0) continue;
                         gridDist[src.getX() + 1][src.getY() + i] = grid.getTile(src.getX(), src.getY() + i).isAccessible() ? dist + 1 : -1;
                     } else {
-                        if (!inBounds(src.getX() - 1, src.getY() + i)) continue;
+                        if (!inBounds(src.getX() - 1, src.getY() + i) || i == 0) continue;
                         gridDist[src.getX() - 1][src.getY() + i] = grid.getTile(src.getX(), src.getY() + i).isAccessible() ? dist + 1 : -1;
                     }
                 }
@@ -160,10 +176,10 @@ public class Path {
             } else { // Selection has same y cord
                 for(int i = -1; i < 2; i++) {
                     if (selection == 2) {
-                        if (!inBounds(src.getX() + i, src.getY() + 1)) continue;
+                        if (!inBounds(src.getX() + i, src.getY() + 1) || i == 0) continue;
                         gridDist[src.getX() + i][src.getY()] = grid.getTile(src.getX() + i, src.getY() + 1).isAccessible() ? dist + 1 : -1;
                     } else {
-                        if (!inBounds(src.getX() + i, src.getY() - 1)) continue;
+                        if (!inBounds(src.getX() + i, src.getY() - 1) || i == 0) continue;
                         gridDist[src.getX() + i][src.getY()] = grid.getTile(src.getX() + i, src.getY() - 1).isAccessible() ? dist + 1 : -1;
                     }
                 }

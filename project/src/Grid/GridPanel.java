@@ -219,22 +219,26 @@ public class GridPanel extends JPanel implements Runnable {
      */
     public void step() {
         for (int i = 0 ;i < people.size(); i++) {
-            if(intents.get(i).tickIntent() < 0) {
-                intents.set(i, agent.genIntent(people.get(i)));
-            }
-            agent.action(people.get(i), intents.get(i));
-            if((intents.get(i).getIntent() == Intent.Behavior.QUARANTINE) && (intents.get(i).getDuration()==0)) {
-                //Only bring them out if they didn't die
-                if(people.get(i).getStatus() != Status.DEAD) {
-                    Random rn = new Random();
-                    int randx = rn.nextInt(this.viewableWidth);
-                    int randy = rn.nextInt(this.viewableHeight);
-                    while (this.gridViewable[randx][randy].getOccupant() != null) {
-                        randx = rn.nextInt(this.viewableWidth);
-                        randy = rn.nextInt(this.viewableHeight);
+            if (people.get(i).getX() == -666) { // F*cking zombies
+                intents.get(i).setIntent(Intent.Behavior.DEAD, 0);
+            } else {
+                if (intents.get(i).tickIntent() < 0) {
+                    intents.set(i, agent.genIntent(people.get(i)));
+                }
+                agent.action(people.get(i), intents.get(i));
+                if ((intents.get(i).getIntent() == Intent.Behavior.QUARANTINE) && (intents.get(i).getDuration() == 0)) {
+                    //Only bring them out if they didn't die
+                    if (people.get(i).getStatus() != Status.DEAD) {
+                        Random rn = new Random();
+                        int randx = rn.nextInt(this.viewableWidth);
+                        int randy = rn.nextInt(this.viewableHeight);
+                        while (this.gridViewable[randx][randy].getOccupant() != null) {
+                            randx = rn.nextInt(this.viewableWidth);
+                            randy = rn.nextInt(this.viewableHeight);
+                        }
+                        people.get(i).setPosition(randx, randy);
+                        this.gridViewable[randx][randy].setOccupant(people.get(i));
                     }
-                    people.get(i).setPosition(randx, randy);
-                    this.gridViewable[randx][randy].setOccupant(people.get(i));
                 }
             }
         }
