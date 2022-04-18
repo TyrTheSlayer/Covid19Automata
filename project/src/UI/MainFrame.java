@@ -1,6 +1,7 @@
 /**
  * @author Samuel Nix
  * @author Summer Bronson
+ * @author Aedan Wells
  *
  * A frame to display the simulation
  */
@@ -27,12 +28,14 @@ public class MainFrame extends JFrame{
     public MainFrame(String title, SimSettings settings) {
         super(title);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.settings = settings;
 
         this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 gridPanel.writeData();
+                PostSimUI postSimUI = new PostSimUI("Test");
+                postSimUI.startWindow();
             }
         });
     }
