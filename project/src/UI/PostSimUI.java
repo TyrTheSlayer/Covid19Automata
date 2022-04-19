@@ -28,8 +28,8 @@ public class PostSimUI extends JFrame {
         });
     }
 
-    public void startWindow(){
-        JFrame frame = new JFrame();
+    public static void startWindow(){
+        PostSimUI frame = new PostSimUI("Test");
 
         try {
             // UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
@@ -52,5 +52,9 @@ public class PostSimUI extends JFrame {
 
         // makes the frame visible
         frame.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        startWindow();
     }
 }
