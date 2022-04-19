@@ -116,7 +116,7 @@ public class BehaviorAgent {
         int y = p.getY();
 
         //Auto return if someone's dead
-        if(x == -666 && y == -666)
+        if(x < 0 && y < 0)
             return 1;
 
         // Choose a random adjacent cell

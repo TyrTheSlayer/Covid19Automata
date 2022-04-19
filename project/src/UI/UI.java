@@ -1,5 +1,6 @@
 /**
  * @author Summer Bronson
+ * @author Aedan Wells
  *
  * @description UI for users to put in parameters for the simulation
  */
@@ -224,7 +225,7 @@ public class UI extends JFrame{
      */
 
     //Quarentine required
-    JCheckBox quar = new JCheckBox("Quarentine Required");
+    JCheckBox quar = new JCheckBox("Quarantine Required");
     quar.setBounds(495, 360, 170, 40);
     frame.add(quar);
 
@@ -364,6 +365,7 @@ go.addActionListener(new ActionListener() {
 
   MainFrame mainFrame = new MainFrame("Test", simSet);
   mainFrame.startWindow();
+  frame.dispose();
 
 
  }

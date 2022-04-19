@@ -125,6 +125,11 @@ public class GridPanel extends JPanel implements Runnable {
         */
 
         initPeople(settings.getInitialInfected(), settings.getPopulation());
+
+        //Make the buildings
+        BuildingType[] btypes = new BuildingType[] {BuildingType.SCHOOL, BuildingType.SCHOOL, BuildingType.HOSPITAL, BuildingType.STORE
+        , BuildingType.STORE, BuildingType.STORE, BuildingType.STORE};
+        //System.out.println(Building.generateBuildings(btypes, this.gridViewable));
     }
 
 
