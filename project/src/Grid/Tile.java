@@ -117,13 +117,11 @@ public class Tile {
 	 */
 	public void takePerson(Tile tile) {
 		if (tile == this) return;
+		if (tile.occupant == null) return;
 		this.occupant = tile.occupant;
-		tile.occupant = null;
-		if(this.occupant != null) {
-			this.occupant.setPosition(this.x, this.y);
-			this.setAccessible(false);
-		}
-		tile.setAccessible(true);
+		this.occupant.setPosition(this.x, this.y);
+		this.setAccessible(false);
+		tile.clearOccupant();
 	}
 
 	/**
