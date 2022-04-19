@@ -219,26 +219,26 @@ public class GridPanel extends JPanel implements Runnable {
      */
     public void step() {
         for (int i = 0 ;i < people.size(); i++) {
-            if (people.get(i).getX() == -666) { // F*cking zombies
-                intents.get(i).setIntent(Intent.Behavior.DEAD, 0);
-            } else {
-                if (intents.get(i).tickIntent() < 0) {
-                    intents.set(i, agent.genIntent(people.get(i)));
-                }
-                agent.action(people.get(i), intents.get(i));
-                if ((intents.get(i).getIntent() == Intent.Behavior.QUARANTINE) && (intents.get(i).getDuration() == 0)) {
-                    //Only bring them out if they didn't die
-                    if (people.get(i).getStatus() != Status.DEAD) {
-                        Random rn = new Random();
-                        int randx = rn.nextInt(this.viewableWidth);
-                        int randy = rn.nextInt(this.viewableHeight);
-                        while (this.gridViewable[randx][randy].getOccupant() != null) {
-                            randx = rn.nextInt(this.viewableWidth);
-                            randy = rn.nextInt(this.viewableHeight);
-                        }
-                        people.get(i).setPosition(randx, randy);
-                        this.gridViewable[randx][randy].setOccupant(people.get(i));
+            if (intents.get(i).tickIntent() < 0) { // Checks if intents have expired
+                intents.set(i, agent.genIntent(people.get(i)));
+            }
+            agent.action(people.get(i), intents.get(i)); // Run the intent for this person
+
+
+            // Currently cells quarantine and just pop into and out of the simulation
+            // Maybe we should add something to realy that data to the user?
+            if ((intents.get(i).getIntent() == Intent.Behavior.QUARANTINE) && (intents.get(i).getDuration() == 0)) { // Check for people ending quarantine
+                //Only bring them out if they didn't die
+                if (people.get(i).getStatus() != Status.DEAD) {
+                    Random rn = new Random();
+                    int randx = rn.nextInt(this.viewableWidth);
+                    int randy = rn.nextInt(this.viewableHeight);
+                    while (this.gridViewable[randx][randy].getOccupant() != null) {
+                        randx = rn.nextInt(this.viewableWidth);
+                        randy = rn.nextInt(this.viewableHeight);
                     }
+                    people.get(i).setPosition(randx, randy);
+                    this.gridViewable[randx][randy].setOccupant(people.get(i));
                 }
             }
         }
@@ -319,6 +319,9 @@ public class GridPanel extends JPanel implements Runnable {
         }
     }
 
+    /**
+     * A simple method that handles writing the data at the end of execution
+     */
     public void writeData() {
         data.writeOut();
     }
