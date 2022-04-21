@@ -33,6 +33,8 @@ public class BehaviorAgent {
      * @return A fully initialized Intent object
      */
     public Intent genIntent(Person p) {
+        if (p.getX() == -666)
+            return new Intent(Intent.Behavior.DEAD, 0);
         Random rand = new Random();
         Intent i = new Intent(Intent.Behavior.getRandomBehavior(), rand.nextInt(20)); // Generates a random intent with max duration of 20 ticks
         if (i.getIntent() == Intent.Behavior.PATHTO) { // Initializes a random destination cell if the person wants to path somewhere
@@ -90,8 +92,7 @@ public class BehaviorAgent {
 
                 //return 1;
             case QUARANTINE:
-                if (p.getX() > 0) {
-                    grid.getTile(p.getX(), p.getY()).setAccessible(true);
+                if (p.getX() >= 0) {
                     grid.getTile(p.getX(), p.getY()).clearOccupant();
                     p.setPosition(-1, -1);
                 }
