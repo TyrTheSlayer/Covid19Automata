@@ -34,7 +34,7 @@ public class MainFrame extends JFrame{
         this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 gridPanel.writeData();
-                PostSimUI postSimUI = new PostSimUI("Test");
+                PostSimUI postSimUI = new PostSimUI("Post Simulation");
                 postSimUI.startWindow();
             }
         });
