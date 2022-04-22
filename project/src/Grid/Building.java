@@ -135,9 +135,9 @@ public class Building {
         //Clear the tile the person is standing on (it should be an entrance)
         for(Tile i : this.entrances) {
             if(i.getX() == person.getX() && i.getY() == person.getY()) {
-                ba.genIntent(i.getOccupant());
                 //Give the person a bogus position
                 person.setPosition(-2, -2);
+                ba.genIntent(person);
                 i.clearOccupant();
 
                 //Add them to the building

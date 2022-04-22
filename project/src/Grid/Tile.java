@@ -15,6 +15,7 @@ public class Tile {
 	private Person occupant;
 	private Building entranceTo;
 	private boolean accessible;
+	private boolean selected = false;
 	private int x;
 	private int y;
 
@@ -124,6 +125,13 @@ public class Tile {
 		tile.clearOccupant();
 	}
 
+	public String toString() {
+		String s = "(" + this.x + ", " + this.y + ")\n";
+		s += "Accessible: " + this.isAccessible() + "\n";
+		s += "Occupant: " + this.occupant + "\n";
+		return s;
+	}
+
 	/**
 	 * Draws the tile at it's location, given it's width and height, as well as the graphics environment
 	 *
@@ -137,6 +145,8 @@ public class Tile {
 		//Draw the fill of the tile
 		if(this.accessible || this.occupant != null)
 			canvas.setColor(Color.DARK_GRAY);
+		else if (this.selected)
+			canvas.setColor(Color.WHITE);
 		else
 			canvas.setColor(Color.LIGHT_GRAY);
 		canvas.fillRect(size * this.x, size * this.y, size, size);
@@ -154,6 +164,12 @@ public class Tile {
 
 		//Restore the old color
 		canvas.setColor(oldCol);
+	}
+	public void highlightTile() {
+		this.selected = true;
+	}
+	public void unhighlightTile() {
+		this.selected = false;
 	}
 }
 

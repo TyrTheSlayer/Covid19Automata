@@ -238,6 +238,15 @@ public class GridPanel extends JPanel implements Runnable {
      */
     public void step() {
         for (int i = 0 ;i < people.size(); i++) {
+            Tile currTile = null;
+            if (people.get(i).getX() >= 0)
+                currTile = gridViewable[people.get(i).getX()][people.get(i).getY()];
+/*
+            if (currTile != null) {
+                currTile.highlightTile();
+                repaint();
+            }
+ */
             if (people.get(i).getX() == -2) {
                 if (intents.get(i).getIntent() != Intent.Behavior.BUILDING) {
                     intents.set(i, new Intent(Intent.Behavior.BUILDING, 20));
@@ -250,6 +259,8 @@ public class GridPanel extends JPanel implements Runnable {
             if (intents.get(i).tickIntent() < 0) { // Checks if intents have expired
                 intents.set(i, agent.genIntent(people.get(i)));
             }
+
+            agent.action(people.get(i), intents.get(i)); // Run the intent for this person
             agent.action(people.get(i), intents.get(i)); // Run the intent for this person
 
 
@@ -265,10 +276,15 @@ public class GridPanel extends JPanel implements Runnable {
                         randx = rn.nextInt(this.viewableWidth);
                         randy = rn.nextInt(this.viewableHeight);
                     }
-                    people.get(i).setPosition(randx, randy);
                     this.gridViewable[randx][randy].setOccupant(people.get(i));
                 }
             }
+            /*
+            if (currTile != null) {
+                currTile.unhighlightTile();
+                repaint();
+            }
+             */
         }
         //Update the infection
         for(Person i : this.people) {

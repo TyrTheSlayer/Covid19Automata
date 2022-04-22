@@ -71,6 +71,10 @@ public class Intent {
     public void setIntent(Behavior b, int dur) {
         this.intent = b;
         this.duration = dur;
+        if (b != Behavior.PATHTO) {
+            this.path = null;
+            this.dest = null;
+        }
     }
 
     /**
@@ -99,6 +103,17 @@ public class Intent {
         this.duration = p.getLength();
         this.dest = dest;
         this.path = p;
+    }
+
+    /**
+     * Gives the string representation of the intent
+     *
+     * @return The string representation of the intent
+     */
+    public String toString() {
+        String string = "Intent: " + this.intent + "\n";
+        string += "Duration: " + this.duration + "\n";
+        return string;
     }
 
 }

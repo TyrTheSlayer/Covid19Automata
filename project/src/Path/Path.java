@@ -102,11 +102,12 @@ public class Path {
      * @return A Tile to step to. Null at end, t otherwise
      */
     public Tile nextStep() {
-        if (Path.size() < 1) { // If somehow Path.size is 0 or less (empty path)
+        if (this.Path == null) return null;
+        if (Path.size() < 0) { // If somehow Path.size is 0 or less (empty path)
             this.Path = null;
             return null;
         }
-        if (!Path.get(0).isAccessible()) return null;
+        if (!Path.get(0).isAccessible() && (Path.get(0).getOccupant() == null)) return null;
         if (Path.size() < 3) { // If we have finished pathing
             Tile t = Path.get(0);
             Path.remove(0);
@@ -128,7 +129,7 @@ public class Path {
         if (p.getPath() == null) return Path.get(0); // If no path exists, return this tile
         p.getPath().remove(p.getPath().size()-1); // Prune start and end
         p.getPath().remove(0);
-        for(int j = 1; j < i; j++) Path.remove(j); // Remove old (bad) path steps
+        for(int j = 1; j < i; j++) Path.remove(1); // Remove old (bad) path steps
         for (i = 0; i < p.getPath().size(); i++) Path.add(i + 1, p.getPath().get(i)); // Replace with repath
         t = Path.get(1);
         Path.remove(0);

@@ -58,6 +58,12 @@ public class MainFrame extends JFrame{
         this.setMinimumSize(new Dimension(gridPanel.gridPixelWidth, gridPanel.gridPixelHeight));
         this.setResizable(false);
 
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                gridPanel.pause();
+            }
+        });
+
         ActionListener playSim = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) { // Used to allow this to track sim status

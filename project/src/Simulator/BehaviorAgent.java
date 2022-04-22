@@ -49,9 +49,9 @@ public class BehaviorAgent {
             }
             Path path = new Path(grid, grid.getTile(p.getX(), p.getY()));
             if (!path.findPath(grid.getTile(p.getX(), p.getY()), grid.getTile(x, y)))
-                return new Intent(Intent.Behavior.SLEEP, rand.nextInt(20));
-            i.setPath(grid.getTile(x, y), path);
+                return new Intent(Intent.Behavior.SLEEP, rand.nextInt(1));
             i.setIntent(Intent.Behavior.PATHTO, path.getLength());
+            i.setPath(grid.getTile(x, y), path);
         }
         // Return the intent
         return i;
@@ -84,8 +84,7 @@ public class BehaviorAgent {
                     return 0;
                 }
                 Path path;
-                if((path = i.getPath()) == null) {
-                    i.setPath(null, null);
+                if((path = i.getPath()) == null || (path.getLength() == -1)) {
                     i.setIntent(Intent.Behavior.SLEEP, 1);
                     return i.tickIntent();
                 }
@@ -93,8 +92,9 @@ public class BehaviorAgent {
                 if (t == null) {
                     return genIntent(p).tickIntent();
                 }
+//                System.out.println(p + " " + i + " " + i.getPath().getLength() + i.getPath().nextStep());
                 if (grid.getTile(p.getX(), p.getY()) == null) return -1;
-                if ((grid.getTile(p.getX(), p.getY()) == t) && (path.getLength() > 0)){
+                if ((grid.getTile(p.getX(), p.getY()) == t) && (path.getLength() > 2)){
                     t = path.courtesyStep();
                 }
                 t.takePerson(grid.getTile(p.getX(), p.getY()));
