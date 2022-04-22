@@ -9,6 +9,7 @@ package Simulator;
 import java.util.Random;
 import DataObjects.Person;
 import DataObjects.Status;
+import Grid.Building;
 import Grid.GridPanel;
 import Grid.Tile;
 import Path.Path;
@@ -35,6 +36,8 @@ public class BehaviorAgent {
     public Intent genIntent(Person p) {
         if (p.getX() == -666)
             return new Intent(Intent.Behavior.DEAD, 0);
+        if (p.getX() == -2) // In a building
+            return new Intent(Intent.Behavior.BUILDING, 20);
         Random rand = new Random();
         Intent i = new Intent(Intent.Behavior.getRandomBehavior(), rand.nextInt(20)); // Generates a random intent with max duration of 20 ticks
         if (i.getIntent() == Intent.Behavior.PATHTO) { // Initializes a random destination cell if the person wants to path somewhere
@@ -69,10 +72,17 @@ public class BehaviorAgent {
             case DEAD:
                 return -666;
 
+            case BUILDING:
+                break;
+
             case ROAM:
                 return roam(p);
 
             case PATHTO:
+                if (p.getX() == -2) {
+                    i.setIntent(Intent.Behavior.BUILDING, 20);
+                    return 0;
+                }
                 Path path;
                 if((path = i.getPath()) == null) {
                     i.setPath(null, null);

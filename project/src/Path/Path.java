@@ -106,10 +106,12 @@ public class Path {
             this.Path = null;
             return null;
         }
+        if (!Path.get(0).isAccessible()) return null;
         if (Path.size() < 3) { // If we have finished pathing
             Tile t = Path.get(0);
             Path.remove(0);
             this.Path = null;
+            if (!t.isAccessible()) return null;
             return t;
         }
         Tile t = Path.get(1); // Get next step
@@ -153,6 +155,7 @@ public class Path {
                 }
             }
         }
+        if (!Path.get(0).isAccessible()) return null;
         return Path.get(0); // No stepping, we're surrounded
     }
 
@@ -163,6 +166,7 @@ public class Path {
      * @return True on success, false o/w
      */
     public boolean findPath(Tile src, Tile dest) {
+        if (!dest.isAccessible()) return false;
         if (greedyBFS(src, dest)) { // Try GBFS
             buildPath(dest);
             return true;
@@ -206,7 +210,9 @@ public class Path {
      * @return Whether the selected tile is in bounds or not
      */
     private boolean inBounds(int x, int y) {
-        if (   ( (x < 0) || (x >= grid.viewableWidth) )   ||   (  (y < 0) || (y >= grid.viewableHeight)  )  ) return false;
+        if (x < 0 || x >= grid.viewableWidth || y < 0 || y >= grid.viewableHeight) {
+            return false;
+        }
         return true;
     }
 

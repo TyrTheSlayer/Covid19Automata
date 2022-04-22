@@ -55,6 +55,7 @@ public class GridPanel extends JPanel implements Runnable {
     private ArrayList<Person> people;
     private ArrayList<Intent> intents;
     private ArrayList<Factor> factor;
+    private ArrayList<Building> buildings;
 
     private DataOut data = new DataOut(100);
 
@@ -93,6 +94,7 @@ public class GridPanel extends JPanel implements Runnable {
         this.people = new ArrayList<>();
         this.intents = new ArrayList<>();
         this.factor = new ArrayList<>();
+        this.buildings = new ArrayList<>();
         t = new Thread(this);
         this.agent = new BehaviorAgent(this);
         this.settings = settings;
@@ -127,9 +129,21 @@ public class GridPanel extends JPanel implements Runnable {
         initPeople(settings.getInitialInfected(), settings.getPopulation());
 
         //Make the buildings
-        //BuildingType[] btypes = new BuildingType[] {BuildingType.SCHOOL, BuildingType.SCHOOL, BuildingType.HOSPITAL, BuildingType.STORE
-        //, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE};
-        //System.out.println(Building.generateBuildings(btypes, this.gridViewable));
+        BuildingType[] btypes = new BuildingType[] {BuildingType.SCHOOL, BuildingType.SCHOOL, BuildingType.HOSPITAL, BuildingType.STORE
+        , BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE};
+        this.buildings = Building.generateBuildings(btypes, this.gridViewable, agent);
+        System.out.println(buildings);
+        for (int i = 0; i < buildings.size(); i++) {
+            Building b = buildings.get(i);
+            b.setBA(agent);
+            for (int j = 0; j < b.occupants.size(); j++) {
+                Person p = b.occupants.get(j);
+                int index = people.indexOf(p);
+                Intent b_intent = new Intent(Intent.Behavior.BUILDING, 20);
+                intents.set(index, b_intent);
+            }
+        }
+
     }
 
 
@@ -146,7 +160,7 @@ public class GridPanel extends JPanel implements Runnable {
         while(i < population) {
             int randx = rn.nextInt(this.viewableWidth);
             int randy = rn.nextInt(this.viewableHeight);
-            if (this.gridViewable[randx][randy].getOccupant() == null) {
+            if (this.gridViewable[randx][randy].getOccupant() == null && this.gridViewable[randx][randy].isAccessible()) {
                 Factor f = new Factor();
                 Person p = new Person(randx, randy, f);
                 this.factor.add(f);
@@ -224,6 +238,15 @@ public class GridPanel extends JPanel implements Runnable {
      */
     public void step() {
         for (int i = 0 ;i < people.size(); i++) {
+            if (people.get(i).getX() == -2) {
+                if (intents.get(i).getIntent() != Intent.Behavior.BUILDING) {
+                    intents.set(i, new Intent(Intent.Behavior.BUILDING, 20));
+                }
+            }
+            for(int j = 0; j < buildings.size(); j++) {
+                if( (buildings.get(j).occupants.contains(people.get(i))) && (intents.get(i).getIntent() != Intent.Behavior.BUILDING))
+                    intents.set(i, new Intent(Intent.Behavior.BUILDING, 20));
+            }
             if (intents.get(i).tickIntent() < 0) { // Checks if intents have expired
                 intents.set(i, agent.genIntent(people.get(i)));
             }
@@ -238,7 +261,7 @@ public class GridPanel extends JPanel implements Runnable {
                     Random rn = new Random();
                     int randx = rn.nextInt(this.viewableWidth);
                     int randy = rn.nextInt(this.viewableHeight);
-                    while (this.gridViewable[randx][randy].getOccupant() != null) {
+                    while (!this.gridViewable[randx][randy].isAccessible()) {
                         randx = rn.nextInt(this.viewableWidth);
                         randy = rn.nextInt(this.viewableHeight);
                     }
