@@ -7,6 +7,8 @@
 package UI;
 
 
+import Simulator.SimSettings;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -22,11 +24,12 @@ public class PostSimUI extends JFrame {
     public String[] finalDayData;
     public String[] optionsToChoose;
     public ImageIcon img;
-    public PostSimUI(String title) {
+    private SimSettings settings;
+    public PostSimUI(String title, SimSettings settings) {
         super(title);
         //setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-
+        this.settings = settings;
         String data = "";
         try{
             this.sc = new Scanner(new File("./postsim/simulation.csv"));
@@ -112,6 +115,41 @@ public class PostSimUI extends JFrame {
         vaxx.setFont(new Font("Verdana", Font.PLAIN, 18));
         vaxx.setForeground(periwinkle);
         this.add(vaxx);
+        int deadPercent = 0;
+        if(isNumeric(finalDayData[3])){
+            deadPercent = (Integer.parseInt(finalDayData[3]) / settings.getPopulation())*100;
+            JLabel population = new JLabel("% of population dead: " + deadPercent + "%");
+            population.setBounds(300, 0, 300, 100);
+            population.setFont(new Font("Verdana", Font.PLAIN, 18));
+            this.add(population);
+        }else{
+            JLabel population = new JLabel("% of population dead: INVALID");
+            population.setBounds(300, 0, 300, 100);
+            population.setFont(new Font("Verdana", Font.PLAIN, 18));
+            this.add(population);
+        }
+        //get death picture
+        String filename = "";
+        if(deadPercent <= 10){
+            //happy
+            filename = "happy.jpg";
+        }else if(deadPercent <= 25){
+            //medium
+            filename = "awkward.jpg";
+        }else if(deadPercent <= 50){
+            //bad
+            filename = "sad.jpg";
+        }else{
+            //very bad
+            filename = "depression.jpg";
+        }
+        JLabel deadLbl = new JLabel();
+        System.out.println(filename);
+        ImageIcon pic = new ImageIcon("./project/src/UI/"+ filename);
+        deadLbl.setIcon(pic);
+        deadLbl.setBounds(300, 100, 462, 261);
+        deadLbl.setVisible(true);
+        this.add(deadLbl);
 
         JLabel menuLabel = new JLabel("Data Graphs:");
         menuLabel.setBounds(10, 280, 200, 100);
@@ -171,5 +209,23 @@ public class PostSimUI extends JFrame {
         Rectangle rect = new Rectangle(20, 415, 640, 480);
         g2.draw(rect);
 
+    }
+
+    /**
+     * Checks to see if a string is a number
+     *
+     * @param str string being checked
+     * @return true if it is a string, false otherwise
+     */
+    public boolean isNumeric(String str) {
+        if (str == null) {
+            return false;
+        }
+        try {
+            int d = Integer.parseInt(str);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
     }
 }
