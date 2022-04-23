@@ -18,6 +18,8 @@ public class BehaviorAgent {
     private GridPanel grid;
     private int width;
     private int height;
+    private int ticksPerDay;
+    private int ticks;
 
     /**
      * Initializes a behavior agent
@@ -29,6 +31,15 @@ public class BehaviorAgent {
         this.height = grid.getViewableHeight();
     }
 
+    public void updateTime(int ticks, int ticksPerDay) {
+        this.ticks = ticks;
+        this.ticksPerDay = ticksPerDay;
+    }
+
+    public void updateTime(int ticks) {
+        this.ticks = ticks % ticksPerDay;
+    }
+
     /**
      * Generates a random intent for a cell to act on
      * @return A fully initialized Intent object
@@ -38,6 +49,20 @@ public class BehaviorAgent {
             return new Intent(Intent.Behavior.DEAD, 0);
         if (p.getX() == -2) // In a building
             return new Intent(Intent.Behavior.BUILDING, 20);
+        Building b = p.getTarget(ticks, ticksPerDay); // Get a target
+        if (b != null) { // If this person has a target, path to it
+            Tile entrance = b.getRandEntrance();
+            System.out.println(p + " pathing to " + entrance);
+            Path path = new Path(grid, grid.getTile(p.getX(), p.getY()));
+            if (!path.findPath(grid.getTile(p.getX(),p.getY()), entrance)) {
+                System.out.println("Cannot path to dest building");
+                return new Intent(Intent.Behavior.SLEEP, 1);
+            }
+            Intent i = new Intent(Intent.Behavior.PATHTO, path.getLength());
+            i.setPath(entrance, path);
+            return i;
+        }
+
         Random rand = new Random();
         Intent i = new Intent(Intent.Behavior.getRandomBehavior(), rand.nextInt(20)); // Generates a random intent with max duration of 20 ticks
         if (i.getIntent() == Intent.Behavior.PATHTO) { // Initializes a random destination cell if the person wants to path somewhere

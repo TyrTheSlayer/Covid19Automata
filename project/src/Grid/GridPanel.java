@@ -98,6 +98,7 @@ public class GridPanel extends JPanel implements Runnable {
         t = new Thread(this);
         this.agent = new BehaviorAgent(this);
         this.settings = settings;
+        this.agent.updateTime(ticks, TICKS_PER_RECORD);
 
         //create the grid
         for (int i=0; i<viewableWidth; i++) {
@@ -257,6 +258,7 @@ public class GridPanel extends JPanel implements Runnable {
                     intents.set(i, new Intent(Intent.Behavior.BUILDING, 20));
             }
             if (intents.get(i).tickIntent() < 0) { // Checks if intents have expired
+                agent.updateTime(ticks);
                 intents.set(i, agent.genIntent(people.get(i)));
             }
 

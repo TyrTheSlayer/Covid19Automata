@@ -115,6 +115,11 @@ public class Building {
         }
     }
 
+    public Tile getRandEntrance() {
+        Random r = new Random();
+        return this.entrances[r.nextInt() % entrances.length];
+    }
+
     //Methods
     /**
      * Allows a person to enter the building
