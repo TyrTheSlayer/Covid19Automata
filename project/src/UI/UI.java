@@ -370,11 +370,8 @@ go.addActionListener(new ActionListener() {
 
  }
 });
-
-
        //Set size
        frame.setSize(700, 370) ;
-
        // uses no layout managers
        frame.setLayout(null);
 

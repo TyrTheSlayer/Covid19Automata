@@ -27,7 +27,7 @@ public class MainFrame extends JFrame{
     private SimSettings settings;
     public MainFrame(String title, SimSettings settings) {
         super(title);
-        setLocationRelativeTo(null);
+        //setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.settings = settings;
 
