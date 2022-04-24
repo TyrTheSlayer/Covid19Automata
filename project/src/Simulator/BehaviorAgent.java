@@ -81,8 +81,7 @@ public class BehaviorAgent {
             Tile entrance = b.getRandEntrance();
             Path path = new Path(grid, grid.getTile(p.getX(), p.getY())); // This still has the -2 bug
             if (!path.findPath(grid.getTile(p.getX(),p.getY()), entrance)) {
-                System.out.println("Cannot path to dest building");
-                return new Intent(Intent.Behavior.SLEEP, 1);
+                return new Intent(Intent.Behavior.ROAM, 1);
             }
             Intent in = new Intent(Intent.Behavior.PATHTO, path.getLength());
             in.setPath(entrance, path);

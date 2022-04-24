@@ -331,7 +331,11 @@ public class GridPanel extends JPanel implements Runnable {
         }
         //Update the infection
         for(Person i : this.people) {
-
+            if (!i.getFactors().isVaccinated()) {
+                Random rand = new Random();
+                if (rand.nextFloat() < 0.0005*settings.getVaxRate())
+                    i.getFactors().vaccinate();
+            }
             //If they're not in the sim, continue
             if(i.getX() < 0)
                 continue;

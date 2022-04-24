@@ -249,9 +249,13 @@ public class Person {
         switch (this.status) {
             case ALIVE:
                 canvas.setColor(Color.BLUE);
+                if (this.getFactors().isVaccinated())
+                    canvas.setColor(Color.GREEN);
                 break;
             case INFECTED:
                 canvas.setColor(Color.MAGENTA);
+                if (this.getFactors().isVaccinated())
+                    canvas.setColor(Color.YELLOW);
                 break;
             case DEAD:
                 canvas.setColor(Color.RED);
