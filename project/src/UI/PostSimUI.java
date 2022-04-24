@@ -43,8 +43,7 @@ public class PostSimUI extends JFrame {
         } catch  (Exception e) {
             e.printStackTrace();
         }
-
-
+        //Grabs postsim directory, pngs are all that are set in dropdown menu
         File dir = new File("./postsim");
         File[] directoryListing = dir.listFiles();
         int j = 0;
@@ -115,10 +114,11 @@ public class PostSimUI extends JFrame {
         vaxx.setFont(new Font("Verdana", Font.PLAIN, 18));
         vaxx.setForeground(periwinkle);
         this.add(vaxx);
-        int deadPercent = 0;
+        //grabs death percent for upper right label
+        Double deadPercent = 0.0;
         if(isNumeric(finalDayData[3])){
-            deadPercent = (Integer.parseInt(finalDayData[3]) / settings.getPopulation())*100;
-            JLabel population = new JLabel("% of population dead: " + deadPercent + "%");
+            deadPercent = (Double.parseDouble(finalDayData[3]) / (double)settings.getPopulation())*100;
+            JLabel population = new JLabel("% of population dead: " + String.format("%.2f", deadPercent) + "%");
             population.setBounds(300, 0, 300, 100);
             population.setFont(new Font("Verdana", Font.PLAIN, 18));
             this.add(population);
@@ -216,12 +216,15 @@ public class PostSimUI extends JFrame {
      * @return true if it is a string, false otherwise
      */
     public boolean isNumeric(String str) {
+        //if the string is not null
         if (str == null) {
             return false;
         }
         try {
+            //try parsing
             int d = Integer.parseInt(str);
         } catch (NumberFormatException nfe) {
+            //if it is not a number, return false
             return false;
         }
         return true;
