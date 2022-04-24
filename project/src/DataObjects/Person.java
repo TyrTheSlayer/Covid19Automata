@@ -248,14 +248,10 @@ public class Person {
         //Determine person color and then draw them
         switch (this.status) {
             case ALIVE:
-                canvas.setColor(Color.BLUE);
-                if (this.getFactors().isVaccinated())
-                    canvas.setColor(Color.GREEN);
+                canvas.setColor(Color.decode("#0072B2"));
                 break;
             case INFECTED:
-                canvas.setColor(Color.MAGENTA);
-                if (this.getFactors().isVaccinated())
-                    canvas.setColor(Color.YELLOW);
+                canvas.setColor(Color.decode("#CC79A7"));
                 break;
             case DEAD:
                 canvas.setColor(Color.RED);

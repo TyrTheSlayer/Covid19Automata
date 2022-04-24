@@ -181,9 +181,9 @@ public class Tile {
 
 		//Draw the fill of the tile
 		if(this.isExit)
-			canvas.setColor(Color.RED);
+			canvas.setColor(Color.decode("#D55E00"));
 		else if (this.isEntrance)
-			canvas.setColor(Color.BLUE);
+			canvas.setColor(Color.decode("#009E73"));
 		else if (!this.accessible && this.occupant == null)
 			canvas.setColor(Color.LIGHT_GRAY);
 		else
