@@ -190,7 +190,6 @@ public class Building {
             if(i.getX() == person.getX() && i.getY() == person.getY()) {
                 //Give the person a bogus position
                 person.setPosition(-2, -2);
-                ba.genIntent(person);
                 i.clearOccupant();
 
                 //Add them to the building

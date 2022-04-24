@@ -79,7 +79,7 @@ public class BehaviorAgent {
         Building b = p.getTarget(ticks, ticksPerDay); // Get a target
         if (b != null) { // If this person has a target, path to it
             Tile entrance = b.getRandEntrance();
-            Path path = new Path(grid, grid.getTile(p.getX(), p.getY()));
+            Path path = new Path(grid, grid.getTile(p.getX(), p.getY())); // This still has the -2 bug
             if (!path.findPath(grid.getTile(p.getX(),p.getY()), entrance)) {
                 System.out.println("Cannot path to dest building");
                 return new Intent(Intent.Behavior.SLEEP, 1);
@@ -170,6 +170,7 @@ public class BehaviorAgent {
                 }
                 Tile t = path.nextStep();
                 if (t == null) {
+//                    if ()
                     i.setIntent(Intent.Behavior.ROAM, 1);
                     roam(p);
                     return i.tickIntent();
@@ -232,7 +233,8 @@ public class BehaviorAgent {
         Tile tile = grid.getTile(x,y);
         if (tile.isAccessible()) {
 //            System.out.println("Tile ("+x+", "+y+") is taking from ("+p.getX()+", "+p.getY()+")");
-            tile.takePerson(grid.getTile(p.getX(), p.getY()));
+            if (tile.isEntranceTo() == null || p.getX() >= 0)
+                tile.takePerson(grid.getTile(p.getX(), p.getY()));
             return 0;
         }
 

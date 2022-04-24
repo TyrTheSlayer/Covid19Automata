@@ -13,7 +13,7 @@ import java.awt.*;
 
 public class Tile {
 	private Person occupant;
-	private Building entranceTo;
+	private Building entranceTo = null;
 	private boolean accessible;
 	private boolean selected = false;
 	private int x;
@@ -66,6 +66,13 @@ public class Tile {
 	 */
 	public boolean isAccessible() { return this.accessible; }
 
+	/**
+	 * A getter for the building it's an entrance to
+	 * @return The building, null o/w
+	 */
+	public Building isEntranceTo() {
+		return this.entranceTo;
+	}
 
 	//Setters
 	/**
