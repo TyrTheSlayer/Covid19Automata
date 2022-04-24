@@ -84,22 +84,22 @@ public class BehaviorAgent {
                 System.out.println("Cannot path to dest building");
                 return new Intent(Intent.Behavior.SLEEP, 1);
             }
-            Intent i = new Intent(Intent.Behavior.PATHTO, path.getLength());
-            i.setPath(entrance, path);
-            return i;
+            Intent in = new Intent(Intent.Behavior.PATHTO, path.getLength());
+            in.setPath(entrance, path);
+            return in;
         }
         // Gen a random intent
         Random rand = new Random();
-        Intent i = new Intent(Intent.Behavior.getRandomBehavior(), rand.nextInt(20)); // Generates a random intent with max duration of 20 ticks
-        if (i.getIntent() == Intent.Behavior.PATHTO) { // Initializes a random destination cell if the person wants to path somewhere
+        Intent in = new Intent(Intent.Behavior.getRandomBehavior(), rand.nextInt(20)); // Generates a random intent with max duration of 20 ticks
+        if (in.getIntent() == Intent.Behavior.PATHTO) { // Initializes a random destination cell if the person wants to path somewhere
             if (grid.getBuildings().size() > 0 && rand.nextInt(5) == 0) { // Makes 20% of paths go to a building
                 Tile t = grid.getBuildings().get(rand.nextInt(grid.getBuildings().size())).getRandEntrance();
                 Path path = new Path(grid, grid.getTile(p.getX(), p.getY()));
                 if (!path.findPath(grid.getTile(p.getX(), p.getY()), t))
                     return new Intent(Intent.Behavior.SLEEP, rand.nextInt(1));
-                i.setIntent(Intent.Behavior.PATHTO, path.getLength());
-                i.setPath(t, path);
-                return i;
+                in.setIntent(Intent.Behavior.PATHTO, path.getLength());
+                in.setPath(t, path);
+                return in;
             }
             int x = rand.nextInt(width);
             int y = rand.nextInt(height);
@@ -110,11 +110,11 @@ public class BehaviorAgent {
             Path path = new Path(grid, grid.getTile(p.getX(), p.getY()));
             if (!path.findPath(grid.getTile(p.getX(), p.getY()), grid.getTile(x, y)))
                 return new Intent(Intent.Behavior.SLEEP, rand.nextInt(1));
-            i.setIntent(Intent.Behavior.PATHTO, path.getLength());
-            i.setPath(grid.getTile(x, y), path);
+            in.setIntent(Intent.Behavior.PATHTO, path.getLength());
+            in.setPath(grid.getTile(x, y), path);
         }
         // Return the intent
-        return i;
+        return in;
     }
 
     /**
@@ -132,6 +132,7 @@ public class BehaviorAgent {
      * @return Typically returns the duration of the intent, or a negative number corresponding to a special status
      */
     public int action(Person p, Intent i) {
+
         switch(i.getIntent()) {
             // Most of these are as of yet unimplemented, but should not be too difficult
             case SLEEP:
@@ -162,7 +163,6 @@ public class BehaviorAgent {
                     i.setIntent(Intent.Behavior.BUILDING, 2);
                     return 0;
                 }
-
                 Path path;
                 if((path = i.getPath()) == null || (path.getLength() == -1)) {
                     i.setIntent(Intent.Behavior.SLEEP, 1);
@@ -170,11 +170,14 @@ public class BehaviorAgent {
                 }
                 Tile t = path.nextStep();
                 if (t == null) {
-                    return genIntent(p).tickIntent();
+                    i.setIntent(Intent.Behavior.ROAM, 1);
+                    roam(p);
+                    return i.tickIntent();
                 }
                 if (grid.getTile(p.getX(), p.getY()) == null) return -1;
                 if ((grid.getTile(p.getX(), p.getY()) == t) && (path.getLength() > 2)){
                     t = path.courtesyStep();
+                    if (!t.isAccessible()) return i.tickIntent();
                 }
                 t.takePerson(grid.getTile(p.getX(), p.getY()));
                 return i.tickIntent();

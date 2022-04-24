@@ -137,7 +137,7 @@ public class GridPanel extends JPanel implements Runnable {
         System.out.println(buildings);
 
         //Make and assign schedules
-        //this.assignSchedules(0.7);
+        this.assignSchedules(0.7);
 
         // This basically overwrites the intents of people now occupying buildings
         for (int i = 0; i < buildings.size(); i++) {

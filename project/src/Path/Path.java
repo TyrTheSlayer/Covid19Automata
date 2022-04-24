@@ -130,6 +130,7 @@ public class Path {
         p.getPath().remove(0);
         Path.subList(1,i-1).clear(); // Remove old (bad) path steps
         for (i = 0; i < p.getPath().size(); i++) Path.add(i + 1, p.getPath().get(i)); // Replace with repath
+        if (!t.isAccessible()) return Path.get(0);
         t = Path.get(1);
         Path.remove(0);
         return t;
