@@ -64,7 +64,7 @@ public class BehaviorAgent {
             return new Intent(Intent.Behavior.DEAD, 0);
         if (p.getX() == -2 && grid.intents.get(grid.people.indexOf(p)).getIntent() != Intent.Behavior.BUILDING) // In a building
             return new Intent(Intent.Behavior.BUILDING, 20);
-        if (p.getX() == -2 && grid.intents.get(grid.people.indexOf(p)).getDuration() <= 0) {
+        if (p.getX() == -2 && grid.intents.get(grid.people.indexOf(p)).getDuration() <= 0) { // Forces hold/exit
             for (Building b : grid.getBuildings()) {
                 Object[] list = b.getOccupants().toArray();
                 for (int j = 0; j < list.length; j++) {

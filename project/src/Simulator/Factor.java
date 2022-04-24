@@ -67,7 +67,7 @@ public class Factor {
      * @return The new chance of infection
      */
     public double applyFactorGet(double oldChance) {
-        return oldChance * this.severityGet;
+        return oldChance * this.severityGet * this.getAgeMultiplier((int)this.age);
     }
 
     /**
@@ -87,6 +87,34 @@ public class Factor {
      */
     public double getAge(){
         return this.age;
+    }
+
+
+    /**
+     * A really rough approximation of the gamma function
+     * @param z An double
+     * @return The gamma(z)
+     */
+    private double gamma(double z) {
+        int upperLim = 100;
+        int subDiv = 10;
+        double result = 0;
+        for (int k = 1; k < upperLim * subDiv; k++) {
+            result += Math.pow(Math.E, -((double)k/subDiv)) * Math.pow((double)k/subDiv, z - 1);
+        }
+        return result;
+    }
+
+    /**
+     * The age multiplier for this person's age. Should look somewhat like a negative poisson distribution
+     * @param age The age of the individual
+     * @return The multiplication factor of reception
+     */
+    private double getAgeMultiplier(int age) {
+        double lambda = 3;
+        double baseRate = Math.pow(lambda, age)/(gamma((double) 80/10.0 + 1.0)) * Math.pow(Math.E, -lambda);
+        return 1.0 - (4.0 * baseRate);
+
     }
 
     /**
