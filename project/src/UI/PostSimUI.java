@@ -49,7 +49,7 @@ public class PostSimUI extends JFrame {
         File[] directoryListing = dir.listFiles();
         int j = 0;
         if (directoryListing != null) {
-            this.optionsToChoose = new String[directoryListing.length-1];
+            this.optionsToChoose = new String[directoryListing.length-4];
             for (File child : directoryListing) {
                 if(child.getName().contains(".png")){
                     this.optionsToChoose[j] = child.getName().replace(".png", "");
