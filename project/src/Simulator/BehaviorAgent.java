@@ -233,7 +233,7 @@ public class BehaviorAgent {
         Tile tile = grid.getTile(x,y);
         if (tile.isAccessible()) {
 //            System.out.println("Tile ("+x+", "+y+") is taking from ("+p.getX()+", "+p.getY()+")");
-            if (tile.isEntranceTo() != null)
+            if (tile.isEntranceTo() == null || p.getX() >= 0)
                 tile.takePerson(grid.getTile(p.getX(), p.getY()));
             return 0;
         }
