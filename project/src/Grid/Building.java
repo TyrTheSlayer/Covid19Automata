@@ -310,9 +310,9 @@ public class Building {
 
             //No error, actually make the building
             Tile[] entrance = new Tile[1];
-            entrance[0] = tiles[x + (types[i].getW()/2) - 1][y + types[i].getH() + 1];
+            entrance[0] = tiles[x + (types[i].getW()/2) - 1][y + types[i].getH()];
             Tile[] exit = new Tile[1];
-            exit[0] = tiles[x + (types[i].getW()/2) + 1][y + types[i].getH() + 1];
+            exit[0] = tiles[x + (types[i].getW()/2) + 1][y + types[i].getH()];
             buildings.add(new Building(entrance, exit, false, false, 999, needed, ba));
             x += types[i].getW() + 3;
             maxHeight = Math.max(maxHeight, types[i].getH());
