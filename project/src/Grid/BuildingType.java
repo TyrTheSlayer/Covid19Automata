@@ -72,7 +72,7 @@ public enum BuildingType {
                 //Add tiles to the list
                 for(int i = 0; i < w; i++) {
                     for(int j = 0; j < h; j++) {
-                        needed.add(tiles[i][j]);
+                        needed.add(tiles[i + x][j + y]);
                     }
                 }
                 break;
@@ -92,7 +92,7 @@ public enum BuildingType {
                 //Add tiles to the list
                 for(int i = 0; i < w; i++) {
                     for(int j = 0; j < h; j++) {
-                        needed.add(tiles[i][j]);
+                        needed.add(tiles[i + x][j + y]);
                     }
                 }
                 break;
@@ -112,7 +112,7 @@ public enum BuildingType {
                 //Add tiles to the list
                 for(int i = 0; i < w; i++) {
                     for(int j = 0; j < h; j++) {
-                        needed.add(tiles[i][j]);
+                        needed.add(tiles[i + x][j + y]);
                     }
                 }
                 break;

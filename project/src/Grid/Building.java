@@ -7,6 +7,8 @@
 package Grid;
 
 import DataObjects.Person;
+import Simulator.BehaviorAgent;
+import Simulator.Intent;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -22,6 +24,7 @@ public class Building {
     Tile[] entrances;
     Tile[] exits;
     ArrayList<Tile> space;
+    private BehaviorAgent ba;
 
     //Constructors
     /**
@@ -37,7 +40,7 @@ public class Building {
      * @param spaces The tiles that the building occupies
      */
     public Building(Tile[] entrances, Tile[] exits, int openingTime, int closingTime, boolean maskMandate,
-                    boolean vaccMandate, int capacity, ArrayList<Tile> spaces) {
+                    boolean vaccMandate, int capacity, ArrayList<Tile> spaces, BehaviorAgent ba) {
         //Assign the attributes
         this.entrances = entrances;
         this.exits = exits;
@@ -48,6 +51,7 @@ public class Building {
         this.capacity = capacity;
         this.space = spaces;
         this.occupants = new ArrayList<>();
+        this.ba = ba;
 
         //Update the entrances on the tile side
         for(Tile i : this.entrances) {
@@ -58,8 +62,9 @@ public class Building {
         for(Tile i : this.space) {
             if (i.getOccupant() != null) {
                 //Give the person a bogus position
-                i.getOccupant().setPosition(-1, -1);
+                i.getOccupant().setPosition(-2, -2);
                 this.occupants.add(i.getOccupant());
+                ba.genIntent(i.getOccupant());
                 i.clearOccupant();
             }
 
@@ -78,7 +83,7 @@ public class Building {
      * @param spaces The tiles that the building occupies
      */
     public Building(Tile[] entrances, Tile[] exits, boolean maskMandate,
-                    boolean vaccMandate, int capacity, ArrayList<Tile> spaces) {
+                    boolean vaccMandate, int capacity, ArrayList<Tile> spaces, BehaviorAgent ba) {
         //Assign the attributes
         this.entrances = entrances;
         this.exits = exits;
@@ -89,6 +94,7 @@ public class Building {
         this.capacity = capacity;
         this.space = spaces;
         this.occupants = new ArrayList<>();
+        this.ba = ba;
 
         //Update the entrances on the tile side
         for(Tile i : this.entrances) {
@@ -99,14 +105,36 @@ public class Building {
         for(Tile i : this.space) {
             if (i.getOccupant() != null) {
                 //Give the person a bogus position
-                i.getOccupant().setPosition(-1, -1);
+                i.getOccupant().setPosition(-2, -2);
                 this.occupants.add(i.getOccupant());
+                ba.genIntent(i.getOccupant());
                 i.clearOccupant();
             }
 
             i.setAccessible(false);
         }
     }
+
+
+    //Setters
+
+    /**
+     * Sets the behavior agent for the building. A copy of the BA in grid,
+     * used so buildings and the BA can pass people to one another
+     * @param ba The BA to use
+     */
+    public void setBA(BehaviorAgent ba) {
+        this.ba = ba;
+    }
+
+
+
+    //Getters
+
+    public ArrayList<Person> getOccupants() {
+        return occupants;
+    }
+
 
     //Methods
     /**
@@ -127,18 +155,53 @@ public class Building {
 
         //Clear the tile the person is standing on (it should be an entrance)
         for(Tile i : this.entrances) {
-            if(i.getX() == person.getX() && i.getY() == person.getY())
+            if(i.getX() == person.getX() && i.getY() == person.getY()) {
+                //Give the person a bogus position
+                person.setPosition(-2, -2);
+                ba.genIntent(person);
                 i.clearOccupant();
+
+                //Add them to the building
+                this.occupants.add(person);
+            }
         }
 
-        //Give the person a bogus position
-        person.setPosition(-1, -1);
-
-        //Add them to the building
-        this.occupants.add(person);
 
         return true;
     }
+
+    /**
+     * Allows a person to enter the building
+     *
+     * @param person The person looking to enter
+     * @return True if the entrance was successful, false otherwise
+     */
+    public boolean enter(Person person) {
+        //Auto return if the building is at capacity
+        if(this.occupants.size() >= this.capacity)
+            return false;
+        int time = ba.getTime();
+        //Auto return if the building is closed
+        if(time < this.openingTime || time > this.closingTime)
+            return false;
+
+        //Clear the tile the person is standing on (it should be an entrance)
+        for(Tile i : this.entrances) {
+            if(i.getX() == person.getX() && i.getY() == person.getY()) {
+                //Give the person a bogus position
+                person.setPosition(-2, -2);
+                ba.genIntent(person);
+                i.clearOccupant();
+
+                //Add them to the building
+                this.occupants.add(person);
+            }
+        }
+
+
+        return true;
+    }
+
 
     /**
      * Allows a person to exit the building
@@ -153,21 +216,34 @@ public class Building {
             if(i.isAccessible()) {
                 exit = i;
                 break;
+            } else {
+                ba.roam(i.getOccupant());
             }
         }
-        if(exit == null)
+        if(exit == null) {
+            ba.hold(person);
             return false;
+        }
 
         //Add ourselves to the tile
         exit.setOccupant(person);
-
         //Copy it's position
         person.setPosition(exit.getX(), exit.getY());
-
+//        ba.genIntent(person);
         //Exit the building arraylist
         this.occupants.remove(person);
 
         return true;
+    }
+
+    /**
+     * Returns a random entrance tile, used for pathing
+     *
+     * @return A tile in this.entrances randomly
+     */
+    public Tile getRandEntrance() {
+        Random r = new Random();
+        return this.entrances[r.nextInt() % entrances.length];
     }
 
     /**
@@ -176,6 +252,7 @@ public class Building {
     public void tickInfect() {
         //Loop through the occupants
         for(Person i : this.occupants) {
+
             //Check if they cough
             if(i.cough()) {
                 Random rand = new Random();
@@ -190,6 +267,8 @@ public class Building {
                     }
                 }
             }
+            if(i.getTarget(ba.getTime(), ba.ticksPerDay) != this)
+                exit(i);
         }
     }
 
@@ -200,7 +279,7 @@ public class Building {
      * @param tiles The tiles to use
      * @return An arraylist of buildings
      */
-    public static ArrayList<Building> generateBuildings(BuildingType[] types, Tile[][] tiles) {
+    public static ArrayList<Building> generateBuildings(BuildingType[] types, Tile[][] tiles, BehaviorAgent ba) {
         int x = 3;
         int y = 3;
         int maxHeight = 0; //The max recorded height of a building in the current row
@@ -230,12 +309,13 @@ public class Building {
             }
 
             //No error, actually make the building
-            x += types[i].getW() + 3;
             Tile[] entrance = new Tile[1];
             entrance[0] = tiles[x + (types[i].getW()/2) - 1][y + types[i].getH() + 1];
             Tile[] exit = new Tile[1];
             exit[0] = tiles[x + (types[i].getW()/2) + 1][y + types[i].getH() + 1];
-            buildings.add(new Building(entrance, exit, false, false, 999, needed));
+            buildings.add(new Building(entrance, exit, false, false, 999, needed, ba));
+            x += types[i].getW() + 3;
+            maxHeight = Math.max(maxHeight, types[i].getH());
         }
 
         return buildings;

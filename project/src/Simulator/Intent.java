@@ -13,12 +13,12 @@ import Grid.Tile;
 public class Intent {
     // Enumerate potential actions
     public enum Behavior {
-        SLEEP, ROAM, QUARANTINE, PATHTO, DEAD;
+        SLEEP, ROAM, QUARANTINE, PATHTO, DEAD, BUILDING;
 
         // Method to get a random behavior
         public static Behavior getRandomBehavior() {
             Random rand = new Random();
-            return values()[rand.nextInt(values().length-1)]; // Change back to -1 after fixing things
+            return values()[rand.nextInt(4)]; // Change back to -1 after fixing things
         }
     }
 
@@ -38,8 +38,8 @@ public class Intent {
 
     /**
      * Generates a specified intent, initializes the intent to be off the grid
-     * @param b
-     * @param dur
+     * @param b The behavior to use, presumes not a path
+     * @param dur The duration of the intent
      */
     public Intent(Behavior b, int dur) {
         this.intent = b;
@@ -60,17 +60,31 @@ public class Intent {
     }
 
     // Getters
+
+    /**
+     * Gets the set intent
+     * @return The intent, as ROAM, SLEEP, etc.
+     */
     public Behavior getIntent() { return this.intent; }
+
+    /**
+     * Gets the duration of the intent. Typically, how long until a new intent is generated
+     * @return The duration
+     */
     public int getDuration() { return this.duration; }
 
     /**
      * Setter to overwrite intent, only partially filled to change a state (perhaps from SLEEP to QUARANTINE)
-     * @param b
-     * @param dur
+     * @param b The behavior to set
+     * @param dur The duration of the set behavior
      */
     public void setIntent(Behavior b, int dur) {
         this.intent = b;
         this.duration = dur;
+        if (b != Behavior.PATHTO) { // If we aren't pathing, clear old paths
+            this.path = null;
+            this.dest = null;
+        }
     }
 
     /**
@@ -78,15 +92,19 @@ public class Intent {
      * @return The remaining duration
      */
     public int tickIntent() {
-        if (path != null)
+        if (path != null) // If we're pathing, set to path length
             this.duration = path.getLength();
-        if (this.duration > 0) {
+        if (this.duration > 0) { // Age the dur by 1
             this.duration--;
             return this.duration;
         }
-        return -1;
+        return -1; // Ret -1 on completed intent
     }
 
+    /**
+     * Returns the path, if one exists, for this intent
+     * @return The path
+     */
     public Path getPath() {
         return this.path;
     }
@@ -99,6 +117,17 @@ public class Intent {
         this.duration = p.getLength();
         this.dest = dest;
         this.path = p;
+    }
+
+    /**
+     * Gives the string representation of the intent
+     *
+     * @return The string representation of the intent
+     */
+    public String toString() {
+        String string = "Intent: " + this.intent + "\n";
+        string += "Duration: " + this.duration + "\n";
+        return string;
     }
 
 }

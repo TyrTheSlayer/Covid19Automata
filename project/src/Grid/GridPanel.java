@@ -52,9 +52,10 @@ public class GridPanel extends JPanel implements Runnable {
     public Map<Point, Integer> grid = new ConcurrentHashMap<Point, Integer>();
 
     //The list of people and their intents
-    private ArrayList<Person> people;
-    private ArrayList<Intent> intents;
+    public ArrayList<Person> people;
+    public ArrayList<Intent> intents;
     private ArrayList<Factor> factor;
+    private ArrayList<Building> buildings;
 
     private DataOut data = new DataOut(100);
 
@@ -93,9 +94,11 @@ public class GridPanel extends JPanel implements Runnable {
         this.people = new ArrayList<>();
         this.intents = new ArrayList<>();
         this.factor = new ArrayList<>();
+        this.buildings = new ArrayList<>();
         t = new Thread(this);
         this.agent = new BehaviorAgent(this);
         this.settings = settings;
+        this.agent.updateTime(ticks, TICKS_PER_RECORD);
 
         //create the grid
         for (int i=0; i<viewableWidth; i++) {
@@ -125,6 +128,25 @@ public class GridPanel extends JPanel implements Runnable {
         */
 
         initPeople(settings.getInitialInfected(), settings.getPopulation());
+
+        //Make the buildings
+        BuildingType[] btypes = new BuildingType[] {BuildingType.SCHOOL, BuildingType.SCHOOL, BuildingType.HOSPITAL, BuildingType.STORE
+        , BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE};
+        this.buildings = Building.generateBuildings(btypes, this.gridViewable, agent);
+        System.out.println(buildings);
+
+        // This basically overwrites the intents of people now occupying buildings
+        for (int i = 0; i < buildings.size(); i++) {
+            Building b = buildings.get(i);
+            b.setBA(agent);
+            for (int j = 0; j < b.occupants.size(); j++) {
+                Person p = b.occupants.get(j);
+                int index = people.indexOf(p);
+                Intent b_intent = new Intent(Intent.Behavior.BUILDING, 20);
+                intents.set(index, b_intent);
+            }
+        }
+
     }
 
 
@@ -141,7 +163,7 @@ public class GridPanel extends JPanel implements Runnable {
         while(i < population) {
             int randx = rn.nextInt(this.viewableWidth);
             int randy = rn.nextInt(this.viewableHeight);
-            if (this.gridViewable[randx][randy].getOccupant() == null) {
+            if (this.gridViewable[randx][randy].getOccupant() == null && this.gridViewable[randx][randy].isAccessible()) {
                 Factor f = new Factor();
                 Person p = new Person(randx, randy, f);
                 this.factor.add(f);
@@ -166,11 +188,10 @@ public class GridPanel extends JPanel implements Runnable {
      * Creates a new Tile
      * @param xcoord x coordinate
      * @param ycoord y coordinate
-     * @return
+     * @return A tile object at the specified coordinates
      */
     private Tile createTile(int xcoord, int ycoord) {
-        Tile newTile = new Tile(xcoord, ycoord);
-        return newTile;
+        return new Tile(xcoord, ycoord);
     }
 
     //Getters
@@ -184,8 +205,16 @@ public class GridPanel extends JPanel implements Runnable {
      * @return The Tile at (x, y)
      */
     public Tile getTile(int x, int y) {
-        if (((x >= 0) && (x < viewableWidth)) && ((x >= 0) && (y < viewableHeight))) return gridViewable[x][y];
+        if (((x >= 0) && (x < viewableWidth)) && ((y >= 0) && (y < viewableHeight))) return gridViewable[x][y];
         return null;
+    }
+
+    /**
+     * Gets the list of buildings, used in the BA to randomly pull a building to path to
+     * @return A list of buildings in the grid
+     */
+    public ArrayList<Building> getBuildings() {
+        return this.buildings;
     }
 
     /**
@@ -218,27 +247,37 @@ public class GridPanel extends JPanel implements Runnable {
      * A method to tick. Currently handles actions for each Person object in the sim via the BehaviorAgent and ascribes intents when they expire
      */
     public void step() {
-        for (int i = 0 ;i < people.size(); i++) {
-            if (people.get(i).getX() == -666) { // F*cking zombies
-                intents.get(i).setIntent(Intent.Behavior.DEAD, 0);
-            } else {
-                if (intents.get(i).tickIntent() < 0) {
-                    intents.set(i, agent.genIntent(people.get(i)));
+        for (int i = 0 ;i < people.size(); i++) { // Iterator for the BA, over people
+            if (people.get(i).getX() == -2) { // If the person is in a building
+                if (intents.get(i).getIntent() != Intent.Behavior.BUILDING) { // Checker to ensure they have a BUILDING intent
+                    intents.set(i, new Intent(Intent.Behavior.BUILDING, 20));
                 }
-                agent.action(people.get(i), intents.get(i));
-                if ((intents.get(i).getIntent() == Intent.Behavior.QUARANTINE) && (intents.get(i).getDuration() == 0)) {
-                    //Only bring them out if they didn't die
-                    if (people.get(i).getStatus() != Status.DEAD) {
-                        Random rn = new Random();
-                        int randx = rn.nextInt(this.viewableWidth);
-                        int randy = rn.nextInt(this.viewableHeight);
-                        while (this.gridViewable[randx][randy].getOccupant() != null) {
-                            randx = rn.nextInt(this.viewableWidth);
-                            randy = rn.nextInt(this.viewableHeight);
-                        }
-                        people.get(i).setPosition(randx, randy);
-                        this.gridViewable[randx][randy].setOccupant(people.get(i));
+            }
+            for(int j = 0; j < buildings.size(); j++) { // Iterate over buildings
+                if( (buildings.get(j).occupants.contains(people.get(i))) && (intents.get(i).getIntent() != Intent.Behavior.BUILDING)) // Additional check
+                    intents.set(i, new Intent(Intent.Behavior.BUILDING, 20));
+            }
+            if (intents.get(i).getDuration() <= 0) { // Checks if intents have expired
+                agent.updateTime(ticks);
+                intents.set(i, agent.genIntent(people.get(i)));
+            }
+
+            agent.action(people.get(i), intents.get(i)); // Run the intent for this person
+
+
+            // Currently cells quarantine and just pop into and out of the simulation
+            // Maybe we should add something to relay that data to the user?
+            if ((intents.get(i).getIntent() == Intent.Behavior.QUARANTINE) && (intents.get(i).getDuration() == 0)) { // Check for people ending quarantine
+                //Only bring them out if they didn't die
+                if (people.get(i).getStatus() != Status.DEAD) {
+                    Random rn = new Random();
+                    int randx = rn.nextInt(this.viewableWidth);
+                    int randy = rn.nextInt(this.viewableHeight);
+                    while (!this.gridViewable[randx][randy].isAccessible()) {
+                        randx = rn.nextInt(this.viewableWidth);
+                        randy = rn.nextInt(this.viewableHeight);
                     }
+                    this.gridViewable[randx][randy].setOccupant(people.get(i));
                 }
             }
         }
@@ -319,6 +358,9 @@ public class GridPanel extends JPanel implements Runnable {
         }
     }
 
+    /**
+     * A simple method that handles writing the data at the end of execution
+     */
     public void writeData() {
         data.writeOut();
     }

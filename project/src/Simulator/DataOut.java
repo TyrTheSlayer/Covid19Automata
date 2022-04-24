@@ -15,13 +15,24 @@ public class DataOut {
         private int arr[];
         private int size = 0;
 
+        /**
+         * Inits an array of a given length
+         * @param len The length of the array
+         */
         public Array(int len) { arr = new int[len]; }
 
+        /**
+         * A print method, to print the array out for debugging
+         */
         public void print() {
             for (int i = 0; i < size; i++)
                 System.out.println(arr[i] + " ");
         }
 
+        /**
+         * A method to dynamically add elements to the array
+         * @param a The value to add at the end of the array
+         */
         public void add(int a) {
             if (arr.length == size) {
                 int newArr[] = new int[2 * size];
@@ -33,6 +44,11 @@ public class DataOut {
             arr[size++] = a;
         }
 
+        /**
+         * A method to get a value at some index
+         * @param i The index to read
+         * @return The val at a[i]
+         */
         public int get(int i) {
             if (i >= 0 && i < size) return arr[i];
             return -1;
@@ -44,6 +60,9 @@ public class DataOut {
     private Array recovered;
     private Array vaccinated;
 
+    /**
+     * Default constructor, inits all data to be arrays of len 1
+     */
     public DataOut() {
         susceptible = new Array(1);
         infected = new Array(1);
@@ -52,6 +71,10 @@ public class DataOut {
         vaccinated = new Array(1);
     }
 
+    /**
+     * Constructor to init data arrays to have length i
+     * @param i The length of all data arrays
+     */
     public DataOut(int i) {
         susceptible = new Array(i);
         infected = new Array(i);
@@ -60,6 +83,14 @@ public class DataOut {
         vaccinated = new Array(i);
     }
 
+    /**
+     * A method to add records for susceptible, infected, recovered, dead, and vaxxed individuals
+     * @param s Susceptible count
+     * @param i Infected count
+     * @param r Recovered count
+     * @param d Dead count
+     * @param v Vaccinated count
+     */
     public void addRecord(int s, int i, int r, int d, int v) {
         susceptible.add(s);
         infected.add(i);
@@ -68,17 +99,20 @@ public class DataOut {
         vaccinated.add(v);
     }
 
+    /**
+     * Writes the data to a csv file for postsim processing
+     */
     public void writeOut() {
         String CSV = "susceptible,infected,recovered,dead,vaccinated\r\n";
 
-        for(int i = 0; i < susceptible.size; i++) {
+        for(int i = 0; i < susceptible.size; i++) { // Iterate over string and append
             CSV += susceptible.get(i) + ",";
             CSV += infected.get(i) + ",";
             CSV += recovered.get(i) + ",";
             CSV += dead.get(i) + ",";
             CSV += vaccinated.get(i) + "\r\n";
         }
-        try {
+        try { // Try to write
             String pathname = "./postsim/simulation.csv";
             File outFile = new File(pathname);
             outFile.createNewFile();

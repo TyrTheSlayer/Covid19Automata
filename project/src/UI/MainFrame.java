@@ -31,14 +31,14 @@ public class MainFrame extends JFrame{
     private SimSettings settings;
     public MainFrame(String title, SimSettings settings) {
         super(title);
-        setLocationRelativeTo(null);
+        //setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.settings = settings;
 
         this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 gridPanel.writeData();
-                PostSimUI postSimUI = new PostSimUI("Test");
+                PostSimUI postSimUI = new PostSimUI("Post Simulation", settings);
                 postSimUI.startWindow();
 
                 File pathToExe = new File("postsim\\dist\\plot.exe");
@@ -90,6 +90,12 @@ public class MainFrame extends JFrame{
         // set minimum size for window
         this.setMinimumSize(new Dimension(gridPanel.gridPixelWidth, gridPanel.gridPixelHeight));
         this.setResizable(false);
+
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                gridPanel.pause();
+            }
+        });
 
         ActionListener playSim = new ActionListener() {
             @Override

@@ -363,18 +363,15 @@ go.addActionListener(new ActionListener() {
  @Override
  public void actionPerformed(ActionEvent e) {
 
-  MainFrame mainFrame = new MainFrame("Test", simSet);
+  MainFrame mainFrame = new MainFrame("Simulation", simSet);
   mainFrame.startWindow();
   frame.dispose();
 
 
  }
 });
-
-
        //Set size
        frame.setSize(700, 370) ;
-
        // uses no layout managers
        frame.setLayout(null);
 

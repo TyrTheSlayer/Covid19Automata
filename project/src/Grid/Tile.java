@@ -15,6 +15,7 @@ public class Tile {
 	private Person occupant;
 	private Building entranceTo;
 	private boolean accessible;
+	private boolean selected = false;
 	private int x;
 	private int y;
 
@@ -59,6 +60,13 @@ public class Tile {
 		return occupant;
 	}
 
+	/**
+	 * A boolean that determines if this tile is accessible
+	 * @return Whether this tile is in fact accessible
+	 */
+	public boolean isAccessible() { return this.accessible; }
+
+
 	//Setters
 	/**
 	 * Sets the tile to be the entrance to the given building
@@ -81,14 +89,6 @@ public class Tile {
 	}
 
 	/**
-	 * Sets the tile to have not occupant. Should only be called on tile that currently have an occupant.
-	 */
-	public void clearOccupant() {
-		this.occupant = null;
-		this.setAccessible(true);
-	}
-
-	/**
 	 * Sets whether or not the tile is accessible
 	 *
 	 * @param accessible True if it should be, false otherwise
@@ -97,7 +97,6 @@ public class Tile {
 		this.accessible = accessible;
 	}
 
-	public boolean isAccessible() { return this.accessible; }
 	//Methods
 	/**
 	 * Sets the coordinate of the tile
@@ -110,20 +109,37 @@ public class Tile {
 		this.y = y;
 	}
 
+
+	/**
+	 * Sets the tile to have not occupant. Should only be called on tile that currently have an occupant.
+	 */
+	public void clearOccupant() {
+		this.occupant = null;
+		this.setAccessible(true);
+	}
+
 	/**
 	 * Gives a person to this tile, with the person coming from the given tile
 	 *
 	 * @param tile The tile to pull the person from
 	 */
-	public void takePerson(Tile tile) {
+	public void takePerson(Tile tile){
 		if (tile == this) return;
+		if (tile.occupant == null) return;
 		this.occupant = tile.occupant;
-		tile.occupant = null;
-		if(this.occupant != null) {
-			this.occupant.setPosition(this.x, this.y);
-			this.setAccessible(false);
+		this.occupant.setPosition(this.x, this.y);
+		this.setAccessible(false);
+		tile.clearOccupant();
+		if (this.entranceTo != null) {
+			this.entranceTo.enter(this.occupant);
 		}
-		tile.setAccessible(true);
+	}
+
+	public String toString() {
+		String s = "(" + this.x + ", " + this.y + ")\n";
+		s += "Accessible: " + this.isAccessible() + "\n";
+		s += "Occupant: " + this.occupant + "\n";
+		return s;
 	}
 
 	/**
@@ -139,6 +155,8 @@ public class Tile {
 		//Draw the fill of the tile
 		if(this.accessible || this.occupant != null)
 			canvas.setColor(Color.DARK_GRAY);
+		else if (this.selected)
+			canvas.setColor(Color.WHITE);
 		else
 			canvas.setColor(Color.LIGHT_GRAY);
 		canvas.fillRect(size * this.x, size * this.y, size, size);
