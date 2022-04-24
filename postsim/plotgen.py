@@ -9,11 +9,11 @@ class plotgen:
     def __init__(self, filename):
         self.table = pd.read_csv(filename)
         self.days = len(self.table)
-        self.suscep = self.table["susceptible"].tolist()
-        self.infected = self.table["infected"].tolist()
-        self.recovered = self.table["recovered"].tolist()
-        self.dead = self.table["dead"].tolist()
-        self.vaccinated = self.table["vaccinated"].tolist()
+        self.suscep = self.table.loc[:,"susceptible"].tolist()
+        self.infected = self.table.loc[:,"infected"].tolist()
+        self.recovered = self.table.loc[:,"recovered"].tolist()
+        self.dead = self.table.loc[:,"dead"].tolist()
+        self.vaccinated = self.table.loc[:,"vaccinated"].tolist()
 
     def printdf(self):
         print(self.table.to_string())

@@ -103,7 +103,7 @@ public class DataOut {
      * Writes the data to a csv file for postsim processing
      */
     public void writeOut() {
-        String CSV = "susceptible, infected, recovered, dead, vaccinated \r\n";
+        String CSV = "susceptible,infected,recovered,dead,vaccinated\r\n";
 
         for(int i = 0; i < susceptible.size; i++) { // Iterate over string and append
             CSV += susceptible.get(i) + ",";

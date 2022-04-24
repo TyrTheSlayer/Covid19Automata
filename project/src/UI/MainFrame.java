@@ -18,6 +18,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
+import java.lang.Runtime;
+import java.util.Scanner;
 
 public class MainFrame extends JFrame{
     public GridPanel gridPanel;
@@ -36,6 +40,35 @@ public class MainFrame extends JFrame{
                 gridPanel.writeData();
                 PostSimUI postSimUI = new PostSimUI("Post Simulation", settings);
                 postSimUI.startWindow();
+
+                File pathToExe = new File("postsim\\dist\\plot.exe");
+                File pathToCSV = new File("postsim\\simulation.csv");
+                ProcessBuilder builder = new ProcessBuilder(pathToExe.getAbsolutePath(), "-f", "simulation.csv", "-d");
+                builder.directory(new File("postsim"));
+                builder.redirectErrorStream(true);
+                Process process = null;
+                try {
+                    process = builder.start();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+
+                Scanner s = new Scanner(process.getInputStream());
+                StringBuilder text = new StringBuilder();
+                while (s.hasNextLine()) {
+                    text.append(s.nextLine());
+                    text.append("\n");
+                }
+                s.close();
+
+                int result = 0;
+                try {
+                    result = process.waitFor();
+                } catch (InterruptedException interruptedException) {
+                    interruptedException.printStackTrace();
+                }
+
+                System.out.printf( "Process exited with result %d and output %s%n", result, text );
             }
         });
     }

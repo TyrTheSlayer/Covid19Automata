@@ -45,13 +45,13 @@ public class PostSimUI extends JFrame {
         }
 
 
-        File dir = new File("./postsim/dist/");
+        File dir = new File("./postsim");
         File[] directoryListing = dir.listFiles();
         int j = 0;
         if (directoryListing != null) {
-            this.optionsToChoose = new String[directoryListing.length-1];
+            this.optionsToChoose = new String[directoryListing.length-4];
             for (File child : directoryListing) {
-                if(!child.getName().equals("plot.exe")){
+                if(child.getName().contains(".png")){
                     this.optionsToChoose[j] = child.getName().replace(".png", "");
                     j++;
                 }
@@ -144,7 +144,6 @@ public class PostSimUI extends JFrame {
             filename = "depression.jpg";
         }
         JLabel deadLbl = new JLabel();
-        System.out.println(filename);
         ImageIcon pic = new ImageIcon("./project/src/UI/"+ filename);
         deadLbl.setIcon(pic);
         deadLbl.setBounds(300, 100, 462, 261);
@@ -164,7 +163,7 @@ public class PostSimUI extends JFrame {
 
         //setting up graph pictures
         JLabel lbl = new JLabel();
-        this.img = new ImageIcon("./postsim/dist/density.png");
+        this.img = new ImageIcon("./postsim/density.png");
         lbl.setIcon(img);
         lbl.setBounds(15, 300, 650, 650);
         lbl.setVisible(true);
@@ -174,7 +173,7 @@ public class PostSimUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 repaint();
-                lbl.setIcon(new ImageIcon("./postsim/dist/" + menu.getItemAt(menu.getSelectedIndex()) + ".png"));
+                lbl.setIcon(new ImageIcon("./postsim/" + menu.getItemAt(menu.getSelectedIndex()) + ".png"));
             }
         });
         //Set size
@@ -194,7 +193,7 @@ public class PostSimUI extends JFrame {
     public void paint(Graphics g) {
         super.paint(g);  // fixes the immediate problem.
         Graphics2D g2 = (Graphics2D) g;
-        g2.setStroke(new BasicStroke(3));
+        g2.setStroke(new BasicStroke(5));
         //value border
         Line2D lin = new Line2D.Float(20, 35, 225, 35);
         g2.draw(lin);
@@ -205,7 +204,6 @@ public class PostSimUI extends JFrame {
         lin = new Line2D.Float(225, 35, 225, 275);
         g2.draw(lin);
         //graph border
-        g2.setStroke(new BasicStroke(5));
         Rectangle rect = new Rectangle(20, 415, 640, 480);
         g2.draw(rect);
 
