@@ -31,11 +31,21 @@ public class BehaviorAgent {
         this.height = grid.getViewableHeight();
     }
 
+    /**
+     * A method to convey to the BA what time it is
+     * This method should only be used once to set the tPD
+     * @param ticks The current ticks
+     * @param ticksPerDay The ticks per day
+     */
     public void updateTime(int ticks, int ticksPerDay) {
         this.ticks = ticks;
         this.ticksPerDay = ticksPerDay;
     }
 
+    /**
+     * A method to update the time of day in the BA
+     * @param ticks The ticks of the day
+     */
     public void updateTime(int ticks) {
         this.ticks = ticks % ticksPerDay;
     }
@@ -45,7 +55,7 @@ public class BehaviorAgent {
      * @return A fully initialized Intent object
      */
     public Intent genIntent(Person p) {
-        if (p.getX() == -666)
+        if (p.getX() == -666) // Check if dead
             return new Intent(Intent.Behavior.DEAD, 0);
         if (p.getX() == -2) // In a building
             return new Intent(Intent.Behavior.BUILDING, 20);
@@ -62,10 +72,19 @@ public class BehaviorAgent {
             i.setPath(entrance, path);
             return i;
         }
-
+        // Gen a random intent
         Random rand = new Random();
         Intent i = new Intent(Intent.Behavior.getRandomBehavior(), rand.nextInt(20)); // Generates a random intent with max duration of 20 ticks
         if (i.getIntent() == Intent.Behavior.PATHTO) { // Initializes a random destination cell if the person wants to path somewhere
+            if (grid.getBuildings().size() > 0 && rand.nextInt(5) == 0) { // Makes 20% of paths go to a building
+                Tile t = grid.getBuildings().get(rand.nextInt(grid.getBuildings().size())).getRandEntrance();
+                Path path = new Path(grid, grid.getTile(p.getX(), p.getY()));
+                if (!path.findPath(grid.getTile(p.getX(), p.getY()), t))
+                    return new Intent(Intent.Behavior.SLEEP, rand.nextInt(1));
+                i.setIntent(Intent.Behavior.PATHTO, path.getLength());
+                i.setPath(t, path);
+                return i;
+            }
             int x = rand.nextInt(width);
             int y = rand.nextInt(height);
             while (!grid.getTile(x, y).isAccessible()) {
@@ -86,7 +105,7 @@ public class BehaviorAgent {
      * Acts to perform the intended action on behalf of a cell. Currently calls other methods in this class, but allows for pre-processing before doing so
      * @param p The person to act on
      * @param i The intended action
-     * @return
+     * @return Typically returns the duration of the intent, or a negative number corresponding to a special status
      */
     public int action(Person p, Intent i) {
         switch(i.getIntent()) {
@@ -98,7 +117,7 @@ public class BehaviorAgent {
                 return -666;
 
             case BUILDING:
-                break;
+                return -2;
 
             case ROAM:
                 return roam(p);
@@ -117,7 +136,6 @@ public class BehaviorAgent {
                 if (t == null) {
                     return genIntent(p).tickIntent();
                 }
-//                System.out.println(p + " " + i + " " + i.getPath().getLength() + i.getPath().nextStep());
                 if (grid.getTile(p.getX(), p.getY()) == null) return -1;
                 if ((grid.getTile(p.getX(), p.getY()) == t) && (path.getLength() > 2)){
                     t = path.courtesyStep();
@@ -142,7 +160,7 @@ public class BehaviorAgent {
     /**
      * Causes a cell to roam randomly, moving 1 cell in any direction
      * @param p The person to move
-     * @return
+     * @return 1 on fail, 0 on success
      */
     public int roam(Person p) {
         Random rand = new Random();
@@ -176,10 +194,10 @@ public class BehaviorAgent {
         if (tile.isAccessible()) {
 //            System.out.println("Tile ("+x+", "+y+") is taking from ("+p.getX()+", "+p.getY()+")");
             tile.takePerson(grid.getTile(p.getX(), p.getY()));
-            return 1;
+            return 0;
         }
 
-        return 0;
+        return 1;
     }
 }
 

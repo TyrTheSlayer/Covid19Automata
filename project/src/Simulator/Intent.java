@@ -38,8 +38,8 @@ public class Intent {
 
     /**
      * Generates a specified intent, initializes the intent to be off the grid
-     * @param b
-     * @param dur
+     * @param b The behavior to use, presumes not a path
+     * @param dur The duration of the intent
      */
     public Intent(Behavior b, int dur) {
         this.intent = b;
@@ -60,18 +60,28 @@ public class Intent {
     }
 
     // Getters
+
+    /**
+     * Gets the set intent
+     * @return The intent, as ROAM, SLEEP, etc.
+     */
     public Behavior getIntent() { return this.intent; }
+
+    /**
+     * Gets the duration of the intent. Typically, how long until a new intent is generated
+     * @return The duration
+     */
     public int getDuration() { return this.duration; }
 
     /**
      * Setter to overwrite intent, only partially filled to change a state (perhaps from SLEEP to QUARANTINE)
-     * @param b
-     * @param dur
+     * @param b The behavior to set
+     * @param dur The duration of the set behavior
      */
     public void setIntent(Behavior b, int dur) {
         this.intent = b;
         this.duration = dur;
-        if (b != Behavior.PATHTO) {
+        if (b != Behavior.PATHTO) { // If we aren't pathing, clear old paths
             this.path = null;
             this.dest = null;
         }
@@ -82,15 +92,19 @@ public class Intent {
      * @return The remaining duration
      */
     public int tickIntent() {
-        if (path != null)
+        if (path != null) // If we're pathing, set to path length
             this.duration = path.getLength();
-        if (this.duration > 0) {
+        if (this.duration > 0) { // Age the dur by 1
             this.duration--;
             return this.duration;
         }
-        return -1;
+        return -1; // Ret -1 on completed intent
     }
 
+    /**
+     * Returns the path, if one exists, for this intent
+     * @return The path
+     */
     public Path getPath() {
         return this.path;
     }

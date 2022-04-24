@@ -115,10 +115,19 @@ public class Building {
         }
     }
 
-    public Tile getRandEntrance() {
-        Random r = new Random();
-        return this.entrances[r.nextInt() % entrances.length];
+
+    //Setters
+
+    /**
+     * Sets the behavior agent for the building. A copy of the BA in grid,
+     * used so buildings and the BA can pass people to one another
+     * @param ba The BA to use
+     */
+    public void setBA(BehaviorAgent ba) {
+        this.ba = ba;
     }
+
+
 
     //Methods
     /**
@@ -185,8 +194,14 @@ public class Building {
         return true;
     }
 
-    public void setBA(BehaviorAgent ba) {
-        this.ba = ba;
+    /**
+     * Returns a random entrance tile, used for pathing
+     *
+     * @return A tile in this.entrances randomly
+     */
+    public Tile getRandEntrance() {
+        Random r = new Random();
+        return this.entrances[r.nextInt() % entrances.length];
     }
 
     /**

@@ -37,13 +37,6 @@ public class Person {
         this.virus = null;
     }
 
-    /**
-     * Return the status of this person
-     * @return The Status
-     */
-    public Status getStatus() {
-        return this.status;
-    }
 
 
 
@@ -81,6 +74,15 @@ public class Person {
     //Getters
     public int getX() { return this.x; }
     public int getY() { return this.y; }
+
+    /**
+     * Return the status of this person
+     * @return The Status
+     */
+    public Status getStatus() {
+        return this.status;
+    }
+
 
     //Methods
     /**

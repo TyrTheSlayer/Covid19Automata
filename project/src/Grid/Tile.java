@@ -60,6 +60,13 @@ public class Tile {
 		return occupant;
 	}
 
+	/**
+	 * A boolean that determines if this tile is accessible
+	 * @return Whether this tile is in fact accessible
+	 */
+	public boolean isAccessible() { return this.accessible; }
+
+
 	//Setters
 	/**
 	 * Sets the tile to be the entrance to the given building
@@ -82,14 +89,6 @@ public class Tile {
 	}
 
 	/**
-	 * Sets the tile to have not occupant. Should only be called on tile that currently have an occupant.
-	 */
-	public void clearOccupant() {
-		this.occupant = null;
-		this.setAccessible(true);
-	}
-
-	/**
 	 * Sets whether or not the tile is accessible
 	 *
 	 * @param accessible True if it should be, false otherwise
@@ -98,7 +97,6 @@ public class Tile {
 		this.accessible = accessible;
 	}
 
-	public boolean isAccessible() { return this.accessible; }
 	//Methods
 	/**
 	 * Sets the coordinate of the tile
@@ -109,6 +107,15 @@ public class Tile {
 	public void changeCoordinates(int x, int y) {
 		this.x = x;
 		this.y = y;
+	}
+
+
+	/**
+	 * Sets the tile to have not occupant. Should only be called on tile that currently have an occupant.
+	 */
+	public void clearOccupant() {
+		this.occupant = null;
+		this.setAccessible(true);
 	}
 
 	/**
@@ -164,12 +171,6 @@ public class Tile {
 
 		//Restore the old color
 		canvas.setColor(oldCol);
-	}
-	public void highlightTile() {
-		this.selected = true;
-	}
-	public void unhighlightTile() {
-		this.selected = false;
 	}
 }
 
