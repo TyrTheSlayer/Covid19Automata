@@ -115,9 +115,9 @@ public class PostSimUI extends JFrame {
         vaxx.setFont(new Font("Verdana", Font.PLAIN, 18));
         vaxx.setForeground(periwinkle);
         this.add(vaxx);
-        int deadPercent = 0;
+        Double deadPercent = 0.0;
         if(isNumeric(finalDayData[3])){
-            deadPercent = (Integer.parseInt(finalDayData[3]) / settings.getPopulation())*100;
+            deadPercent = (Double.parseDouble(finalDayData[3]) / (double)settings.getPopulation())*100;
             JLabel population = new JLabel("% of population dead: " + deadPercent + "%");
             population.setBounds(300, 0, 300, 100);
             population.setFont(new Font("Verdana", Font.PLAIN, 18));
