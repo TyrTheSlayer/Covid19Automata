@@ -27,14 +27,14 @@ public class MainFrame extends JFrame{
     private SimSettings settings;
     public MainFrame(String title, SimSettings settings) {
         super(title);
-        setLocationRelativeTo(null);
+        //setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.settings = settings;
 
         this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 gridPanel.writeData();
-                PostSimUI postSimUI = new PostSimUI("Post Simulation");
+                PostSimUI postSimUI = new PostSimUI("Post Simulation", settings);
                 postSimUI.startWindow();
             }
         });
