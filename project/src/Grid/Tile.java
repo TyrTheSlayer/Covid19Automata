@@ -130,6 +130,9 @@ public class Tile {
 		this.occupant.setPosition(this.x, this.y);
 		this.setAccessible(false);
 		tile.clearOccupant();
+		if (this.entranceTo != null) {
+			this.entranceTo.enter(this.occupant);
+		}
 	}
 
 	public String toString() {

@@ -129,6 +129,13 @@ public class Building {
 
 
 
+    //Getters
+
+    public ArrayList<Person> getOccupants() {
+        return occupants;
+    }
+
+
     //Methods
     /**
      * Allows a person to enter the building
@@ -164,6 +171,39 @@ public class Building {
     }
 
     /**
+     * Allows a person to enter the building
+     *
+     * @param person The person looking to enter
+     * @return True if the entrance was successful, false otherwise
+     */
+    public boolean enter(Person person) {
+        //Auto return if the building is at capacity
+        if(this.occupants.size() >= this.capacity)
+            return false;
+        int time = ba.getTime();
+        //Auto return if the building is closed
+        if(time < this.openingTime || time > this.closingTime)
+            return false;
+
+        //Clear the tile the person is standing on (it should be an entrance)
+        for(Tile i : this.entrances) {
+            if(i.getX() == person.getX() && i.getY() == person.getY()) {
+                //Give the person a bogus position
+                person.setPosition(-2, -2);
+                ba.genIntent(person);
+                i.clearOccupant();
+
+                //Add them to the building
+                this.occupants.add(person);
+            }
+        }
+
+
+        return true;
+    }
+
+
+    /**
      * Allows a person to exit the building
      *
      * @param person The person looking to leave
@@ -176,18 +216,20 @@ public class Building {
             if(i.isAccessible()) {
                 exit = i;
                 break;
+            } else {
+                ba.roam(i.getOccupant());
             }
         }
-        if(exit == null)
+        if(exit == null) {
+            ba.hold(person);
             return false;
+        }
 
         //Add ourselves to the tile
         exit.setOccupant(person);
-
         //Copy it's position
         person.setPosition(exit.getX(), exit.getY());
-        ba.genIntent(person);
-
+//        ba.genIntent(person);
         //Exit the building arraylist
         this.occupants.remove(person);
 
@@ -210,6 +252,7 @@ public class Building {
     public void tickInfect() {
         //Loop through the occupants
         for(Person i : this.occupants) {
+
             //Check if they cough
             if(i.cough()) {
                 Random rand = new Random();
@@ -224,6 +267,8 @@ public class Building {
                     }
                 }
             }
+            if(i.getTarget(ba.getTime(), ba.ticksPerDay) != this)
+                exit(i);
         }
     }
 

@@ -52,8 +52,8 @@ public class GridPanel extends JPanel implements Runnable {
     public Map<Point, Integer> grid = new ConcurrentHashMap<Point, Integer>();
 
     //The list of people and their intents
-    private ArrayList<Person> people;
-    private ArrayList<Intent> intents;
+    public ArrayList<Person> people;
+    public ArrayList<Intent> intents;
     private ArrayList<Factor> factor;
     private ArrayList<Building> buildings;
 
@@ -257,7 +257,7 @@ public class GridPanel extends JPanel implements Runnable {
                 if( (buildings.get(j).occupants.contains(people.get(i))) && (intents.get(i).getIntent() != Intent.Behavior.BUILDING)) // Additional check
                     intents.set(i, new Intent(Intent.Behavior.BUILDING, 20));
             }
-            if (intents.get(i).tickIntent() < 0) { // Checks if intents have expired
+            if (intents.get(i).getDuration() <= 0) { // Checks if intents have expired
                 agent.updateTime(ticks);
                 intents.set(i, agent.genIntent(people.get(i)));
             }

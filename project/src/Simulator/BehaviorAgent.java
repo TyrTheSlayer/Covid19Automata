@@ -18,7 +18,7 @@ public class BehaviorAgent {
     private GridPanel grid;
     private int width;
     private int height;
-    private int ticksPerDay;
+    public int ticksPerDay;
     private int ticks;
 
     /**
@@ -50,6 +50,11 @@ public class BehaviorAgent {
         this.ticks = ticks % ticksPerDay;
     }
 
+    public void hold(Person p) {
+        Intent i = grid.intents.get(grid.people.indexOf(p));
+        i.setIntent(Intent.Behavior.BUILDING, i.getDuration() + 1);
+    }
+    
     /**
      * Generates a random intent for a cell to act on
      * @return A fully initialized Intent object
@@ -57,12 +62,23 @@ public class BehaviorAgent {
     public Intent genIntent(Person p) {
         if (p.getX() == -666) // Check if dead
             return new Intent(Intent.Behavior.DEAD, 0);
-        if (p.getX() == -2) // In a building
+        if (p.getX() == -2 && grid.intents.get(grid.people.indexOf(p)).getIntent() != Intent.Behavior.BUILDING) // In a building
             return new Intent(Intent.Behavior.BUILDING, 20);
+        if (p.getX() == -2 && grid.intents.get(grid.people.indexOf(p)).getDuration() <= 0) {
+            for (Building b : grid.getBuildings()) {
+                Object[] list = b.getOccupants().toArray();
+                for (int j = 0; j < list.length; j++) {
+                    Person p2 = (Person) list[j];
+                    if (p == p2) {
+                        if (!b.exit(p))
+                            return grid.intents.get(grid.people.indexOf(p));
+                    }
+                }
+            }
+        }
         Building b = p.getTarget(ticks, ticksPerDay); // Get a target
         if (b != null) { // If this person has a target, path to it
             Tile entrance = b.getRandEntrance();
-            System.out.println(p + " pathing to " + entrance);
             Path path = new Path(grid, grid.getTile(p.getX(), p.getY()));
             if (!path.findPath(grid.getTile(p.getX(),p.getY()), entrance)) {
                 System.out.println("Cannot path to dest building");
@@ -102,6 +118,14 @@ public class BehaviorAgent {
     }
 
     /**
+     * Gets the time of day in the sim
+     * @return The current time
+     */
+    public int getTime() {
+        return this.ticks;
+    }
+
+    /**
      * Acts to perform the intended action on behalf of a cell. Currently calls other methods in this class, but allows for pre-processing before doing so
      * @param p The person to act on
      * @param i The intended action
@@ -117,16 +141,28 @@ public class BehaviorAgent {
                 return -666;
 
             case BUILDING:
-                return -2;
+                int d = i.tickIntent();
+                if (d <= 1) // Complicated way to force people to leave a building
+                    for (Building b : grid.getBuildings()) {
+                        Object[] list = b.getOccupants().toArray();
+                        for (int j = 0; j < list.length; j++) {
+                            Person p2 = (Person) list[j];
+                            if (p == p2) {
+                                b.exit(p);
+                            }
+                        }
+                    }
+                return d;
 
             case ROAM:
                 return roam(p);
 
             case PATHTO:
                 if (p.getX() == -2) {
-                    i.setIntent(Intent.Behavior.BUILDING, 20);
+                    i.setIntent(Intent.Behavior.BUILDING, 2);
                     return 0;
                 }
+
                 Path path;
                 if((path = i.getPath()) == null || (path.getLength() == -1)) {
                     i.setIntent(Intent.Behavior.SLEEP, 1);
