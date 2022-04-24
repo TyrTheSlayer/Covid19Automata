@@ -118,13 +118,13 @@ public class DailySchedule {
      * @param targets The targets
      * @return The schedule
      */
-    public static DailySchedule makeErrandSchedule(Building[] targets) {
+    public static DailySchedule makeErrandSchedule(ArrayList<Building> targets) {
         ArrayList<TimeCard> obligations = new ArrayList<>();
 
         //Iterate through, making time cards for each building
-        double l = 0.8 / targets.length;
-        for(int i = 0; i < targets.length; i++) {
-            obligations.add(new TimeCard(targets[i], (l * i) + 0.1, (l * (i + 1)) + 0.1));
+        double l = 0.8 / targets.size();
+        for(int i = 0; i < targets.size(); i++) {
+            obligations.add(new TimeCard(targets.get(i), (l * i) + 0.1, (l * (i + 1)) + 0.1));
         }
 
         //Add it to the errand schedules

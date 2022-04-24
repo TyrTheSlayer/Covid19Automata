@@ -6,6 +6,7 @@
 
 package Grid;
 
+import DataObjects.DailySchedule;
 import DataObjects.Status;
 import Simulator.BehaviorAgent;
 import Simulator.Factor;
@@ -135,6 +136,9 @@ public class GridPanel extends JPanel implements Runnable {
         this.buildings = Building.generateBuildings(btypes, this.gridViewable, agent);
         System.out.println(buildings);
 
+        //Make and assign schedules
+        //this.assignSchedules(0.7);
+
         // This basically overwrites the intents of people now occupying buildings
         for (int i = 0; i < buildings.size(); i++) {
             Building b = buildings.get(i);
@@ -182,6 +186,50 @@ public class GridPanel extends JPanel implements Runnable {
         }
 
         repaint();
+    }
+
+    /**
+     * Generates schedules and assigns people to them
+     *
+     * @param workPercent The percentage of the population that works. Between 0 and 1
+     */
+    public void assignSchedules(double workPercent) {
+        //Check to ensure that workPercent is a valid value
+        if(workPercent < 0 || workPercent > 1)
+            return;
+
+        //Split the population into worker and non-workers
+        int workers = (int)(workPercent * this.people.size());
+        ArrayList<Person> workerList = new ArrayList<>();
+        ArrayList<Person> errandList = new ArrayList<>();
+
+        //Copy workers from main list
+        for(int i = 0; i < workers; i++) {
+            workerList.add(this.people.get(i));
+        }
+
+        //Copy non-workers from the array list
+        for(int i = workers; i < this.people.size(); i++) {
+            errandList.add(this.people.get(i));
+        }
+
+        //Make and assign schedules for workers
+        //Make the work schedules
+        for(Building i : this.buildings) {
+            DailySchedule.makeWorkSchedule(i);
+        }
+        //Assign people to workplaces
+        double workplaces = this.buildings.size();
+        for(double i = 0; i < workerList.size(); i++) {
+            int scheduleIndex = (int)Math.floor(i/workerList.size() * workplaces);
+            workerList.get((int) i).setSchedule(DailySchedule.getWorkSchedules().get(scheduleIndex));
+        }
+
+        //Make and assign schedules for non-workers
+        DailySchedule errandSchedule = DailySchedule.makeErrandSchedule(this.buildings);
+        for(Person i : errandList) {
+            i.setSchedule(errandSchedule);
+        }
     }
 
     /**
