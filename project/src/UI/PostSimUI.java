@@ -118,7 +118,7 @@ public class PostSimUI extends JFrame {
         Double deadPercent = 0.0;
         if(isNumeric(finalDayData[3])){
             deadPercent = (Double.parseDouble(finalDayData[3]) / (double)settings.getPopulation())*100;
-            JLabel population = new JLabel("% of population dead: " + deadPercent + "%");
+            JLabel population = new JLabel("% of population dead: " + String.format("%.2f", deadPercent) + "%");
             population.setBounds(300, 0, 300, 100);
             population.setFont(new Font("Verdana", Font.PLAIN, 18));
             this.add(population);
