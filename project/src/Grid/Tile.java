@@ -16,6 +16,8 @@ public class Tile {
 	private Building entranceTo = null;
 	private boolean accessible;
 	private boolean selected = false;
+	private boolean isEntrance = false;
+	private boolean isExit = false;
 	private int x;
 	private int y;
 
@@ -75,6 +77,24 @@ public class Tile {
 	}
 
 	//Setters
+	/**
+	 * Sets the entrance status of the tile
+	 *
+	 * @param entrance The entrance status
+	 */
+	public void setEntrance(boolean entrance) {
+		isEntrance = entrance;
+	}
+
+	/**
+	 * Sets the entrance status of the tile
+	 *
+	 * @param exit The entrance status
+	 */
+	public void setExit(boolean exit) {
+		isExit = exit;
+	}
+
 	/**
 	 * Sets the tile to be the entrance to the given building
 	 *
@@ -160,12 +180,14 @@ public class Tile {
 		Color oldCol = canvas.getColor();
 
 		//Draw the fill of the tile
-		if(this.accessible || this.occupant != null)
-			canvas.setColor(Color.DARK_GRAY);
-		else if (this.selected)
-			canvas.setColor(Color.WHITE);
-		else
+		if(this.isExit)
+			canvas.setColor(Color.RED);
+		else if (this.isEntrance)
+			canvas.setColor(Color.BLUE);
+		else if (!this.accessible && this.occupant == null)
 			canvas.setColor(Color.LIGHT_GRAY);
+		else
+			canvas.setColor(Color.DARK_GRAY);
 		canvas.fillRect(size * this.x, size * this.y, size, size);
 
 		//If there's an occupant, have them draw themselves
