@@ -23,8 +23,8 @@ In the last few years, COVID19 has affected the lives of every person in a large
 
 * diagrams: Contains all UML and assorted diagrams for the project. Broken down into different versions as code changes/improvements were made
 * project: Contains the general project code and subsequent modules
-    *UI: Holds the UI implementation for initial menu, running/interacting with the simulation, and post simulation graph interaction
-        *UI.java: intial menu
+    *UI: Holds the UI implementation for initial menu, running/interacting with the simulation, and post simulation graph interaction\
+        *UI.java: intial menu\
         *MainFrame.java: During simulation UI, can change speed of running and exit to post simulation
         *PostSimUI.java: User interface after simulation
     *Simulator: 
