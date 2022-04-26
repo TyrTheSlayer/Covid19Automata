@@ -267,7 +267,6 @@ public class UI extends JFrame{
      public void stateChanged(ChangeEvent e) {
       System.out.println("Population: " + poppu.getValue());
       simSet.setPopulation(poppu.getValue());
-      System.out.println(simSet.toString());
      }
     });
 
@@ -277,7 +276,6 @@ public class UI extends JFrame{
      public void stateChanged(ChangeEvent e) {
       System.out.println("Duration: " +dur.getValue());
       simSet.setSimDuration(dur.getValue());
-      System.out.println(simSet.toString());
      }
     });
 
@@ -288,7 +286,6 @@ public class UI extends JFrame{
       double fina = insick.getValue() * .01;
       System.out.println("Initial Infected: " + fina);
       simSet.setInitialInfected(fina);
-      System.out.println(simSet.toString());
      }
     });
 
@@ -299,7 +296,6 @@ public class UI extends JFrame{
       double fina = vacc.getValue() * .01;
       System.out.println("Vaxed: " + fina);
       simSet.setVaxRate(fina);
-      System.out.println(simSet.toString());
      }
     });
 
@@ -310,7 +306,6 @@ public class UI extends JFrame{
       double fina = mask.getValue() * .01;
       System.out.println("Masked: " + fina);
       simSet.setMaskRate(fina);
-      System.out.println(simSet.toString());
      }
     });
 
@@ -321,7 +316,6 @@ public class UI extends JFrame{
       double fina = SocDis.getValue() * .01;
       System.out.println("Social Distanced " + fina);
       simSet.setSocialDistRate(fina);
-      System.out.println(simSet.toString());
      }
     });
 

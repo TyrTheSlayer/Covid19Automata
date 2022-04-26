@@ -143,14 +143,14 @@ public class PostSimUI extends JFrame {
         this.add(infectedPopulation);
 
         Double recoveredPercent = (Double.parseDouble(finalDayData[2]) / (double)settings.getPopulation())*100;
-        JLabel recoveredPopulation = new JLabel("% infected: " + String.format("%.2f", recoveredPercent) + "%");
+        JLabel recoveredPopulation = new JLabel("% recovered: " + String.format("%.2f", recoveredPercent) + "%");
         recoveredPopulation.setBounds(300, 130, 300, 100);
         recoveredPopulation.setFont(new Font("Verdana", Font.PLAIN, 18));
         recoveredPopulation.setForeground(periwinkle);
         this.add(recoveredPopulation);
 
         Double vaxxPercent = (Double.parseDouble(finalDayData[4]) / (double)settings.getPopulation())*100;
-        JLabel vaxxPopulation = new JLabel("% infected: " + String.format("%.2f", vaxxPercent) + "%");
+        JLabel vaxxPopulation = new JLabel("% vaccinated: " + String.format("%.2f", vaxxPercent) + "%");
         vaxxPopulation.setBounds(300, 170, 300, 100);
         vaxxPopulation.setFont(new Font("Verdana", Font.PLAIN, 18));
         vaxxPopulation.setForeground(periwinkle);
@@ -212,7 +212,7 @@ public class PostSimUI extends JFrame {
         //graph border
         Rectangle rect = new Rectangle(20, 415, 640, 480);
         g2.draw(rect);
-        Rectangle rect2 = new Rectangle(300, 35, 300, 240);
+        Rectangle rect2 = new Rectangle(300, 35, 310, 240);
         g2.draw(rect2);
 
     }
