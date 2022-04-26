@@ -176,6 +176,7 @@ public class MainFrame extends JFrame{
                 System.out.printf( "Process exited with result %d and output %s%n", result, text );
                 PostSimUI postSimUI = new PostSimUI("Post Simulation", settings);
                 postSimUI.startWindow();
+                MainFrame.super.dispose();
             }
         };
 
