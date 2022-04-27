@@ -413,8 +413,8 @@ public class GridPanel extends JPanel implements Runnable {
     /**
      * A simple method that handles writing the data at the end of execution
      */
-    public void writeData() {
-        data.writeOut();
+    public void writeData(){
+        data.writeOut(this.people);
     }
 
     /**

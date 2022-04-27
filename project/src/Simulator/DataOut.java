@@ -1,10 +1,13 @@
 package Simulator;
 
+import DataObjects.Person;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class DataOut {
 
@@ -102,8 +105,10 @@ public class DataOut {
     /**
      * Writes the data to a csv file for postsim processing
      */
-    public void writeOut() {
+    public void writeOut(ArrayList<Person> people){
         String CSV = "susceptible,infected,recovered,dead,vaccinated\r\n";
+
+        peopleCSV(people);
 
         for(int i = 0; i < susceptible.size; i++) { // Iterate over string and append
             CSV += susceptible.get(i) + ",";
@@ -122,6 +127,97 @@ public class DataOut {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void peopleCSV(ArrayList<Person> people){
+        //declare bins for people
+        Person[] bin010 = new Person[people.size()/3];
+        Person[] bin1120 = new Person[people.size()/3];
+        Person[] bin2130 = new Person[people.size()/3];
+        Person[] bin3140 = new Person[people.size()/3];
+        Person[] bin4150 = new Person[people.size()/3];
+        Person[] bin5160 = new Person[people.size()/3];
+        Person[] bin6170 = new Person[people.size()/3];
+        Person[] bin7180 = new Person[people.size()/3];
+        Person[] bin8190 = new Person[people.size()/3];
+        Person[] bin91100 = new Person[people.size()/3];
+        int i1 = 0, i2 = 0, i3 = 0, i4 = 0, i5 = 0, i6 = 0, i7 = 0, i8 = 0, i9 = 0, i10 = 0;
+
+        //Go through the people list and bin them on age
+        for(Person person : people){
+            if(person.getFactors().getAge() <= 10.0){
+                bin010[i1] = person;
+                i1++;
+            }else if(person.getFactors().getAge() > 10.0 && person.getFactors().getAge() <= 20.0){
+                bin1120[i2] = person;
+                i2++;
+            }else if(person.getFactors().getAge() > 20.0 && person.getFactors().getAge() <= 30.0){
+                bin2130[i3] = person;
+                i3++;
+            }else if(person.getFactors().getAge() > 30.0 && person.getFactors().getAge() <= 40.0){
+                bin3140[i4] = person;
+                i4++;
+            }else if(person.getFactors().getAge() > 40.0 && person.getFactors().getAge() <= 50.0){
+                bin4150[i5] = person;
+                i5++;
+            }else if(person.getFactors().getAge() > 50.0 && person.getFactors().getAge() <= 60.0){
+                bin5160[i6] = person;
+                i6++;
+            }else if(person.getFactors().getAge() > 60.0 && person.getFactors().getAge() <= 70.0){
+                bin6170[i7] = person;
+                i7++;
+            }else if(person.getFactors().getAge() > 70.0 && person.getFactors().getAge() <= 80.0){
+                bin7180[i8] = person;
+                i8++;
+            }else if(person.getFactors().getAge() > 80.0 && person.getFactors().getAge() <= 90.0){
+                bin8190[i9] = person;
+                i9++;
+            }else if(person.getFactors().getAge() > 90.0 && person.getFactors().getAge() <= 100.0){
+                bin91100[i10] = person;
+                i10++;
+            }
+        }
+        //Build CSV
+        String CSV = "---010\r\nage,status,vaccinated\r\n";
+        CSV = writePeople(bin010, CSV);
+        CSV = CSV + "---1120\r\nage,status,vaccinated\n";
+        CSV = writePeople(bin1120, CSV);
+        CSV = CSV + "---2130\r\nage,status,vaccinated\n";
+        CSV = writePeople(bin2130, CSV);
+        CSV = CSV + "---3140\r\nage,status,vaccinated\n";
+        CSV = writePeople(bin3140, CSV);
+        CSV = CSV + "---4150\r\nage,status,vaccinated\n";
+        CSV = writePeople(bin4150, CSV);
+        CSV = CSV + "---5160\r\nage,status,vaccinated\n";
+        CSV = writePeople(bin5160, CSV);
+        CSV = CSV + "---6170\r\nage,status,vaccinated\n";
+        CSV = writePeople(bin6170, CSV);
+        CSV = CSV + "---7180\r\nage,status,vaccinated\n";
+        CSV = writePeople(bin7180, CSV);
+        CSV = CSV + "---8190\r\nage,status,vaccinated\n";
+        CSV = writePeople(bin8190, CSV);
+        CSV = CSV + "---91100\r\nage,status,vaccinated\n";
+        CSV = writePeople(bin91100, CSV);
+
+        try { // Try to write
+            String pathname = "./postsim/people.csv";
+            File outFile = new File(pathname);
+            outFile.createNewFile();
+            FileWriter writer = new FileWriter(pathname);
+            writer.write(CSV);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public String writePeople(Person[] person, String CSV){
+        int i;
+        for(i = 0; person[i] != null; i++){
+            CSV = CSV + person[i].getFactors().getAge() + "," + person[i].getStatus().toString() + "," + person[i].getFactors().isVaccinated() + "\r\n";
+        }
+        return CSV;
     }
 
 }
