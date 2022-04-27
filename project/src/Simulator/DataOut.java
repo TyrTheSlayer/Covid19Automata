@@ -129,6 +129,11 @@ public class DataOut {
         }
     }
 
+    /**
+     * Builds the CSV for people attributes
+     *
+     * @param people array list of people the attributes we want recorded
+     */
     public void peopleCSV(ArrayList<Person> people){
         //declare bins for people
         Person[] bin010 = new Person[people.size()/3];
@@ -212,6 +217,13 @@ public class DataOut {
 
     }
 
+    /**
+     * Writes all info for each bin
+     *
+     * @param person person array bin being collected for printing
+     * @param CSV string that will become the csv
+     * @return csv, the main csv plus additional info
+     */
     public String writePeople(Person[] person, String CSV){
         int i;
         for(i = 0; person[i] != null; i++){
