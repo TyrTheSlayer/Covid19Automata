@@ -9,7 +9,6 @@ package UI;
 
 import Simulator.SimSettings;
 
-
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -215,10 +214,17 @@ public class UI extends JFrame{
         * Adding Buttons to add modifications to the map
         */
 
-       JButton buil = new JButton("Add building");
-       buil.setBounds(293, 360, 100, 40);
-       frame.add(buil);
+       JButton school = new JButton("Add School");
+       school.setBounds(293, 360, 100, 40);
+       frame.add(school);
 
+        JButton store = new JButton("Add Store");
+        store.setBounds(293, 440, 100, 40);
+        frame.add(store);
+
+        JButton hosp = new JButton("Add Hospital");
+        hosp.setBounds(293, 520, 100, 40);
+        frame.add(hosp);
 
     /**
      * Check boxes for virus settings
