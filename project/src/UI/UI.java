@@ -7,6 +7,9 @@
 
 package UI;
 
+import Grid.Building;
+import Grid.BuildingType;
+import Grid.GridPanel;
 import Simulator.SimSettings;
 
 import javax.swing.*;
@@ -15,17 +18,22 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import static javax.swing.SwingUtilities.paintComponent;
 
 
-public class UI extends JFrame{
-    public static void main(String[] args) {
-    //   UI frame = new UI();
 
-    //  MainFrame sett = new MainFrame("Title");
+public class UI extends JFrame{
+
+
+    public static void main(String[] args) {
+
     SimSettings simSet = new SimSettings();
     JFrame frame = new JFrame();
+
+        ArrayList<BuildingType> builArrList = new ArrayList<>();
 
     try {
      // UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
@@ -211,7 +219,7 @@ public class UI extends JFrame{
 
 
        /**
-        * Adding Buttons to add modifications to the map
+        * Adding Buttons to add Schools, Stores, and Hospitals to the map
         */
 
        JButton school = new JButton("Add School");
@@ -226,6 +234,31 @@ public class UI extends JFrame{
         hosp.setBounds(293, 520, 100, 40);
         frame.add(hosp);
 
+
+        school.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                builArrList.add(BuildingType.SCHOOL);
+              //  System.out.println(builArrList);
+
+            }
+        });
+        store.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                builArrList.add(BuildingType.STORE);
+              //  System.out.println(builArrList);
+            }
+        });
+
+        hosp.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                builArrList.add(BuildingType.HOSPITAL);
+               // System.out.println(builArrList);
+            }
+        });
     /**
      * Check boxes for virus settings
      */
@@ -363,7 +396,17 @@ go.addActionListener(new ActionListener() {
  @Override
  public void actionPerformed(ActionEvent e) {
 
-  MainFrame mainFrame = new MainFrame("Simulation", simSet);
+     ArrayList<BuildingType> IfNoBuild = new ArrayList<>();
+
+     if(builArrList.size() == 0){
+         IfNoBuild.add(BuildingType.STORE);
+         simSet.setBuTy(IfNoBuild);
+     }
+     else {
+         simSet.setBuTy(builArrList);
+     }
+
+     MainFrame mainFrame = new MainFrame("Simulation", simSet);
   mainFrame.startWindow();
   frame.dispose();
 

@@ -10,6 +10,7 @@ package Simulator;
 
 import DataObjects.VirusType;
 import Grid.Building;
+import Grid.BuildingType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,6 +30,8 @@ public class SimSettings {
     private int simDuration;
     private int ticksPerDay;
     private double vaccination_effectivity;
+
+    private ArrayList<BuildingType> BuTy;
 
     // VirusType specific attributes
     private VirusType virus;
@@ -64,6 +67,8 @@ public class SimSettings {
 
         // VirusType defaults
         this.virus = new VirusType();
+
+        this.BuTy = new ArrayList<>();
 
     }
 
@@ -119,13 +124,14 @@ public class SimSettings {
 
     public double getVaccination_effectivity() { return this.vaccination_effectivity; }
 
-    //public int getNumBuildings() {
-      //  return numBuildings;
-    //}
 
-    //public void setNumBuildings(int numBuildings) {
-        //this.numBuildings = numBuildings;
-    //}
+    public void setBuTy(ArrayList<BuildingType> buTy) {
+        BuTy = buTy;
+    }
+
+    public ArrayList<BuildingType> getBuTy() {
+        return BuTy;
+    }
 
     public boolean isTreatmentExists() {
         return treatmentExists;

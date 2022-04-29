@@ -15,6 +15,7 @@ import Simulator.Intent;
 import Simulator.SimSettings;
 import DataObjects.VirusType;
 import Simulator.DataOut;
+import UI.UI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -67,6 +68,9 @@ public class GridPanel extends JPanel implements Runnable {
     private boolean running;
     private boolean initialized = false;
     private int i = 0;
+
+
+
 
     private SimSettings settings;
     /**
@@ -131,10 +135,13 @@ public class GridPanel extends JPanel implements Runnable {
         initPeople(settings.getInitialInfected(), settings.getPopulation());
 
         //Make the buildings
-        BuildingType[] btypes = new BuildingType[] {BuildingType.SCHOOL, BuildingType.SCHOOL, BuildingType.HOSPITAL, BuildingType.STORE
-        , BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE};
-        this.buildings = Building.generateBuildings(btypes, this.gridViewable, agent);
-        System.out.println(buildings);
+       // BuildingType[] btypes = new BuildingType[] {BuildingType.SCHOOL, BuildingType.SCHOOL, BuildingType.HOSPITAL, BuildingType.STORE
+       // , BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE, BuildingType.STORE};
+
+        BuildingType[] btypes = settings.getBuTy().toArray(new BuildingType[0]);
+
+                this.buildings = Building.generateBuildings(btypes, this.gridViewable, agent);
+
 
         //Make and assign schedules
         this.assignSchedules(0.7);

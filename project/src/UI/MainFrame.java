@@ -82,11 +82,15 @@ public class MainFrame extends JFrame{
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+
         setLayout(new BorderLayout());
         // creates a new gridPanel
         gridPanel = new GridPanel(10, 60, 120, 0, 0, settings);
         gridPanel.setPause_len((long) (1000/60)); // Init the pause len for the sim
         add(gridPanel, BorderLayout.CENTER);
+
         // set minimum size for window
         this.setMinimumSize(new Dimension(gridPanel.gridPixelWidth, gridPanel.gridPixelHeight));
         this.setResizable(false);
