@@ -5,8 +5,6 @@ import DataObjects.Person;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class DataOut {
@@ -136,16 +134,16 @@ public class DataOut {
      */
     public void peopleCSV(ArrayList<Person> people){
         //declare bins for people
-        Person[] bin010 = new Person[people.size()/3];
-        Person[] bin1120 = new Person[people.size()/3];
-        Person[] bin2130 = new Person[people.size()/3];
-        Person[] bin3140 = new Person[people.size()/3];
-        Person[] bin4150 = new Person[people.size()/3];
-        Person[] bin5160 = new Person[people.size()/3];
-        Person[] bin6170 = new Person[people.size()/3];
-        Person[] bin7180 = new Person[people.size()/3];
-        Person[] bin8190 = new Person[people.size()/3];
-        Person[] bin91100 = new Person[people.size()/3];
+        Person[] bin010 = new Person[people.size()];
+        Person[] bin1120 = new Person[people.size()];
+        Person[] bin2130 = new Person[people.size()];
+        Person[] bin3140 = new Person[people.size()];
+        Person[] bin4150 = new Person[people.size()];
+        Person[] bin5160 = new Person[people.size()];
+        Person[] bin6170 = new Person[people.size()];
+        Person[] bin7180 = new Person[people.size()];
+        Person[] bin8190 = new Person[people.size()];
+        Person[] bin91100 = new Person[people.size()];
         int i1 = 0, i2 = 0, i3 = 0, i4 = 0, i5 = 0, i6 = 0, i7 = 0, i8 = 0, i9 = 0, i10 = 0;
 
         //Go through the people list and bin them on age
@@ -183,26 +181,47 @@ public class DataOut {
             }
         }
         //Build CSV
-        String CSV = "---010\r\nage,status,vaccinated\r\n";
-        CSV = writePeople(bin010, CSV);
-        CSV = CSV + "---1120\r\nage,status,vaccinated\n";
-        CSV = writePeople(bin1120, CSV);
-        CSV = CSV + "---2130\r\nage,status,vaccinated\n";
-        CSV = writePeople(bin2130, CSV);
-        CSV = CSV + "---3140\r\nage,status,vaccinated\n";
-        CSV = writePeople(bin3140, CSV);
-        CSV = CSV + "---4150\r\nage,status,vaccinated\n";
-        CSV = writePeople(bin4150, CSV);
-        CSV = CSV + "---5160\r\nage,status,vaccinated\n";
-        CSV = writePeople(bin5160, CSV);
-        CSV = CSV + "---6170\r\nage,status,vaccinated\n";
-        CSV = writePeople(bin6170, CSV);
-        CSV = CSV + "---7180\r\nage,status,vaccinated\n";
-        CSV = writePeople(bin7180, CSV);
-        CSV = CSV + "---8190\r\nage,status,vaccinated\n";
-        CSV = writePeople(bin8190, CSV);
-        CSV = CSV + "---91100\r\nage,status,vaccinated\n";
-        CSV = writePeople(bin91100, CSV);
+        String CSV = "";
+        if(bin010[0] != null){
+            CSV = CSV + "---010\r\nage,status,vaccinated\r\n";
+            CSV = writePeople(bin010, CSV);
+        }
+        if(bin1120[0] != null){
+            CSV = CSV + "---1120\r\nage,status,vaccinated\n";
+            CSV = writePeople(bin1120, CSV);
+        }
+        if(bin2130[0] != null){
+            CSV = CSV + "---2130\r\nage,status,vaccinated\n";
+            CSV = writePeople(bin2130, CSV);
+        }
+        if(bin3140[0] != null){
+            CSV = CSV + "---3140\r\nage,status,vaccinated\n";
+            CSV = writePeople(bin3140, CSV);
+        }
+        if(bin4150[0] != null){
+            CSV = CSV + "---4150\r\nage,status,vaccinated\n";
+            CSV = writePeople(bin3140, CSV);
+        }
+        if(bin5160[0] != null){
+            CSV = CSV + "---5160\r\nage,status,vaccinated\n";
+            CSV = writePeople(bin5160, CSV);
+        }
+        if(bin6170[0] != null){
+            CSV = CSV + "---6170\r\nage,status,vaccinated\n";
+            CSV = writePeople(bin6170, CSV);
+        }
+        if(bin7180[0] != null){
+            CSV = CSV + "---7180\r\nage,status,vaccinated\n";
+            CSV = writePeople(bin7180, CSV);
+        }
+        if(bin8190[0] != null){
+            CSV = CSV + "---8190\r\nage,status,vaccinated\n";
+            CSV = writePeople(bin8190, CSV);
+        }
+        if(bin91100[0] != null){
+            CSV = CSV + "---91100\r\nage,status,vaccinated\n";
+            CSV = writePeople(bin91100, CSV);
+        }
 
         try { // Try to write
             String pathname = "./postsim/people.csv";
