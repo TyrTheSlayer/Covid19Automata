@@ -1,5 +1,6 @@
 from plotgen import plotgen
 import argparse
+from datetime import datetime
 
 
 def main():
@@ -7,6 +8,7 @@ def main():
     parser.add_argument("-d", "--density", action="store_true")
     parser.add_argument("-l", "--line",
                         help="argument should be \"infected\", \"dead\", \"recovered\", or \"susceptible\"")
+    parser.add_argument("-p", "--people", action="store_true")
     parser.add_argument("-f", "--filename", required=True)
     args = parser.parse_args()
 
@@ -16,8 +18,13 @@ def main():
     if (args.density == True):
         plotter.plot_density()
     elif (args.line != None):
-        plotter.plot_line(args.l)
+        plotter.plot_line(args.line)
+    elif (args.people != None):
+        plotter.plot_people()
 
 
 if __name__ == "__main__":
+    start_time = datetime.now()
     main()
+    end_time = datetime.now()
+    print("Took %s seconds" % (end_time - start_time))
