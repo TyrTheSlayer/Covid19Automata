@@ -7,9 +7,7 @@
 
 package UI;
 
-import Grid.Building;
 import Grid.BuildingType;
-import Grid.GridPanel;
 import Simulator.SimSettings;
 
 import javax.swing.*;
@@ -19,9 +17,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
-
-import static javax.swing.SwingUtilities.paintComponent;
 
 
 
@@ -36,8 +31,8 @@ public class UI extends JFrame{
         ArrayList<BuildingType> builArrList = new ArrayList<>();
 
     try {
-     // UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+      UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+     //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
     } catch (Exception e) {
      e.printStackTrace();
     }
@@ -129,7 +124,7 @@ public class UI extends JFrame{
     frame.add(map);
 
     //Virus Button
-    JButton vir = new JButton("Modify Virus");
+    JButton vir = new JButton("Contagous Level");
     vir.setBounds(445, 280, 200, 20);
     frame.add(vir);
        JSlider insick = new JSlider();
@@ -199,7 +194,7 @@ public class UI extends JFrame{
 
 
     // % Social Distanced
-    JLabel socD = new JLabel("% Social Distanced");
+   /* JLabel socD = new JLabel("% Social Distanced");
     socD.setBounds(88, 535, 100, 20);
     socD.setFont(new Font("Verdana", Font.PLAIN, 10));
 
@@ -215,7 +210,7 @@ public class UI extends JFrame{
     SocDis.setPaintTicks(true);
     SocDis.setPaintLabels(true);
 
-    frame.add(SocDis);
+    frame.add(SocDis);*/
 
 
        /**
@@ -225,6 +220,11 @@ public class UI extends JFrame{
        JButton school = new JButton("Add School");
        school.setBounds(293, 360, 100, 40);
        frame.add(school);
+       var numscho = 0;
+        JLabel schoLab = new JLabel("whyyy \n test", numscho);
+        schoLab.setBounds(293, 420, 100, 40);
+      //  schoLab.setFont(new Font("Verdana", Font.PLAIN, 10));
+
 
         JButton store = new JButton("Add Store");
         store.setBounds(293, 440, 100, 40);
@@ -263,19 +263,57 @@ public class UI extends JFrame{
      * Check boxes for virus settings
      */
 
+        /**
+         * Adding Buttons to add Schools, Stores, and Hospitals to the map
+         */
+
+        JButton infelow = new JButton("Low");
+        infelow.setBounds(500, 360, 100, 40);
+        frame.add(infelow);
+      //  var numscho = 0;
+
+
+
+        JButton infemed = new JButton("Medium");
+        infemed.setBounds(500, 440, 100, 40);
+        frame.add(infemed);
+
+        JButton infehigh = new JButton("High");
+        infehigh.setBounds(500, 520, 100, 40);
+        frame.add(infehigh);
+
+
+        JButton sevlow = new JButton("Low");
+        infelow.setBounds(500, 360, 100, 40);
+        frame.add(infelow);
+        //  var numscho = 0;
+
+
+
+        JButton sevmed = new JButton("Medium");
+        sevmed.setBounds(500, 440, 100, 40);
+        frame.add(sevmed);
+
+        JButton sevhigh = new JButton("High");
+        sevhigh.setBounds(500, 520, 100, 40);
+        frame.add(sevhigh);
+
     //Quarentine required
     JCheckBox quar = new JCheckBox("Quarantine Required");
-    quar.setBounds(495, 360, 170, 40);
+    quar.setBounds(70, 540, 170, 40);
     frame.add(quar);
 
     //Treatment Exists
+/*
     JCheckBox treat = new JCheckBox("Treatment Exists");
     treat.setBounds(495, 400, 170, 40);
     frame.add(treat);
+*/
 
     /**
      * Text boxes to enter numbers for virus varients
      */
+/*
 
     JTextField minCon = new JTextField("Contagious Time ");
     minCon.setBounds(495, 440, 170, 20);
@@ -292,6 +330,7 @@ public class UI extends JFrame{
     JTextField death = new JTextField(" Death Time ");
     death.setBounds(495, 560, 170, 20);
     frame.add(death);
+*/
 
 
 
@@ -349,14 +388,14 @@ public class UI extends JFrame{
     });
 
     // Social Distanced
-    SocDis.addChangeListener(new ChangeListener() {
+    /*SocDis.addChangeListener(new ChangeListener() {
      @Override
      public void stateChanged(ChangeEvent e) {
       double fina = SocDis.getValue() * .01;
       System.out.println("Social Distanced " + fina);
       simSet.setSocialDistRate(fina);
      }
-    });
+    });*/
 
     // More Population settings
 
@@ -367,28 +406,28 @@ public class UI extends JFrame{
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("test");
-        frame.setSize(700, 650) ;
+        frame.setSize(900, 650) ;
     }
 });
 
 cust.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
-        frame.setSize(700, 650) ;
+        frame.setSize(900, 650) ;
     }
 });
 
 map.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
-        frame.setSize(700, 650) ;
+        frame.setSize(900, 650) ;
     }
 });
 
 vir.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
-        frame.setSize(700, 650) ;
+        frame.setSize(900, 650) ;
     }
 });
 
@@ -414,7 +453,7 @@ go.addActionListener(new ActionListener() {
  }
 });
        //Set size
-       frame.setSize(700, 370) ;
+       frame.setSize(900, 370) ;
        // uses no layout managers
        frame.setLayout(null);
 

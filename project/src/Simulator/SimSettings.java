@@ -30,6 +30,7 @@ public class SimSettings {
     private int simDuration;
     private int ticksPerDay;
     private double vaccination_effectivity;
+    private double infectChance;
 
     private ArrayList<BuildingType> BuTy;
 
@@ -64,6 +65,7 @@ public class SimSettings {
         this.simDuration = 150; // user defines duration in terms of days
         this.ticksPerDay = 60; // tentative, for now say 60 ticks = 1 day, (60 fps -> 1 sec = 1 day, idk)
         this.vaccination_effectivity = 0.8; // Vaccination is 80% effective, reduces transmission by 80%
+        this.infectChance = 0.016;
 
         // VirusType defaults
         this.virus = new VirusType();
@@ -118,6 +120,10 @@ public class SimSettings {
 
     public void setQuaranRequired(boolean quaranRequired) {
         isQuaranRequired = quaranRequired;
+    }
+
+    public void setInfectChance(double infectChance) {
+        this.infectChance = infectChance;
     }
 
     public void setVaccination_effectivity(float vaccination_effectivity) { this.vaccination_effectivity = vaccination_effectivity; }

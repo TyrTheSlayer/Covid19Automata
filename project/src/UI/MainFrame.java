@@ -151,6 +151,12 @@ public class MainFrame extends JFrame{
         ActionListener exitSim = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                MainFrame.super.dispose();
+
+                LoadingFrame load = new LoadingFrame();
+                load.setVisible(true);
+                load.repaint();
+
                 gridPanel.writeData();
 
                 File pathToExe = new File("postsim\\dist\\plot.exe");
@@ -181,9 +187,13 @@ public class MainFrame extends JFrame{
                 }
 
                 System.out.printf( "Process exited with result %d and output %s%n", result, text );
+
                 PostSimUI postSimUI = new PostSimUI("Post Simulation", settings);
+
+                load.setVisible(false);
+
                 postSimUI.startWindow();
-                MainFrame.super.dispose();
+
             }
         };
 

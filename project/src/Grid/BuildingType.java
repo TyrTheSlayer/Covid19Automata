@@ -7,12 +7,18 @@ package Grid;
 import java.util.ArrayList;
 
 public enum BuildingType {
-    SCHOOL(10, 3),
-    STORE(5, 5),
-    HOSPITAL(10, 5);
+    SCHOOL(10, 3, 60),
+    STORE(5, 5, 50),
+    LIBRARY(10, 5, 100),
+    DRUGSTORE(2, 2, 30),
+    CONCERTHALL(13, 13, 1000),
+    CASINO(7, 7, 300),
+    RUBBERDUCKFACTORY(10, 8, 200),
+    HOSPITAL(10, 10, 300);
 
     private int w;
     private int h;
+    private int capacity;
 
 
     /**
@@ -20,10 +26,12 @@ public enum BuildingType {
      *
      * @param w The width
      * @param h The height
+     * @param cap The capacity
      */
-    BuildingType(int w, int h) {
+    BuildingType(int w, int h, int cap) {
         this.w = w;
         this.h = h;
+        this.capacity = cap;
     }
 
     /**
@@ -45,6 +53,15 @@ public enum BuildingType {
     }
 
     /**
+     * Gets the capacity of the building
+     *
+     * @return The capacity of the building
+     */
+    public int getCapacity() {
+        return capacity;
+    }
+
+    /**
      * Allocates tiles for the building. Does nothing with the tiles, just tells which ones they are.
      *
      * @param tiles The matrix of tiles
@@ -55,67 +72,19 @@ public enum BuildingType {
     public ArrayList<Tile> allocateTiles(Tile[][] tiles, int x, int y) {
         ArrayList<Tile> needed = new ArrayList<>();
 
-        //Switch based on building type to generate according to the pattern
-        switch (this) {
-            case SCHOOL: //For the school
-                int w = 10;
-                int h = 3;
+        //Check for invalid x & y
+        if(x < 0 || x > tiles.length || y < 0 || y > tiles[0].length)
+            return null;
 
-                //Check for invalid x & y
-                if(x < 0 || x > tiles.length || y < 0 || y > tiles[0].length)
-                    return null;
+        //Check available space
+        if(w + x > tiles.length || h + y > tiles[0].length)
+            return null;
 
-                //Check available space
-                if(w + x > tiles.length || h + y > tiles[0].length)
-                    return null;
-
-                //Add tiles to the list
-                for(int i = 0; i < w; i++) {
-                    for(int j = 0; j < h; j++) {
-                        needed.add(tiles[i + x][j + y]);
-                    }
-                }
-                break;
-
-            case STORE: //For the store
-                w = 5;
-                h = 5;
-
-                //Check for invalid x & y
-                if(x < 0 || x > tiles.length || y < 0 || y > tiles[0].length)
-                    return null;
-
-                //Check available space
-                if(w + x > tiles.length || h + y > tiles[0].length)
-                    return null;
-
-                //Add tiles to the list
-                for(int i = 0; i < w; i++) {
-                    for(int j = 0; j < h; j++) {
-                        needed.add(tiles[i + x][j + y]);
-                    }
-                }
-                break;
-
-            case HOSPITAL: //For the hospital
-                w = 10;
-                h = 5;
-
-                //Check for invalid x & y
-                if(x < 0 || x > tiles.length || y < 0 || y > tiles[0].length)
-                    return null;
-
-                //Check available space
-                if(w + x > tiles.length || h + y > tiles[0].length)
-                    return null;
-
-                //Add tiles to the list
-                for(int i = 0; i < w; i++) {
-                    for(int j = 0; j < h; j++) {
-                        needed.add(tiles[i + x][j + y]);
-                    }
-                }
-                break;
+        //Add tiles to the list
+        for(int i = 0; i < w; i++) {
+            for(int j = 0; j < h; j++) {
+                needed.add(tiles[i + x][j + y]);
+            }
         }
 
         //Return the list

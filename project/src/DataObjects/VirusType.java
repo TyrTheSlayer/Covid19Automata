@@ -5,10 +5,6 @@
  */
 
 package DataObjects;
-
-import DataObjects.Person;
-import DataObjects.Virus;
-
 import java.util.Random;
 
 public class VirusType {
@@ -54,8 +50,8 @@ public class VirusType {
         this.maxContagiousTime = 300;
         this.minSymptomaticTime = 780;
         this.maxSymptomaticTime = 2280;
-        this.minRecoveryTime = 840;
-        this.maxRecoveryTime = 2520;
+        this.minRecoveryTime = 1053;
+        this.maxRecoveryTime = 3053;
         /* By current program logic, these numbers give roughly 50/50 shot at survival
         this.minRecoveryTime = 1950;
         this.maxRecoveryTime = 5580;

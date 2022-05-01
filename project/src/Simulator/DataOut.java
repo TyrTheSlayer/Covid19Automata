@@ -134,16 +134,16 @@ public class DataOut {
      */
     public void peopleCSV(ArrayList<Person> people){
         //declare bins for people
-        Person[] bin010 = new Person[people.size()];
-        Person[] bin1120 = new Person[people.size()];
-        Person[] bin2130 = new Person[people.size()];
-        Person[] bin3140 = new Person[people.size()];
-        Person[] bin4150 = new Person[people.size()];
-        Person[] bin5160 = new Person[people.size()];
-        Person[] bin6170 = new Person[people.size()];
-        Person[] bin7180 = new Person[people.size()];
-        Person[] bin8190 = new Person[people.size()];
-        Person[] bin91100 = new Person[people.size()];
+        Person[] bin010 = new Person[people.size() + 1];
+        Person[] bin1120 = new Person[people.size() + 1];
+        Person[] bin2130 = new Person[people.size() + 1];
+        Person[] bin3140 = new Person[people.size() + 1];
+        Person[] bin4150 = new Person[people.size() + 1];
+        Person[] bin5160 = new Person[people.size() + 1];
+        Person[] bin6170 = new Person[people.size() + 1];
+        Person[] bin7180 = new Person[people.size() + 1];
+        Person[] bin8190 = new Person[people.size() + 1];
+        Person[] bin91100 = new Person[people.size() + 1];
         int i1 = 0, i2 = 0, i3 = 0, i4 = 0, i5 = 0, i6 = 0, i7 = 0, i8 = 0, i9 = 0, i10 = 0;
 
         //Go through the people list and bin them on age

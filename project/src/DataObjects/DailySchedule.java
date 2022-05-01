@@ -6,8 +6,6 @@
 
 package DataObjects;
 import Grid.Building;
-
-import java.sql.Time;
 import java.util.ArrayList;
 
 public class DailySchedule {
@@ -30,6 +28,16 @@ public class DailySchedule {
     private DailySchedule(String name, ArrayList<TimeCard> timeCards) {
         this.name = name;
         this.timeCards = timeCards;
+    }
+
+    //Getters
+    /**
+     * Gets the name of the schedule
+     *
+     * @return The name of the schedule
+     */
+    public String getName() {
+        return this.name;
     }
 
     //Methods
