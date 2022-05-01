@@ -32,6 +32,7 @@ public class SimSettings {
     private double vaccination_effectivity;
     private double infectChance;
 
+
     private ArrayList<BuildingType> BuTy;
 
     // VirusType specific attributes
