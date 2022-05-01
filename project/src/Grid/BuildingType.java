@@ -10,7 +10,7 @@ public enum BuildingType {
     SCHOOL(10, 3, 60),
     STORE(5, 5, 50),
     LIBRARY(10, 5, 100),
-    DRUGSTORE(2, 2, 30),
+    DRUGSTORE(3, 2, 30),
     CONCERTHALL(13, 13, 1000),
     CASINO(7, 7, 300),
     RUBBERDUCKFACTORY(10, 8, 200),
