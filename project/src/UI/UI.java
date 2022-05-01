@@ -11,11 +11,15 @@ import Grid.BuildingType;
 import Simulator.SimSettings;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.ImageObserver;
+import java.text.AttributedCharacterIterator;
 import java.util.ArrayList;
 
 
@@ -41,6 +45,39 @@ public class UI extends JFrame{
         /**
          * Create Default, Cufstomize Settings, and Start buttons
          */
+
+        /* Add Borders*/
+        Border blackline = BorderFactory.createLineBorder(Color.BLACK,2);
+
+        JPanel otherpa = new JPanel();
+        otherpa.setBounds(20,332,270,270);
+        otherpa.setBorder(blackline);
+        otherpa.setOpaque(false);
+        frame.add(otherpa);
+
+        JPanel popuPan = new JPanel();
+        popuPan.setBounds(315,332,365,270);
+        popuPan.setBorder(blackline);
+        popuPan.setOpaque(false);
+        frame.add(popuPan);
+
+        JPanel otherpan = new JPanel();
+        otherpan.setBounds(702,332,265,270);
+        otherpan.setBorder(blackline);
+        otherpan.setOpaque(false);
+        frame.add(otherpan);
+
+        JPanel DurPan = new JPanel();
+        DurPan.setBounds(632,152,220,120);
+        DurPan.setBorder(blackline);
+        DurPan.setOpaque(false);
+        frame.add(DurPan);
+
+        JPanel poPan = new JPanel();
+        poPan.setBounds(132,152,220,120);
+        poPan.setBorder(blackline);
+        poPan.setOpaque(false);
+        frame.add(poPan);
 
 
         JButton defalt = new JButton("Default");
@@ -144,21 +181,24 @@ public class UI extends JFrame{
          * Additional settings for Population
          */
 
+        //frame.add(new Rectangle2D())
+
+
         JLabel poplab = new JLabel("More Population Settings");
-        poplab.setBounds( 60, 313, 200, 50);
+        poplab.setBounds( 67, 333, 200, 50);
         poplab.setFont(new Font("Verdana", Font.PLAIN, 14));
 
         frame.add(poplab);
 
         //% initial sick people
         JLabel inisick = new JLabel("% Initial Sick People");
-        inisick.setBounds(85, 350, 100, 20);
+        inisick.setBounds(105, 370, 100, 20);
         inisick.setFont(new Font("Verdana", Font.PLAIN, 10));
 
         frame.add(inisick);
 
         // JSlider insick = new JSlider();
-        insick.setBounds(65, 365, 140, 40);
+        insick.setBounds(85, 385, 140, 40);
         insick.setFont(new Font("Verdana", Font.PLAIN, 8));
         insick.setMinimum(0);
         insick.setMaximum(100);
@@ -171,13 +211,13 @@ public class UI extends JFrame{
 
         //% Vaccinated
         JLabel vac = new JLabel("% Vaccinated");
-        vac.setBounds(100, 405, 100, 20);
+        vac.setBounds(120, 425, 100, 20);
         vac.setFont(new Font("Verdana", Font.PLAIN, 10));
 
         frame.add(vac);
 
         //JSlider vacc = new JSlider();
-        vacc.setBounds(65, 420, 140, 40);
+        vacc.setBounds(85, 440, 140, 40);
         vacc.setFont(new Font("Verdana", Font.PLAIN, 8));
         vacc.setMinimum(0);
         vacc.setMaximum(100);
@@ -190,13 +230,13 @@ public class UI extends JFrame{
 
         //% Masked
         JLabel mas = new JLabel("% Mask");
-        mas.setBounds(113, 460, 100, 20);
+        mas.setBounds(133, 480, 100, 20);
         mas.setFont(new Font("Verdana", Font.PLAIN, 10));
 
         frame.add(mas);
 
         //  JSlider mask = new JSlider();
-        mask.setBounds(65, 475, 140, 40);
+        mask.setBounds(85, 495, 140, 40);
         mask.setFont(new Font("Verdana", Font.PLAIN, 8));
         mask.setMinimum(0);
         mask.setMaximum(100);
@@ -209,13 +249,13 @@ public class UI extends JFrame{
 
         //% Social Distance
         JLabel SoDis = new JLabel("% Social Distanced");
-        SoDis.setBounds(87, 515, 100, 20);
+        SoDis.setBounds(107, 535, 100, 20);
         SoDis.setFont(new Font("Verdana", Font.PLAIN, 10));
 
         frame.add(SoDis);
 
         //  JSlider mask = new JSlider();
-        SocDis.setBounds(65, 530, 140, 40);
+        SocDis.setBounds(85, 550, 140, 40);
         SocDis.setFont(new Font("Verdana", Font.PLAIN, 8));
         SocDis.setMinimum(0);
         SocDis.setMaximum(100);
@@ -227,9 +267,9 @@ public class UI extends JFrame{
         frame.add(SocDis);
 
         //Quarentine required
-        JCheckBox quar = new JCheckBox("Quarantine Required");
+      /*  JCheckBox quar = new JCheckBox("Quarantine Required");
         quar.setBounds(67, 565, 170, 40);
-        frame.add(quar);
+        frame.add(quar);*/
 
         // % Social Distanced
    /* JLabel socD = new JLabel("% Social Distanced");
@@ -255,7 +295,7 @@ public class UI extends JFrame{
          * Adding Buttons to add Schools, Stores, and Hospitals to the map
          */
         JLabel buildLabel = new JLabel("Add Buildings");
-        buildLabel.setBounds( 450, 313, 200, 50);
+        buildLabel.setBounds( 450, 328, 200, 50);
         buildLabel.setFont(new Font("Verdana", Font.PLAIN, 14));
         frame.add(buildLabel);
 
@@ -785,22 +825,22 @@ public class UI extends JFrame{
 
 
         JLabel Inct = new JLabel("Infectivity");
-        Inct.setBounds(790, 370, 110, 30);
+        Inct.setBounds(800, 420, 110, 30);
         Inct.setFont(new Font("Verdana", Font.PLAIN, 14));
         frame.add(Inct);
 
         JRadioButton infelow = new JRadioButton("Low");
-        infelow.setBounds(720, 400, 60, 30);
+        infelow.setBounds(730, 450, 60, 30);
         // infelow.setFont(new Font("Verdana", Font.PLAIN, 5));
         frame.add(infelow);
         //  var numscho = 0;
 
         JRadioButton infemed = new JRadioButton("Med");
-        infemed.setBounds(800, 400, 60, 30);
+        infemed.setBounds(810, 450, 60, 30);
         frame.add(infemed);
 
         JRadioButton infehigh = new JRadioButton("High");
-        infehigh.setBounds(880, 400, 60, 30);
+        infehigh.setBounds(890, 450, 60, 30);
         frame.add(infehigh);
 
 
@@ -835,23 +875,23 @@ public class UI extends JFrame{
         durr.setFont(new Font("Verdana", Font.PLAIN, 12));
         */
         JLabel Sev = new JLabel("Severity");
-        Sev.setBounds(795, 440, 110, 30);
+        Sev.setBounds(810, 500, 110, 30);
         Sev.setFont(new Font("Verdana", Font.PLAIN, 14));
         frame.add(Sev);
 
         JRadioButton sevlow = new JRadioButton("Low");
-        sevlow.setBounds(720, 470, 60, 30);
+        sevlow.setBounds(730, 530, 60, 30);
         frame.add(sevlow);
         //  var numscho = 0;
 
 
 
         JRadioButton sevmed = new JRadioButton("Med");
-        sevmed.setBounds(800, 470, 60, 30);
+        sevmed.setBounds(810, 530, 60, 30);
         frame.add(sevmed);
 
         JRadioButton sevhigh = new JRadioButton("High");
-        sevhigh.setBounds(880, 470, 60, 30);
+        sevhigh.setBounds(890, 530, 60, 30);
         frame.add(sevhigh);
 
         ButtonGroup sev = new ButtonGroup();
@@ -859,6 +899,40 @@ public class UI extends JFrame{
         sev.add(sevmed);
         sev.add(sevlow);
 
+
+
+        JLabel Quar = new JLabel("Quarentine Required?");
+        Quar.setBounds(760, 350, 170, 30);
+        Quar.setFont(new Font("Verdana", Font.PLAIN, 14));
+        frame.add(Quar);
+
+        JRadioButton QuarYes = new JRadioButton("Yes");
+        QuarYes.setBounds(760, 380, 60, 30);
+        frame.add(QuarYes);
+        //  var numscho = 0;
+
+
+        JRadioButton QuarNo = new JRadioButton("No");
+        QuarNo.setBounds(870, 380, 60, 30);
+        frame.add(QuarNo);
+
+        ButtonGroup qur = new ButtonGroup();
+        qur.add(QuarYes);
+        qur.add(QuarNo);
+
+QuarYes.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        simSet.setQuaranRequired(true);
+    }
+});
+
+QuarNo.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        simSet.setQuaranRequired(false);
+    }
+});
 
 
 
@@ -999,13 +1073,38 @@ public class UI extends JFrame{
 
                 ArrayList<BuildingType> IfNoBuild = new ArrayList<>();
 
-                if(builArrList.size() == 0){
+
+
+                    for(int i=numscho[0]; i> 0; i-- ){
+                        builArrList.add(BuildingType.SCHOOL);
+                    }
+                    for(int i=numStor[0]; i> 0; i-- ){
+                        builArrList.add(BuildingType.STORE);
+                    }
+                    for(int i=numHosp[0]; i> 0; i-- ){
+                        builArrList.add(BuildingType.HOSPITAL);
+                    }
+                    for(int i=numDrug[0]; i> 0; i-- ){
+                        builArrList.add(BuildingType.DRUGSTORE);
+                    }
+                    for(int i=numconc[0]; i> 0; i-- ){
+                        builArrList.add(BuildingType.CONCERTHALL);
+                    }
+                    for(int i=numCasi[0]; i> 0; i-- ){
+                        builArrList.add(BuildingType.CASINO);
+                    }
+                    for(int i=numquack[0]; i> 0; i-- ){
+                        builArrList.add(BuildingType.RUBBERDUCKFACTORY);
+                    }
+                    for(int i=numLib[0]; i> 0; i-- ){
+                        builArrList.add(BuildingType.LIBRARY);
+                    }
+                    if(builArrList.size() == 0){
                     IfNoBuild.add(BuildingType.STORE);
                     simSet.setBuTy(IfNoBuild);
                 }
-                else {
                     simSet.setBuTy(builArrList);
-                }
+
 
                 MainFrame mainFrame = new MainFrame("Simulation", simSet);
                 mainFrame.startWindow();
