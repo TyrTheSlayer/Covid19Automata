@@ -324,39 +324,455 @@ public class UI extends JFrame{
 
 
 
-        JButton store = new JButton("Add Store");
-        store.setBounds(293, 440, 100, 40);
-        frame.add(store);
 
-        JButton hosp = new JButton("Add Hospital");
-        hosp.setBounds(293, 520, 100, 40);
-        frame.add(hosp);
+        /**
+         * Store Buttons
+         */
+        JLabel storeLab = new JLabel("Store");
+        storeLab.setBounds(390, 410, 100, 40);
+        storeLab.setFont(new Font("Verdana", Font.PLAIN, 13));
+        frame.add(storeLab);
 
+        /* Store Value Label*/
+        final int[] numStor = {0};
+        JLabel StorLab = new JLabel(String.valueOf(numscho[0]));
+        StorLab.setBounds(402, 445, 29, 15);
+        StorLab.setHorizontalTextPosition(SwingConstants.CENTER);
+        StorLab.setFont(new Font("Verdana", Font.PLAIN, 14));
+        frame.add(StorLab);
 
-      /*  school.addActionListener(new ActionListener() {
+        /* Store Subtract button */
+        JButton storSubButt = new JButton("");
+        storSubButt.setBounds(370, 440, 25, 25);
+        JLabel storSubLab = new JLabel("-");
+        storSubLab.setBounds(379, 439, 25, 25);
+        storSubLab.setFont(new Font("Verdana", Font.PLAIN,17));
+        frame.add(storSubLab);
+        frame.add(storSubButt);
+        storSubButt.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                builArrList.add(BuildingType.SCHOOL);
-                //  System.out.println(builArrList);
-
-            }*/
-       // });
-
-
-        store.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                builArrList.add(BuildingType.STORE);
-                //  System.out.println(builArrList);
+                if(numStor[0] > 0){
+                    numStor[0] = numStor[0] - 1;
+                }
+                if(numStor[0] < 10){
+                    StorLab.setBounds(402, 445, 29, 15);
+                }
+                StorLab.setText(String.valueOf(numStor[0]));
+                frame.add(StorLab);
             }
         });
 
-        hosp.addActionListener(new ActionListener() {
+        /* Store Add Button */
+        JButton storAddButt = new JButton("");
+        storAddButt.setBounds(420, 440, 25, 25);
+        JLabel storAddLab = new JLabel("+");
+        storAddLab.setBounds(426, 439, 25, 25);
+        storAddLab.setFont(new Font("Verdana", Font.PLAIN,15));
+        frame.add(storAddLab);
+        frame.add(storAddButt);
+
+        storAddButt.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                builArrList.add(BuildingType.HOSPITAL);
-                // System.out.println(builArrList);
+                if(numStor[0] < 20){
+                    numStor[0] = numStor[0] + 1;
+                }
+                if(numStor[0] > 9){
+                    StorLab.setBounds(399, 445, 29, 15);
+                }
+                StorLab.setText(String.valueOf(numStor[0]));
+                frame.add(StorLab);
+            }
+        });
+
+        /**
+         * Hospital Buttons
+         */
+        JLabel HospitalLab = new JLabel("Hospital");
+        HospitalLab.setBounds(380, 470, 100, 40);
+        HospitalLab.setFont(new Font("Verdana", Font.PLAIN, 13));
+        frame.add(HospitalLab);
+
+        /* Hospital Value Label*/
+        final int[] numHosp = {0};
+        JLabel HospLab = new JLabel(String.valueOf(numscho[0]));
+        HospLab.setBounds(402, 505, 29, 15);
+        HospLab.setHorizontalTextPosition(SwingConstants.CENTER);
+        HospLab.setFont(new Font("Verdana", Font.PLAIN, 14));
+        frame.add(HospLab);
+
+        /* Hospital Subtract button */
+        JButton hospSubButt = new JButton("");
+        hospSubButt.setBounds(370, 500, 25, 25);
+        JLabel hospSubLab = new JLabel("-");
+        hospSubLab.setBounds(379, 499, 25, 25);
+        hospSubLab.setFont(new Font("Verdana", Font.PLAIN,17));
+        frame.add(hospSubLab);
+        frame.add(hospSubButt);
+        hospSubButt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(numHosp[0] > 0){
+                    numHosp[0] = numHosp[0] - 1;
+                }
+                if(numHosp[0] < 10){
+                    HospLab.setBounds(402, 505, 29, 15);
+                }
+                HospLab.setText(String.valueOf(numHosp[0]));
+                frame.add(HospLab);
+            }
+        });
+
+        /* Hospital Add Button */
+        JButton hospAddButt = new JButton("");
+        hospAddButt.setBounds(420, 500, 25, 25);
+        JLabel hospAddLab = new JLabel("+");
+        hospAddLab.setBounds(426, 499, 25, 25);
+        hospAddLab.setFont(new Font("Verdana", Font.PLAIN,15));
+        frame.add(hospAddLab);
+        frame.add(hospAddButt);
+
+        hospAddButt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(numHosp[0] < 20){
+                    numHosp[0] = numHosp[0] + 1;
+                }
+                if(numHosp[0] > 9){
+                    HospLab.setBounds(399, 505, 29, 15);
+                }
+                HospLab.setText(String.valueOf(numHosp[0]));
+                frame.add(HospLab);
+            }
+        });
+
+
+
+        /**
+         * Drug Store Buttons
+         */
+        JLabel DrugStoreLab = new JLabel("Drug Store");
+        DrugStoreLab.setBounds(373, 530, 100, 40);
+        DrugStoreLab.setFont(new Font("Verdana", Font.PLAIN, 13));
+        frame.add(DrugStoreLab);
+
+        /* Drug Store Value Label*/
+        final int[] numDrug = {0};
+        JLabel DrugLab = new JLabel(String.valueOf(numscho[0]));
+        DrugLab.setBounds(402, 565, 29, 15);
+        DrugLab.setHorizontalTextPosition(SwingConstants.CENTER);
+        DrugLab.setFont(new Font("Verdana", Font.PLAIN, 14));
+        frame.add(DrugLab);
+
+        /* Drug Store Subtract button */
+        JButton DrugSubButt = new JButton("");
+        DrugSubButt.setBounds(370, 560, 25, 25);
+        JLabel DrugSubLab = new JLabel("-");
+        DrugSubLab.setBounds(379, 559, 25, 25);
+        DrugSubLab.setFont(new Font("Verdana", Font.PLAIN,17));
+        frame.add(DrugSubLab);
+        frame.add(DrugSubButt);
+        DrugSubButt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(numDrug[0] > 0){
+                    numDrug[0] = numDrug[0] - 1;
+                }
+                if(numDrug[0] < 10){
+                    DrugLab.setBounds(402, 565, 29, 15);
+                }
+                DrugLab.setText(String.valueOf(numDrug[0]));
+                frame.add(DrugLab);
+            }
+        });
+
+        /* Drug Store Add Button */
+        JButton DrugAddButt = new JButton("");
+        DrugAddButt.setBounds(420, 560, 25, 25);
+        JLabel DrugAddLab = new JLabel("+");
+        DrugAddLab.setBounds(426, 559, 25, 25);
+        DrugAddLab.setFont(new Font("Verdana", Font.PLAIN,15));
+        frame.add(DrugAddLab);
+        frame.add(DrugAddButt);
+
+        DrugAddButt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(numDrug[0] < 20){
+                    numDrug[0] = numDrug[0] + 1;
+                }
+                if(numDrug[0] > 9){
+                    DrugLab.setBounds(399, 565, 29, 15);
+                }
+                DrugLab.setText(String.valueOf(numDrug[0]));
+                frame.add(DrugLab);
+            }
+        });
+
+
+        /**
+         *
+         *
+         *
+         *
+         *
+         *
+         *
+         */
+
+        /**
+         * Concert Hall Buttons
+         */
+        JLabel concert = new JLabel("Concert Hall");
+        concert.setBounds(545, 350, 100, 40);
+        concert.setFont(new Font("Verdana", Font.PLAIN, 13));
+        frame.add(concert);
+
+        /* concert Hall Value Label*/
+        final int[] numconc = {0};
+        JLabel concLab = new JLabel(String.valueOf(numconc[0]));
+        concLab.setBounds(582, 385, 29, 15);
+        concLab.setHorizontalTextPosition(SwingConstants.CENTER);
+        concLab.setFont(new Font("Verdana", Font.PLAIN, 14));
+        frame.add(concLab);
+
+        /* concert hall Subtract button */
+        JButton concolSub = new JButton("");
+        concolSub.setBounds(550, 380, 25, 25);
+        JLabel concSub = new JLabel("-");
+        concSub.setBounds(559, 379, 25, 25);
+        concSub.setFont(new Font("Verdana", Font.PLAIN,17));
+        frame.add(concSub);
+        frame.add(concolSub);
+        concolSub.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(numconc[0] > 0){
+                    numconc[0] = numconc[0] - 1;
+                }
+                if(numconc[0] < 10){
+                    concLab.setBounds(402, 385, 29, 15);
+                }
+                concLab.setText(String.valueOf(numconc[0]));
+                frame.add(concLab);
+            }
+        });
+
+        /* concert Add Button */
+        JButton concolAdd = new JButton("");
+        concolAdd.setBounds(600, 380, 25, 25);
+        JLabel concAdd = new JLabel("+");
+        concAdd.setBounds(606, 379, 25, 25);
+        concAdd.setFont(new Font("Verdana", Font.PLAIN,15));
+        frame.add(concAdd);
+        frame.add(concolAdd);
+        concolAdd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(numconc[0] < 20){
+                    numconc[0] = numconc[0] + 1;
+                }
+                if(numconc[0] > 9){
+                    concLab.setBounds(589, 385, 29, 15);
+                }
+                concLab.setText(String.valueOf(numconc[0]));
+                frame.add(concLab);
+            }
+        });
+
+
+
+
+
+
+
+        /**
+         * casino Buttons
+         **/
+        JLabel casinoLab = new JLabel("Casino");
+        casinoLab.setBounds(567, 410, 100, 40);
+        casinoLab.setFont(new Font("Verdana", Font.PLAIN, 13));
+        frame.add(casinoLab);
+
+        /* casino Value Label*/
+        final int[] numCasi = {0};
+        JLabel CasiLab = new JLabel(String.valueOf(numscho[0]));
+        CasiLab.setBounds(582, 445, 29, 15);
+        CasiLab.setHorizontalTextPosition(SwingConstants.CENTER);
+        CasiLab.setFont(new Font("Verdana", Font.PLAIN, 14));
+        frame.add(CasiLab);
+
+        /* casino Subtract button */
+        JButton CasiSubButt = new JButton("");
+        CasiSubButt.setBounds(550, 440, 25, 25);
+        JLabel CasiSubLab = new JLabel("-");
+        CasiSubLab.setBounds(559, 439, 25, 25);
+        CasiSubLab.setFont(new Font("Verdana", Font.PLAIN,17));
+        frame.add(CasiSubLab);
+        frame.add(CasiSubButt);
+        CasiSubButt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(numCasi[0] > 0){
+                    numCasi[0] = numCasi[0] - 1;
+                }
+                if(numCasi[0] < 10){
+                    CasiLab.setBounds(582, 445, 29, 15);
+                }
+                CasiLab.setText(String.valueOf(numCasi[0]));
+                frame.add(CasiLab);
+            }
+        });
+
+        /* casino Add Button */
+        JButton CasiAddButt = new JButton("");
+        CasiAddButt.setBounds(600, 440, 25, 25);
+        JLabel CasiAddLab = new JLabel("+");
+        CasiAddLab.setBounds(606, 439, 25, 25);
+        CasiAddLab.setFont(new Font("Verdana", Font.PLAIN,15));
+        frame.add(CasiAddLab);
+        frame.add(CasiAddButt);
+
+        CasiAddButt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(numCasi[0] < 20){
+                    numCasi[0] = numCasi[0] + 1;
+                }
+                if(numCasi[0] > 9){
+                    CasiLab.setBounds(579, 445, 29, 15);
+                }
+                CasiLab.setText(String.valueOf(numCasi[0]));
+                frame.add(CasiLab);
+            }
+        });
+
+        /**
+         * RubberDuckFactory Buttons
+         **/
+        JLabel RubberDuckFactoryLab = new JLabel("Rubber Duck");
+        RubberDuckFactoryLab.setBounds(547, 457, 150, 40);
+        RubberDuckFactoryLab.setFont(new Font("Verdana", Font.PLAIN, 13));
+        frame.add(RubberDuckFactoryLab);
+        JLabel DuckFactoryLab = new JLabel("Factory");
+        DuckFactoryLab.setBounds(564, 471, 150, 40);
+        DuckFactoryLab.setFont(new Font("Verdana", Font.PLAIN, 13));
+        frame.add(DuckFactoryLab);
+
+        /* RubberDuckFactory Value Label*/
+        final int[] numquack = {0};
+        JLabel quackLab = new JLabel(String.valueOf(numscho[0]));
+        quackLab.setBounds(582, 505, 29, 15);
+        quackLab.setHorizontalTextPosition(SwingConstants.CENTER);
+        quackLab.setFont(new Font("Verdana", Font.PLAIN, 14));
+        frame.add(quackLab);
+
+        /* RubberDuckFactory Subtract button */
+        JButton quackSubButt = new JButton("");
+        quackSubButt.setBounds(550, 500, 25, 25);
+        JLabel quackSubLab = new JLabel("-");
+        quackSubLab.setBounds(559, 499, 25, 25);
+        quackSubLab.setFont(new Font("Verdana", Font.PLAIN,17));
+        frame.add(quackSubLab);
+        frame.add(quackSubButt);
+        quackSubButt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(numquack[0] > 0){
+                    numquack[0] = numquack[0] - 1;
+                }
+                if(numquack[0] < 10){
+                    quackLab.setBounds(582, 505, 29, 15);
+                }
+                quackLab.setText(String.valueOf(numquack[0]));
+                frame.add(quackLab);
+            }
+        });
+
+        /* RubberDuckFactory Add Button */
+        JButton quackAddButt = new JButton("");
+        quackAddButt.setBounds(600, 500, 25, 25);
+        JLabel quackAddLab = new JLabel("+");
+        quackAddLab.setBounds(606, 499, 25, 25);
+        quackAddLab.setFont(new Font("Verdana", Font.PLAIN,15));
+        frame.add(quackAddLab);
+        frame.add(quackAddButt);
+
+        quackAddButt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(numquack[0] < 20){
+                    numquack[0] = numquack[0] + 1;
+                }
+                if(numquack[0] > 9){
+                    quackLab.setBounds(579, 505, 29, 15);
+                }
+                quackLab.setText(String.valueOf(numquack[0]));
+                frame.add(quackLab);
+            }
+        });
+
+
+
+        /**
+         * Library Buttons
+         */
+        JLabel LibraryLab = new JLabel("Library");
+        LibraryLab.setBounds(567, 530, 100, 40);
+        LibraryLab.setFont(new Font("Verdana", Font.PLAIN, 13));
+        frame.add(LibraryLab);
+
+        /* Library Value Label*/
+        final int[] numLib = {0};
+        JLabel LibLab = new JLabel(String.valueOf(numscho[0]));
+        LibLab.setBounds(582, 565, 29, 15);
+        LibLab.setHorizontalTextPosition(SwingConstants.CENTER);
+        LibLab.setFont(new Font("Verdana", Font.PLAIN, 14));
+        frame.add(LibLab);
+
+        /* Library Store Subtract button */
+        JButton LibSubButt = new JButton("");
+        LibSubButt.setBounds(550, 560, 25, 25);
+        JLabel LibSubLab = new JLabel("-");
+        LibSubLab.setBounds(559, 559, 25, 25);
+        LibSubLab.setFont(new Font("Verdana", Font.PLAIN,17));
+        frame.add(LibSubLab);
+        frame.add(LibSubButt);
+        LibSubButt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(numLib[0] > 0){
+                    numLib[0] = numLib[0] - 1;
+                }
+                if(numLib[0] < 10){
+                    LibLab.setBounds(582, 565, 29, 15);
+                }
+                LibLab.setText(String.valueOf(numLib[0]));
+                frame.add(LibLab);
+            }
+        });
+
+        /* Library Store Add Button */
+        JButton LibAddButt = new JButton("");
+        LibAddButt.setBounds(600, 560, 25, 25);
+        JLabel LibAddLab = new JLabel("+");
+        LibAddLab.setBounds(606, 559, 25, 25);
+        LibAddLab.setFont(new Font("Verdana", Font.PLAIN,15));
+        frame.add(LibAddLab);
+        frame.add(LibAddButt);
+
+        LibAddButt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(numLib[0] < 20){
+                    numLib[0] = numLib[0] + 1;
+                }
+                if(numLib[0] > 9){
+                    LibLab.setBounds(579, 565, 29, 15);
+                }
+                LibLab.setText(String.valueOf(numLib[0]));
+                frame.add(LibLab);
             }
         });
         /**
