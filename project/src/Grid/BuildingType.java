@@ -9,7 +9,13 @@ import java.util.ArrayList;
 public enum BuildingType {
     SCHOOL(10, 3, 60),
     STORE(5, 5, 50),
-    HOSPITAL(10, 5, 100);
+    DAYCARE(3, 3, 20),
+    LIBRARY(10, 5, 100),
+    DRUGSTORE(2, 2, 30),
+    CONCERTHALL(13, 13, 1000),
+    CASINO(7, 7, 300),
+    RUBBERDUCKFACTORY(10, 8, 200),
+    HOSPITAL(10, 10, 300);
 
     private int w;
     private int h;
