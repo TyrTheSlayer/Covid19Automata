@@ -69,6 +69,12 @@ class plotgen:
             dead_bar.append(frame[frame.status == "Dead"].shape[0])
             recovered_bar.append(frame[frame.status == "Recovered"].shape[0])
 
+        print(str(x_axis))
+        print(str(alive_bar))
+        print(str(infected_bar))
+        print(str(recovered_bar))
+        print(str(dead_bar))
+
         plotdf = pd.DataFrame({'Range': x_axis,
                                'Alive': alive_bar,
                                'Infected': infected_bar,
