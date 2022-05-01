@@ -188,7 +188,7 @@ public class GridPanel extends JPanel implements Runnable {
         VirusType basic = new VirusType();
         int numInfected = (int) Math.floor(infected * population);
 
-        for(int j = 0; j < this.people.size(); j += population / numInfected){
+        for(int j = 0; j < numInfected; j++){
             this.people.get(j).setVirus(basic.genVirus(this.people.get(j)));
         }
 
