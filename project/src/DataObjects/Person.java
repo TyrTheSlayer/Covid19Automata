@@ -228,9 +228,11 @@ public class Person {
 
         //Base chance
         double chance = settings.getInfectChance();
+        System.out.println("original chance: " + chance);
 
         //Apply all the factors to the chance
         chance = this.factors.applyFactorGet(chance);
+        System.out.println("altered chance: " + chance);
 
         //Check if a random number beats the chance
         Random rand = new Random();
