@@ -206,19 +206,19 @@ public class MainFrame extends JFrame{
         ActionListener Legend = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (playing) {
+                if(playing) {
                     playing = false;
                     gridPanel.pause();
                     remove(gridPanel);
                     add(leg, BorderLayout.CENTER);
                     rateLabel.setText("Paused");
-                    repaint();
                 } else {
-                    playing = true;
                     remove(leg);
                     add(gridPanel, BorderLayout.CENTER);
-                    repaint();
+                    playing = true;
+                    gridPanel.start();
                 }
+                repaint();
             }
         };
 

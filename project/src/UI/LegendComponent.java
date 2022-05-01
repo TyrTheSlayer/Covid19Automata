@@ -25,63 +25,56 @@ public class LegendComponent extends JComponent {
         JLabel leg = new JLabel("Legend:");
         leg.setForeground(Color.white);
         leg.setBackground(Color.white);
-        leg.setBounds(50, 50, 200, 20);
+        leg.setBounds(50, 50, 200, 25);
         leg.setFont(f);
         add(leg);
 
+        //JLabels for Infection Status
         JLabel sus = new JLabel("Susceptible:");
         sus.setForeground(Color.white);
-        sus.setBounds(50,100,200,20);
+        sus.setBounds(50,100,200,25);
         sus.setFont(f);
         add(sus);
 
         JLabel inf = new JLabel("Infected:");
         inf.setForeground(Color.white);
-        inf.setBounds(50,130,200,20);
+        inf.setBounds(50,130,200,25);
         inf.setFont(f);
         add(inf);
 
         JLabel rec = new JLabel("Recovered:");
         rec.setForeground(Color.white);
-        rec.setBounds(50,160,200,20);
+        rec.setBounds(50,160,200,25);
         rec.setFont(f);
         add(rec);
 
         g.setColor(Color.decode("#0072B2"));
-        g.fillOval(200,100,25,25);
+        g.fillOval(200,100,20,20);
 
         g.setColor(Color.decode("#CC79A7"));
-        g.fillOval(200,130,25,25);
+        g.fillOval(200,130,20,20);
 
         g.setColor(Color.CYAN);
-        g.fillOval(200,160,25,25);
+        g.fillOval(200,160,20,20);
 
-        /*JPanel jp = new JPanel();
-        //jp.setSize(2, 4);
+        //JLabels for Entrance/Exits
+        JLabel ent = new JLabel("Entrance:");
+        ent.setForeground(Color.white);
+        ent.setBounds(50,210,200,25);
+        ent.setFont(f);
+        add(ent);
 
-        JLabel sus = new JLabel("Susceptible");
-        JLabel sas = new JLabel("Susceptibl");
-        JLabel sis = new JLabel("Susceptib");
-        JLabel ses = new JLabel("Suscepti");
-        JLabel sos = new JLabel("Suscept");
+        JLabel exit = new JLabel("Exit:");
+        exit.setForeground(Color.white);
+        exit.setBounds(50,240,200,25);
+        exit.setFont(f);
+        add(exit);
 
-        jp.add(sus);
-        jp.add(sas);
-        jp.add(sis);
-        jp.add(ses);
-        jp.add(sos);
+        g.setColor(Color.decode("#009E73"));
+        g.fillRect(200,210,20,20);
 
-        add(jp, BorderLayout.CENTER);
-        repaint();*/
-
-        /*canvas.setColor(new Color(255, 192, 0));
-        canvas.fillOval(150, 150, 200, 200);
-        canvas.setColor(Color.BLACK);
-        canvas.drawOval(150, 150, 200, 200);
-
-        canvas.fillOval(200, 210, 20, 20);
-        canvas.fillOval(280, 210, 20, 20);
-        canvas.drawArc(190, 240, 120, 80, 190, 160);*/
+        g.setColor(Color.decode("#D55E00"));
+        g.fillRect(200,240,20,20);
     }
 }
 
