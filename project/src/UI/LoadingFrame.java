@@ -8,7 +8,7 @@ public class LoadingFrame extends JFrame {
         super("Loading...");
 
         add(new LoadComponent());
-        JLabel label = new JLabel("Loading", SwingConstants.CENTER);
+        JLabel label = new JLabel("Loading...", SwingConstants.CENTER);
         label.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
         add(label, BorderLayout.SOUTH);
         pack();
