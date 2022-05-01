@@ -46,6 +46,9 @@ public class MainFrame extends JFrame{
 
     private void closeSim() {
         MainFrame.super.dispose();
+        if (!gridPanel.hasData()) {
+            System.exit(0);
+        }
 
         LoadingFrame load = new LoadingFrame();
         load.setVisible(true);

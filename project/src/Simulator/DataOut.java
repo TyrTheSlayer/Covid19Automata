@@ -100,6 +100,10 @@ public class DataOut {
         vaccinated.add(v);
     }
 
+    public int recordLength() {
+        return this.susceptible.size;
+    }
+
     /**
      * Writes the data to a csv file for postsim processing
      */
