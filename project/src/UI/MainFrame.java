@@ -25,6 +25,7 @@ import java.util.Scanner;
 
 public class MainFrame extends JFrame{
     public GridPanel gridPanel;
+    public LegendComponent leg;
     private boolean playing = false;
     private float rate = 16;
     private JLabel rateLabel = new JLabel("Rate: " + rate);
@@ -86,10 +87,16 @@ public class MainFrame extends JFrame{
 
 
         setLayout(new BorderLayout());
+
+        //creates a legend component
+        leg = new LegendComponent();
+        leg.setVisible(true);
+
         // creates a new gridPanel
         gridPanel = new GridPanel(10, 60, 120, 0, 0, settings);
         gridPanel.setPause_len((long) (1000/60)); // Init the pause len for the sim
         add(gridPanel, BorderLayout.CENTER);
+
 
         // set minimum size for window
         this.setMinimumSize(new Dimension(gridPanel.gridPixelWidth, gridPanel.gridPixelHeight));
@@ -190,7 +197,25 @@ public class MainFrame extends JFrame{
                 load.setVisible(false);
 
                 postSimUI.startWindow();
+            }
+        };
 
+        ActionListener Legend = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (playing) {
+                    playing = false;
+                    gridPanel.pause();
+                    remove(gridPanel);
+                    add(leg, BorderLayout.CENTER);
+                    rateLabel.setText("Paused");
+                    repaint();
+                } else {
+                    playing = true;
+                    remove(leg);
+                    add(gridPanel, BorderLayout.CENTER);
+                    repaint();
+                }
             }
         };
 
@@ -201,17 +226,20 @@ public class MainFrame extends JFrame{
         JButton speedUp = new JButton("Speed Up");
         JButton speedDown = new JButton("Slow Down");
         JButton exit = new JButton("Exit");
+        JButton legend = new JButton("Legend");
 
         start.addActionListener(playSim);
         pause.addActionListener(pauseSim);
         speedUp.addActionListener(speedUpSim);
         speedDown.addActionListener(slowDownSim);
         exit.addActionListener(exitSim);
+        legend.addActionListener(Legend);
 
         buttonPanel.add(start);
         buttonPanel.add(pause);
         buttonPanel.add(speedUp);
         buttonPanel.add(speedDown);
+        buttonPanel.add(legend);
         buttonPanel.add(exit);
         buttonPanel.add(rateLabel);
 
