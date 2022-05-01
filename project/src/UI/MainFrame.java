@@ -27,6 +27,8 @@ public class MainFrame extends JFrame{
     public GridPanel gridPanel;
     public LegendComponent leg;
     private boolean playing = false;
+    private boolean legendShown = false;
+    private boolean wasPlaying = true;
     private float rate = 16;
     private JLabel rateLabel = new JLabel("Rate: " + rate);
     private SimSettings settings;
@@ -213,17 +215,25 @@ public class MainFrame extends JFrame{
         ActionListener Legend = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(playing) {
+                if(playing || !legendShown) {
+                    legendShown = true;
+                    wasPlaying = false;
+                    if (playing)
+                        wasPlaying = true;
                     playing = false;
                     gridPanel.pause();
                     remove(gridPanel);
                     add(leg, BorderLayout.CENTER);
                     rateLabel.setText("Paused");
-                } else {
+                } else if (legendShown){
+                    legendShown = false;
                     remove(leg);
                     add(gridPanel, BorderLayout.CENTER);
-                    playing = true;
-                    gridPanel.start();
+                    if (wasPlaying) {
+                        playing = true;
+                        gridPanel.start();
+                        rateLabel.setText("Rate: " + rate);
+                    }
                 }
                 repaint();
             }
