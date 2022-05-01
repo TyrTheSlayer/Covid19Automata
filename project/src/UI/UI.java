@@ -1135,7 +1135,8 @@ QuarNo.addActionListener(new ActionListener() {
 
                 MainFrame mainFrame = new MainFrame("Simulation", simSet);
                 mainFrame.startWindow();
-                frame.dispose();
+                //frame.dispose();
+                frame.setVisible(false);
 
 
             }
@@ -1144,6 +1145,8 @@ QuarNo.addActionListener(new ActionListener() {
         frame.setSize(1000, 370) ;
         // uses no layout managers
         frame.setLayout(null);
+
+        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         // makes the frame visible
         frame.setVisible(true);
