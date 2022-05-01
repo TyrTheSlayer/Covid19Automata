@@ -113,7 +113,6 @@ public class Factor {
     private double getAgeMultiplier(int age) {
         double lambda = 3;
         double baseRate = (Math.pow(lambda, (double)age/10.0)/(gamma((double) age/10.0 + 1.0))) * Math.pow(Math.E, -lambda);
-        System.out.println("AgeMult BaseRate: " + baseRate);
         return 1.0 - (4.0 * baseRate);
 
     }

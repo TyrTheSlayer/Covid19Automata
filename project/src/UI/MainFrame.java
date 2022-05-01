@@ -37,54 +37,58 @@ public class MainFrame extends JFrame{
         //setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.settings = settings;
-
         this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                gridPanel.writeData();
-
-                LoadingFrame load = new LoadingFrame();
-                load.setVisible(true);
-                load.repaint();
-
-                File pathToExe = new File("postsim\\dist\\plot.exe");
-                File pathToSIMCSV = new File("postsim\\simulation.csv");
-                ProcessBuilder builder = new ProcessBuilder(pathToExe.getAbsolutePath(), "-d", "-p");
-                builder.directory(new File("postsim"));
-                builder.redirectErrorStream(true);
-                Process process = null;
-
-                try {
-                    process = builder.start();
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
-
-                Scanner s = new Scanner(process.getInputStream());
-
-                StringBuilder text = new StringBuilder();
-                while (s.hasNextLine()) {
-                    text.append(s.nextLine());
-                    text.append("\n");
-                }
-                s.close();
-
-                int result = 0;
-                try {
-                    result = process.waitFor();
-                } catch (InterruptedException interruptedException) {
-                    interruptedException.printStackTrace();
-                }
-
-                System.out.printf("Process1 exited with result %d and output %s%n", result, text);
-                System.out.printf("Start Process 2\n");
-                PostSimUI postSimUI = new PostSimUI("Post Simulation", settings);
-
-                load.setVisible(false);
-
-                postSimUI.startWindow();
+                closeSim();
             }
         });
     }
+
+    private void closeSim() {
+        MainFrame.super.dispose();
+
+        LoadingFrame load = new LoadingFrame();
+        load.setVisible(true);
+        load.repaint();
+
+        gridPanel.writeData();
+
+        File pathToExe = new File("postsim\\dist\\plot.exe");
+        File pathToCSV = new File("postsim\\simulation.csv");
+        ProcessBuilder builder = new ProcessBuilder(pathToExe.getAbsolutePath(), "-f", "simulation.csv", "-d");
+        builder.directory(new File("postsim"));
+        builder.redirectErrorStream(true);
+        Process process = null;
+        try {
+            process = builder.start();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+
+        Scanner s = new Scanner(process.getInputStream());
+        StringBuilder text = new StringBuilder();
+        while (s.hasNextLine()) {
+            text.append(s.nextLine());
+            text.append("\n");
+        }
+        s.close();
+
+        int result = 0;
+        try {
+            result = process.waitFor();
+        } catch (InterruptedException interruptedException) {
+            interruptedException.printStackTrace();
+        }
+
+        System.out.printf( "Process exited with result %d and output %s%n", result, text );
+
+        PostSimUI postSimUI = new PostSimUI("Post Simulation", settings);
+
+        load.setVisible(false);
+
+        postSimUI.startWindow();
+    }
+
 
     /**
      * Starts the window for the simulation
@@ -167,48 +171,7 @@ public class MainFrame extends JFrame{
         ActionListener exitSim = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MainFrame.super.dispose();
-
-                LoadingFrame load = new LoadingFrame();
-                load.setVisible(true);
-                load.repaint();
-
-                gridPanel.writeData();
-
-                File pathToExe = new File("postsim\\dist\\plot.exe");
-                File pathToCSV = new File("postsim\\simulation.csv");
-                ProcessBuilder builder = new ProcessBuilder(pathToExe.getAbsolutePath(), "-f", "simulation.csv", "-d");
-                builder.directory(new File("postsim"));
-                builder.redirectErrorStream(true);
-                Process process = null;
-                try {
-                    process = builder.start();
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
-
-                Scanner s = new Scanner(process.getInputStream());
-                StringBuilder text = new StringBuilder();
-                while (s.hasNextLine()) {
-                    text.append(s.nextLine());
-                    text.append("\n");
-                }
-                s.close();
-
-                int result = 0;
-                try {
-                    result = process.waitFor();
-                } catch (InterruptedException interruptedException) {
-                    interruptedException.printStackTrace();
-                }
-
-                System.out.printf( "Process exited with result %d and output %s%n", result, text );
-
-                PostSimUI postSimUI = new PostSimUI("Post Simulation", settings);
-
-                load.setVisible(false);
-
-                postSimUI.startWindow();
+                closeSim();
             }
         };
 
