@@ -40,7 +40,22 @@ public class MainFrame extends JFrame{
 
         this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                gridPanel.writeData();
+                closeSim();
+            }
+        });
+    }
+
+    public void closeSim() {
+        MainFrame.super.dispose();
+        if (!gridPanel.hasData()) {
+            System.exit(0);
+        }
+
+        LoadingFrame load = new LoadingFrame();
+        load.setVisible(true);
+        load.repaint();
+
+        gridPanel.writeData();
 
                 File pathToExe = new File("postsim\\dist\\plot.exe");
                 File pathToSIMCSV = new File("postsim\\simulation.csv");
@@ -71,12 +86,14 @@ public class MainFrame extends JFrame{
                     interruptedException.printStackTrace();
                 }
 
-                System.out.printf("Process1 exited with result %d and output %s%n", result, text);
-                System.out.printf("Start Process 2\n");
-                PostSimUI postSimUI = new PostSimUI("Post Simulation", settings);
-                postSimUI.startWindow();
-            }
-        });
+        System.out.printf( "Process exited with result %d and output %s%n", result, text );
+
+        PostSimUI postSimUI = new PostSimUI("Post Simulation", settings);
+
+        load.setVisible(false);
+        load.dispose();
+
+        postSimUI.startWindow();
     }
 
     /**
@@ -101,6 +118,7 @@ public class MainFrame extends JFrame{
         gridPanel = new GridPanel(10, 60, 120, 0, 0, settings);
         gridPanel.setPause_len((long) (1000/60)); // Init the pause len for the sim
         add(gridPanel, BorderLayout.CENTER);
+        gridPanel.setMf(this);
 
 
         // set minimum size for window

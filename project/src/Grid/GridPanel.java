@@ -15,8 +15,7 @@ import Simulator.Intent;
 import Simulator.SimSettings;
 import DataObjects.VirusType;
 import Simulator.DataOut;
-import UI.UI;
-
+import UI.MainFrame;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -30,7 +29,8 @@ public class GridPanel extends JPanel implements Runnable {
     public int viewableWidth;
     private int ticks = 0;
     private final int TICKS_PER_RECORD = 800;
-
+    private MainFrame mf;
+    private boolean hasTerminated = false;
 
 
     // width and height of window in pixels, including visible borders
@@ -165,12 +165,17 @@ public class GridPanel extends JPanel implements Runnable {
         return (data.recordLength() > 0);
     }
 
+    public void setMf(MainFrame mf) {
+        this.mf = mf;
+    }
+
     /**
      * Populate People arraylist
      * place people on grid randomly and set the number of infected people
      * @param infected infected initially
      * @param population total population
      */
+
 
     public void initPeople(double infected, int population){
         Random rn = new Random();
@@ -421,6 +426,8 @@ public class GridPanel extends JPanel implements Runnable {
         }
     }
 
+    public boolean isExpired() { return (ticks >= (settings.getSimDuration() * TICKS_PER_RECORD)); }
+
     /**
      * A simple method that handles writing the data at the end of execution
      */
@@ -466,7 +473,11 @@ public class GridPanel extends JPanel implements Runnable {
                 }
                 data.addRecord(s, i, r, d, v);
             }
-
+            if (isExpired()) {
+                if(!hasTerminated)
+                    mf.closeSim();
+                hasTerminated = true;
+            };
 
             // Final code, to maintain framerate
             long diff = System.currentTimeMillis() - old; // Find exTime
