@@ -146,7 +146,7 @@ public class UI extends JFrame{
 
         JLabel poplab = new JLabel("More Population Settings");
         poplab.setBounds( 60, 313, 200, 50);
-        poplab.setFont(new Font("Verdana", Font.PLAIN, 12));
+        poplab.setFont(new Font("Verdana", Font.PLAIN, 14));
 
         frame.add(poplab);
 
@@ -254,14 +254,74 @@ public class UI extends JFrame{
         /**
          * Adding Buttons to add Schools, Stores, and Hospitals to the map
          */
+        JLabel buildLabel = new JLabel("Add Buildings");
+        buildLabel.setBounds( 450, 313, 200, 50);
+        buildLabel.setFont(new Font("Verdana", Font.PLAIN, 14));
+        frame.add(buildLabel);
 
-        JButton school = new JButton("Add School");
-        school.setBounds(293, 360, 100, 40);
-        frame.add(school);
-        var numscho = 0;
-        JLabel schoLab = new JLabel("whyyy \n test", numscho);
-        schoLab.setBounds(293, 420, 100, 40);
-        //  schoLab.setFont(new Font("Verdana", Font.PLAIN, 10));
+        /**
+         * School Buttons
+         */
+        JLabel schoool = new JLabel("School");
+        schoool.setBounds(385, 350, 100, 40);
+        schoool.setFont(new Font("Verdana", Font.PLAIN, 13));
+        frame.add(schoool);
+
+        /* School Value Label*/
+        final int[] numscho = {0};
+        JLabel schoLab = new JLabel(String.valueOf(numscho[0]));
+        schoLab.setBounds(402, 385, 29, 15);
+        schoLab.setHorizontalTextPosition(SwingConstants.CENTER);
+        schoLab.setFont(new Font("Verdana", Font.PLAIN, 14));
+        frame.add(schoLab);
+
+        /* School Subtract button */
+        JButton schoolSub = new JButton("");
+        schoolSub.setBounds(370, 380, 25, 25);
+        JLabel schoSub = new JLabel("-");
+        schoSub.setBounds(379, 379, 25, 25);
+        schoSub.setFont(new Font("Verdana", Font.PLAIN,17));
+        frame.add(schoSub);
+        frame.add(schoolSub);
+        schoolSub.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(numscho[0] > 0){
+                    numscho[0] = numscho[0] - 1;
+                }
+                if(numscho[0] < 10){
+                    schoLab.setBounds(402, 385, 29, 15);
+                }
+                schoLab.setText(String.valueOf(numscho[0]));
+                frame.add(schoLab);
+            }
+        });
+
+        /* School Add Button */
+        JButton schoolAdd = new JButton("");
+        schoolAdd.setBounds(420, 380, 25, 25);
+        JLabel schoAdd = new JLabel("+");
+        schoAdd.setBounds(426, 379, 25, 25);
+        schoAdd.setFont(new Font("Verdana", Font.PLAIN,15));
+        frame.add(schoAdd);
+        frame.add(schoolAdd);
+        schoolAdd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(numscho[0] < 20){
+                    numscho[0] = numscho[0] + 1;
+                }
+                if(numscho[0] > 9){
+                    schoLab.setBounds(399, 385, 29, 15);
+                }
+                schoLab.setText(String.valueOf(numscho[0]));
+                frame.add(schoLab);
+            }
+        });
+
+
+
+
 
 
         JButton store = new JButton("Add Store");
@@ -273,15 +333,17 @@ public class UI extends JFrame{
         frame.add(hosp);
 
 
-        school.addActionListener(new ActionListener() {
+      /*  school.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
                 builArrList.add(BuildingType.SCHOOL);
                 //  System.out.println(builArrList);
 
-            }
-        });
+            }*/
+       // });
+
+
         store.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -516,6 +578,8 @@ public class UI extends JFrame{
         go.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+
 
                 ArrayList<BuildingType> IfNoBuild = new ArrayList<>();
 
