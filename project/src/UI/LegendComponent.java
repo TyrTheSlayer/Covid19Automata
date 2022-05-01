@@ -75,6 +75,15 @@ public class LegendComponent extends JComponent {
 
         g.setColor(Color.decode("#D55E00"));
         g.fillRect(200,240,20,20);
+
+        canvas.setColor(new Color(255, 192, 0));
+        canvas.fillOval(850, 175, 200, 200);
+        canvas.setColor(Color.BLACK);
+        canvas.drawOval(850, 175, 200, 200);
+
+        canvas.fillOval(900, 235, 20, 20);
+        canvas.fillOval(980, 235, 20, 20);
+        canvas.drawArc(890, 265, 120, 80, 190, 160);
     }
 }
 
