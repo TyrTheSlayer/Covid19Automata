@@ -180,11 +180,16 @@ public class GridPanel extends JPanel implements Runnable {
     public void initPeople(double infected, int population){
         Random rn = new Random();
         int i = 0;
+        int k = 0;
         while(i < population) {
             int randx = rn.nextInt(this.viewableWidth);
             int randy = rn.nextInt(this.viewableHeight);
             if (this.gridViewable[randx][randy].getOccupant() == null && this.gridViewable[randx][randy].isAccessible()) {
                 Factor f = new Factor();
+                if (k < 10) {
+                    f.setAge(1 + 10 * k);
+                    k++;
+                }
                 Person p = new Person(randx, randy, f, this.settings);
                 this.factor.add(f);
                 this.people.add(p);

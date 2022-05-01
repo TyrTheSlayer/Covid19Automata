@@ -96,6 +96,10 @@ public class Factor {
     }
 
 
+    public void setAge(double age) {
+        this.age = age;
+    }
+
     static double logGamma(double x) {
         double tmp = (x - 0.5) * Math.log(x + 4.5) - (x + 4.5);
         double ser = 1.0 + 76.18009173    / (x + 0)   - 86.50532033    / (x + 1)
