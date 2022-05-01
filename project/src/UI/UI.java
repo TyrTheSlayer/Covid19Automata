@@ -124,7 +124,7 @@ public class UI extends JFrame{
     frame.add(map);
 
     //Virus Button
-    JButton vir = new JButton("Modify Virus");
+    JButton vir = new JButton("Contagous Level");
     vir.setBounds(445, 280, 200, 20);
     frame.add(vir);
        JSlider insick = new JSlider();
@@ -221,9 +221,9 @@ public class UI extends JFrame{
        school.setBounds(293, 360, 100, 40);
        frame.add(school);
        var numscho = 0;
-        JLabel schoLab = new JLabel("whyyy \n test", numscho);
-        schoLab.setBounds(293, 420, 100, 40);
-        schoLab.setFont(new Font("Verdana", Font.PLAIN, 10));
+       // JLabel schoLab = new JLabel("whyyy \n test", numscho);
+       // schoLab.setBounds(293, 420, 100, 40);
+      //  schoLab.setFont(new Font("Verdana", Font.PLAIN, 10));
 
 
         JButton store = new JButton("Add Store");
@@ -266,23 +266,21 @@ public class UI extends JFrame{
         /**
          * Adding Buttons to add Schools, Stores, and Hospitals to the map
          */
-/*
-        JButton Low = new JButton("Low");
-        low.setBounds(293, 360, 100, 40);
-        frame.add(school);
-        var numscho = 0;
-        JLabel schoLab = new JLabel("whyyy \n test", numscho);
-        schoLab.setBounds(293, 420, 100, 40);
-        schoLab.setFont(new Font("Verdana", Font.PLAIN, 10));
+
+        JButton low = new JButton("Low");
+        low.setBounds(500, 360, 100, 40);
+        frame.add(low);
+      //  var numscho = 0;
 
 
-        JButton store = new JButton("Add Store");
-        store.setBounds(293, 440, 100, 40);
-        frame.add(store);
 
-        JButton hosp = new JButton("Add Hospital");
-        hosp.setBounds(293, 520, 100, 40);
-        frame.add(hosp);*/
+        JButton med = new JButton("Medium");
+        med.setBounds(500, 440, 100, 40);
+        frame.add(med);
+
+        JButton high = new JButton("High");
+        high.setBounds(500, 520, 100, 40);
+        frame.add(high);
 
     //Quarentine required
     JCheckBox quar = new JCheckBox("Quarantine Required");
