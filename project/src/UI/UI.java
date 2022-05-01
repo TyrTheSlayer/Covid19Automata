@@ -928,7 +928,7 @@ public class UI extends JFrame{
 
 
 
-        JLabel Quar = new JLabel("Quarentine Required?");
+        JLabel Quar = new JLabel("Quarantine Required?");
         Quar.setBounds(760, 350, 170, 30);
         Quar.setFont(new Font("Verdana", Font.PLAIN, 14));
         frame.add(Quar);
