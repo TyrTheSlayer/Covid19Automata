@@ -220,9 +220,9 @@ public class UI extends JFrame{
         JButton school = new JButton("Add School");
         school.setBounds(293, 360, 100, 40);
         frame.add(school);
-        var numscho = 0;
-        JLabel schoLab = new JLabel("whyyy \n test", numscho);
-        schoLab.setBounds(293, 420, 100, 40);
+        //var numscho = 0;
+        //JLabel schoLab = new JLabel("whyyy \n test", numscho);
+        //schoLab.setBounds(293, 420, 100, 40);
         //  schoLab.setFont(new Font("Verdana", Font.PLAIN, 10));
 
 

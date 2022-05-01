@@ -36,14 +36,6 @@ public class SimSettings {
 
     // VirusType specific attributes
     private VirusType virus;
-    private int minContagiousTime;
-    private int maxContagiousTime;
-    private int minSymptomaticTime;
-    private int maxSymptomaticTime;
-    private int minRecoveryTime ;
-    private int maxRecoveryTime ;
-    private int minDeathTime;
-    private int maxDeathTime;
 
     /**
      * Inits default values for settings. These values are tentative and prone to change.
