@@ -16,7 +16,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.geom.Line2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.Scanner;
 
 public class PostSimUI extends JFrame {
@@ -83,6 +87,7 @@ public class PostSimUI extends JFrame {
         results.setFont(new Font("Verdana", Font.PLAIN, 24));
         results.setForeground(periwinkle);
         this.add(results);
+
 
         JLabel succeptible = new JLabel("Uninfected: " + finalDayData[0]);
         succeptible.setBounds(20, 40, 200, 100);
@@ -174,6 +179,32 @@ public class PostSimUI extends JFrame {
         lbl.setBounds(15, 300, 650, 650);
         lbl.setVisible(true);
         this.add(lbl);
+
+
+        JButton export = new JButton("Export as");
+        export.setBounds(500, 350, 100, 25);
+        this.add(export);
+
+        JFileChooser exporter = new JFileChooser();
+        ActionListener toExport = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (exporter.showSaveDialog(exporter.getParent()) == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        if (!Files.exists(exporter.getSelectedFile().toPath()))
+                            exporter.getSelectedFile().createNewFile();
+                        System.out.println("What're you gonna do? Kill yourself?");
+                        Files.copy(new File("./postsim/" + menu.getItemAt(menu.getSelectedIndex()) + ".png").toPath(), exporter.getSelectedFile().toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    } catch (Exception err) {
+                        err.printStackTrace();
+                    }
+                }
+            }
+        };
+
+        export.addActionListener(toExport);
+
+
 
         menu.addActionListener(new ActionListener() {
             @Override
