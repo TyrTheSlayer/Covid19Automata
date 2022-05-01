@@ -5,10 +5,6 @@
  */
 
 package DataObjects;
-
-import DataObjects.Person;
-import DataObjects.Virus;
-
 import java.util.Random;
 
 public class VirusType {

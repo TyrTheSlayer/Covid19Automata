@@ -7,9 +7,7 @@
 
 package UI;
 
-import Grid.Building;
 import Grid.BuildingType;
-import Grid.GridPanel;
 import Simulator.SimSettings;
 
 import javax.swing.*;
@@ -19,9 +17,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
-
-import static javax.swing.SwingUtilities.paintComponent;
 
 
 
