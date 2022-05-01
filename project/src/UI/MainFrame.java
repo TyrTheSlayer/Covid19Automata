@@ -213,9 +213,10 @@ public class MainFrame extends JFrame{
                     add(leg, BorderLayout.CENTER);
                     rateLabel.setText("Paused");
                 } else {
-                    playing = true;
                     remove(leg);
                     add(gridPanel, BorderLayout.CENTER);
+                    playing = true;
+                    gridPanel.start();
                 }
                 repaint();
             }
