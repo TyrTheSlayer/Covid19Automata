@@ -96,20 +96,14 @@ public class Factor {
     }
 
 
-    /**
-     * A really rough approximation of the gamma function
-     * @param z An double
-     * @return The gamma(z)
-     */
-    private double gamma(double z) {
-        int upperLim = 100;
-        int subDiv = 10;
-        double result = 0;
-        for (int k = 1; k < upperLim * subDiv; k++) {
-            result += Math.pow(Math.E, -((double)k/subDiv)) * Math.pow((double)k/subDiv, z - 1);
-        }
-        return result;
+    static double logGamma(double x) {
+        double tmp = (x - 0.5) * Math.log(x + 4.5) - (x + 4.5);
+        double ser = 1.0 + 76.18009173    / (x + 0)   - 86.50532033    / (x + 1)
+                + 24.01409822    / (x + 2)   -  1.231739516   / (x + 3)
+                +  0.00120858003 / (x + 4)   -  0.00000536382 / (x + 5);
+        return tmp + Math.log(ser * Math.sqrt(2 * Math.PI));
     }
+    static double gamma(double x) { return Math.exp(logGamma(x)); }
 
     /**
      * The age multiplier for this person's age. Should look somewhat like a negative poisson distribution
@@ -118,7 +112,8 @@ public class Factor {
      */
     private double getAgeMultiplier(int age) {
         double lambda = 3;
-        double baseRate = Math.pow(lambda, age)/(gamma((double) 80/10.0 + 1.0)) * Math.pow(Math.E, -lambda);
+        double baseRate = (Math.pow(lambda, (double)age/10.0)/(gamma((double) age/10.0 + 1.0))) * Math.pow(Math.E, -lambda);
+        System.out.println("AgeMult BaseRate: " + baseRate);
         return 1.0 - (4.0 * baseRate);
 
     }
