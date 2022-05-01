@@ -334,7 +334,7 @@ public class Building {
             Tile[] exit = new Tile[1];
             exit[0] = tiles[x + (types[i].getW()/2) + 1][y + types[i].getH()];
             exit[0].setExit(true);
-            buildings.add(new Building(entrance, exit, false, false, 999, needed, ba));
+            buildings.add(new Building(entrance, exit, false, false, types[i].getCapacity(), needed, ba));
             x += types[i].getW() + 3;
             maxHeight = Math.max(maxHeight, types[i].getH());
         }
