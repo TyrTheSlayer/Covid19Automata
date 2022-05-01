@@ -81,85 +81,72 @@ public class PostSimUI extends JFrame {
         JLabel results = new JLabel("Final Results:");
         results.setBounds(20, 10, 400, 30);
         results.setFont(new Font("Verdana", Font.PLAIN, 24));
-        results.setForeground(periwinkle);
         this.add(results);
 
         JLabel succeptible = new JLabel("Uninfected: " + finalDayData[0]);
         succeptible.setBounds(20, 40, 200, 100);
         succeptible.setFont(new Font("Verdana", Font.PLAIN, 18));
-        succeptible.setForeground(periwinkle);
         this.add(succeptible);
 
         JLabel infected = new JLabel("Infected: " + finalDayData[1]);
         infected.setBounds(20, 70, 200, 100);
         infected.setFont(new Font("Verdana", Font.PLAIN, 18));
-        infected.setForeground(periwinkle);
         this.add(infected);
 
         JLabel recovered = new JLabel("Recovered: " + finalDayData[2]);
         recovered.setBounds(20, 100, 200, 100);
         recovered.setFont(new Font("Verdana", Font.PLAIN, 18));
-        recovered.setForeground(periwinkle);
         this.add(recovered);
 
         JLabel dead = new JLabel("Dead: " + finalDayData[3]);
         dead.setBounds(20, 130, 200, 100);
         dead.setFont(new Font("Verdana", Font.PLAIN, 18));
-        dead.setForeground(periwinkle);
         this.add(dead);
 
         JLabel vaxx = new JLabel("Vaccination: " + finalDayData[4]);
         vaxx.setBounds(20, 160, 200, 100);
         vaxx.setFont(new Font("Verdana", Font.PLAIN, 18));
-        vaxx.setForeground(periwinkle);
         this.add(vaxx);
 
         //General Percent Stats
         JLabel perc = new JLabel("End Of Sim Percentages:");
         perc.setBounds(300, 10, 400, 30);
         perc.setFont(new Font("Verdana", Font.PLAIN, 24));
-        perc.setForeground(periwinkle);
         this.add(perc);
 
         Double deadPercent = (Double.parseDouble(finalDayData[3]) / (double)settings.getPopulation())*100;
         JLabel deadPopulation = new JLabel("% dead: " + String.format("%.2f", deadPercent) + "%");
         deadPopulation.setBounds(300, 20, 300, 100);
         deadPopulation.setFont(new Font("Verdana", Font.PLAIN, 18));
-        deadPopulation.setForeground(periwinkle);
         this.add(deadPopulation);
 
         Double uninfectedPercent = (Double.parseDouble(finalDayData[0]) / (double)settings.getPopulation())*100;
         JLabel uninfectedPopulation = new JLabel("% uninfected: " + String.format("%.2f", uninfectedPercent) + "%");
         uninfectedPopulation.setBounds(300, 50, 300, 100);
         uninfectedPopulation.setFont(new Font("Verdana", Font.PLAIN, 18));
-        uninfectedPopulation.setForeground(periwinkle);
         this.add(uninfectedPopulation);
 
         Double infectedPercent = (Double.parseDouble(finalDayData[1]) / (double)settings.getPopulation())*100;
         JLabel infectedPopulation = new JLabel("% infected: " + String.format("%.2f", infectedPercent) + "%");
         infectedPopulation.setBounds(300, 90, 300, 100);
         infectedPopulation.setFont(new Font("Verdana", Font.PLAIN, 18));
-        infectedPopulation.setForeground(periwinkle);
         this.add(infectedPopulation);
 
         Double recoveredPercent = (Double.parseDouble(finalDayData[2]) / (double)settings.getPopulation())*100;
         JLabel recoveredPopulation = new JLabel("% recovered: " + String.format("%.2f", recoveredPercent) + "%");
         recoveredPopulation.setBounds(300, 130, 300, 100);
         recoveredPopulation.setFont(new Font("Verdana", Font.PLAIN, 18));
-        recoveredPopulation.setForeground(periwinkle);
         this.add(recoveredPopulation);
 
         Double vaxxPercent = (Double.parseDouble(finalDayData[4]) / (double)settings.getPopulation())*100;
         JLabel vaxxPopulation = new JLabel("% vaccinated: " + String.format("%.2f", vaxxPercent) + "%");
         vaxxPopulation.setBounds(300, 170, 300, 100);
         vaxxPopulation.setFont(new Font("Verdana", Font.PLAIN, 18));
-        vaxxPopulation.setForeground(periwinkle);
         this.add(vaxxPopulation);
 
         JLabel menuLabel = new JLabel("Data Graphs:");
         menuLabel.setBounds(10, 280, 200, 100);
         menuLabel.setFont(new Font("Verdana", Font.PLAIN, 18));
-        menuLabel.setForeground(periwinkle);
         this.add(menuLabel);
 
         //set drop down menu
