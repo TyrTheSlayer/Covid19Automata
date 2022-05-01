@@ -853,21 +853,21 @@ public class UI extends JFrame{
         infehigh.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                simSet.setInfectChance(0.8);
+                simSet.setInfectChance(0.4);
             }
         });
 
         infemed.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                simSet.setInfectChance(0.4);
+                simSet.setInfectChance(0.2);
             }
         });
 
         infelow.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                simSet.setInfectChance(0.2);
+                simSet.setInfectChance(0.05);
             }
         });
 
@@ -928,7 +928,7 @@ public class UI extends JFrame{
 
 
 
-        JLabel Quar = new JLabel("Quarentine Required?");
+        JLabel Quar = new JLabel("Quarantine Required?");
         Quar.setBounds(760, 350, 170, 30);
         Quar.setFont(new Font("Verdana", Font.PLAIN, 14));
         frame.add(Quar);
@@ -1135,7 +1135,8 @@ QuarNo.addActionListener(new ActionListener() {
 
                 MainFrame mainFrame = new MainFrame("Simulation", simSet);
                 mainFrame.startWindow();
-                frame.dispose();
+                //frame.dispose();
+                frame.setVisible(false);
 
 
             }
@@ -1144,6 +1145,8 @@ QuarNo.addActionListener(new ActionListener() {
         frame.setSize(1000, 370) ;
         // uses no layout managers
         frame.setLayout(null);
+
+        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         // makes the frame visible
         frame.setVisible(true);

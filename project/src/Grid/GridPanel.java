@@ -29,7 +29,7 @@ public class GridPanel extends JPanel implements Runnable {
     public int viewableHeight;
     public int viewableWidth;
     private int ticks = 0;
-    private final int TICKS_PER_RECORD = 360;
+    private final int TICKS_PER_RECORD = 800;
 
 
 
@@ -161,6 +161,9 @@ public class GridPanel extends JPanel implements Runnable {
 
     }
 
+    public boolean hasData() {
+        return (data.recordLength() > 0);
+    }
 
     /**
      * Populate People arraylist

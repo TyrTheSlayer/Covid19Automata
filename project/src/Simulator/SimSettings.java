@@ -58,7 +58,7 @@ public class SimSettings {
         this.simDuration = 150; // user defines duration in terms of days
         this.ticksPerDay = 60; // tentative, for now say 60 ticks = 1 day, (60 fps -> 1 sec = 1 day, idk)
         this.vaccination_effectivity = 0.8; // Vaccination is 80% effective, reduces transmission by 80%
-        this.infectChance = 0.016;
+        this.infectChance = 0.2;
 
         // VirusType defaults
         this.virus = new VirusType(60, 300, 780, 2280,

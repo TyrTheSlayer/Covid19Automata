@@ -1,3 +1,9 @@
+/**
+ * @author Samuel Nix
+ *
+ * @description Creates a frame with a smiley face :)
+ */
+
 package UI;
 
 import javax.swing.*;
@@ -15,22 +21,19 @@ public class LoadingFrame extends JFrame {
         repaint();
     }
 
-    public static void main(String[] args) {
-        // Create a GUI window
-        LoadingFrame window = new LoadingFrame();
-        // Show the window - slightly fancier than `window.setVisible(true)`
-        EventQueue.invokeLater(() -> window.setVisible(true));
-    }
-
-
-
-
-public class LoadComponent extends JComponent {
+    /**
+     * Creates a JComponent
+     */
+    public class LoadComponent extends JComponent {
         public LoadComponent() {
             super();
             setPreferredSize(new Dimension(500, 500));
         }
 
+        /**
+         * New paintcomponent
+         * @param g graphics
+         */
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
 

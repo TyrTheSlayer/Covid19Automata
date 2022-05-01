@@ -1,3 +1,9 @@
+/**
+ * @author Samuel Nix
+ *
+ * @description Creates a legend for the program
+ */
+
 package UI;
 
 import javax.swing.*;
@@ -9,6 +15,10 @@ public class LegendComponent extends JComponent {
         setPreferredSize(new Dimension(500, 500));
     }
 
+    /**
+     * Creates a paintcomponent
+     * @param g graphics
+     */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
