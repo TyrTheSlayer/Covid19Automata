@@ -40,11 +40,12 @@ public class MainFrame extends JFrame{
                 gridPanel.writeData();
 
                 File pathToExe = new File("postsim\\dist\\plot.exe");
-                File pathToCSV = new File("postsim\\simulation.csv");
-                ProcessBuilder builder = new ProcessBuilder(pathToExe.getAbsolutePath(), "-f", "simulation.csv", "-d");
+                File pathToSIMCSV = new File("postsim\\simulation.csv");
+                ProcessBuilder builder = new ProcessBuilder(pathToExe.getAbsolutePath(), "-d", "-p");
                 builder.directory(new File("postsim"));
                 builder.redirectErrorStream(true);
                 Process process = null;
+
                 try {
                     process = builder.start();
                 } catch (IOException ioException) {
@@ -52,6 +53,7 @@ public class MainFrame extends JFrame{
                 }
 
                 Scanner s = new Scanner(process.getInputStream());
+
                 StringBuilder text = new StringBuilder();
                 while (s.hasNextLine()) {
                     text.append(s.nextLine());
@@ -66,7 +68,8 @@ public class MainFrame extends JFrame{
                     interruptedException.printStackTrace();
                 }
 
-                System.out.printf( "Process exited with result %d and output %s%n", result, text );
+                System.out.printf("Process1 exited with result %d and output %s%n", result, text);
+                System.out.printf("Start Process 2\n");
                 PostSimUI postSimUI = new PostSimUI("Post Simulation", settings);
                 postSimUI.startWindow();
             }
