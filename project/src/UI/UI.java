@@ -44,15 +44,21 @@ public class UI extends JFrame{
 
 
         JButton defalt = new JButton("Default");
-        defalt.setBounds(125, 20, 85, 40);
+        defalt.setBounds(140, 60, 120, 50);
+        defalt.setFont(new Font("Verdana", Font.PLAIN, 15));
         frame.add(defalt);
 
         JButton go = new JButton("Start");
-        go.setBounds(495, 20, 85, 40);
+        go.setBounds(430, 35, 120, 90);
+        go.setFont(new Font("Verdana", Font.PLAIN, 19));
+       //go.setForeground(Color.BLUE);
         frame.add(go);
 
-        JButton cust = new JButton("Customize Settings");
-        cust.setBounds(277, 20, 150, 40);
+
+
+        JButton cust = new JButton("Reset");
+        cust.setBounds(720, 60, 120, 50);
+        cust.setFont(new Font("Verdana", Font.PLAIN, 16));
         frame.add(cust);
 
 
@@ -63,16 +69,17 @@ public class UI extends JFrame{
 
         //Label
         JLabel durr = new JLabel("Duration (Weeks)");
-        durr.setBounds(493, 120, 110, 30);
-        durr.setFont(new Font("Verdana", Font.PLAIN, 12));
 
+        durr.setBounds(660, 150, 200, 50);
+        durr.setFont(new Font("Verdana", Font.PLAIN, 18));
         frame.add(durr);
 
 
         //slider
         //To Do: add listener to say current value
         JSlider dur = new JSlider();
-        dur.setBounds(443, 150, 200, 60);
+       // dur.setBounds(443, 150, 200, 60);
+        dur.setBounds(640, 200, 200, 60);
         dur.setMinimum(4);
         dur.setMaximum(52);
         dur.setMajorTickSpacing(12);
@@ -89,8 +96,9 @@ public class UI extends JFrame{
 
         //Label
         JLabel pop = new JLabel("Population");
-        pop.setBounds(110, 120, 65, 30);
-        pop.setFont(new Font("Verdana", Font.PLAIN, 12));
+        pop.setBounds(195, 150, 120, 50);
+        pop.setFont(new Font("Verdana", Font.PLAIN, 18));
+
 
         frame.add(pop);
 
@@ -98,7 +106,7 @@ public class UI extends JFrame{
         //slider
         //To Do: add listener to say current value
         JSlider poppu = new JSlider();
-        poppu.setBounds(40, 150, 200, 60);
+        poppu.setBounds(140, 200, 200, 60);
         poppu.setMinimum(100);
         poppu.setMaximum(1000);
         poppu.setMajorTickSpacing(300);
@@ -114,19 +122,20 @@ public class UI extends JFrame{
          */
 
         // Population button
-        JButton popset = new JButton("More Population Settings");
-        popset.setBounds(37, 280, 200, 20);
+        JButton popset = new JButton("Customize");
+        popset.setBounds(420, 260, 140, 50);
+        popset.setFont(new Font("Verdana", Font.PLAIN, 18));
         frame.add(popset);
 
         // Map button
-        JButton map = new JButton("Modify Map");
+       /* JButton map = new JButton("Modify Map");
         map.setBounds(293, 280, 100, 20);
         frame.add(map);
 
         //Virus Button
         JButton vir = new JButton("Contagous Level");
-        vir.setBounds(445, 280, 200, 20);
-        frame.add(vir);
+        vir.setBounds(445, 280, 200, 20);*/
+       // frame.add(vir);
         JSlider insick = new JSlider();
         JSlider vacc = new JSlider();
         JSlider mask = new JSlider();
@@ -135,15 +144,21 @@ public class UI extends JFrame{
          * Additional settings for Population
          */
 
+        JLabel poplab = new JLabel("More Population Settings");
+        poplab.setBounds( 60, 313, 200, 50);
+        poplab.setFont(new Font("Verdana", Font.PLAIN, 12));
+
+        frame.add(poplab);
+
         //% initial sick people
         JLabel inisick = new JLabel("% Initial Sick People");
-        inisick.setBounds(85, 340, 100, 20);
+        inisick.setBounds(85, 360, 100, 20);
         inisick.setFont(new Font("Verdana", Font.PLAIN, 10));
 
         frame.add(inisick);
 
         // JSlider insick = new JSlider();
-        insick.setBounds(67, 373, 140, 40);
+        insick.setBounds(67, 393, 140, 40);
         insick.setFont(new Font("Verdana", Font.PLAIN, 8));
         insick.setMinimum(0);
         insick.setMaximum(100);
@@ -156,13 +171,13 @@ public class UI extends JFrame{
 
         //% Vaccinated
         JLabel vac = new JLabel("% Vaccinated");
-        vac.setBounds(103, 405, 100, 20);
+        vac.setBounds(103, 425, 100, 20);
         vac.setFont(new Font("Verdana", Font.PLAIN, 10));
 
         frame.add(vac);
 
         //JSlider vacc = new JSlider();
-        vacc.setBounds(67, 428, 140, 40);
+        vacc.setBounds(67, 448, 140, 40);
         vacc.setFont(new Font("Verdana", Font.PLAIN, 8));
         vacc.setMinimum(0);
         vacc.setMaximum(100);
@@ -175,13 +190,13 @@ public class UI extends JFrame{
 
         //% Masked
         JLabel mas = new JLabel("% Mask");
-        mas.setBounds(114, 470, 100, 20);
+        mas.setBounds(114, 490, 100, 20);
         mas.setFont(new Font("Verdana", Font.PLAIN, 10));
 
         frame.add(mas);
 
         //  JSlider mask = new JSlider();
-        mask.setBounds(67, 492, 140, 40);
+        mask.setBounds(67, 512, 140, 40);
         mask.setFont(new Font("Verdana", Font.PLAIN, 8));
         mask.setMinimum(0);
         mask.setMaximum(100);
@@ -269,59 +284,47 @@ public class UI extends JFrame{
 
 
         JLabel Inct = new JLabel("Infectivity");
-        Inct.setBounds(515, 350, 110, 30);
+        Inct.setBounds(724, 350, 110, 30);
         Inct.setFont(new Font("Verdana", Font.PLAIN, 14));
         frame.add(Inct);
 
-        JRadioButton infelow = new JRadioButton("Low");
-        infelow.setBounds(435, 400, 60, 30);
-        frame.add(infelow);
+        JButton infelow = new JButton("Low");
+        infelow.setBounds(650, 400, 60, 30);
         // infelow.setFont(new Font("Verdana", Font.PLAIN, 5));
+        frame.add(infelow);
         //  var numscho = 0;
 
-        JRadioButton infemed = new JRadioButton("Med");
-        infemed.setBounds(515, 400, 60, 30);
+        JButton infemed = new JButton("Med");
+        infemed.setBounds(730, 400, 60, 30);
         frame.add(infemed);
 
-        JRadioButton infehigh = new JRadioButton("High");
-        infehigh.setBounds(595, 400, 60, 30);
+        JButton infehigh = new JButton("High");
+        infehigh.setBounds(810, 400, 60, 30);
         frame.add(infehigh);
-
-
-        ButtonGroup inf = new ButtonGroup();
-        inf.add(infelow);
-        inf.add(infehigh);
-        inf.add(infemed);
 
       /*  JLabel durr = new JLabel("Duration (Weeks)");
         durr.setBounds(493, 120, 110, 30);
         durr.setFont(new Font("Verdana", Font.PLAIN, 12));
         */
         JLabel Sev = new JLabel("Severity");
-        Sev.setBounds(517, 480, 110, 30);
+        Sev.setBounds(732, 480, 110, 30);
         Sev.setFont(new Font("Verdana", Font.PLAIN, 14));
         frame.add(Sev);
 
-        JRadioButton sevlow = new JRadioButton("Low");
-        sevlow.setBounds(435, 520, 60, 30);
+        JButton sevlow = new JButton("Low");
+        sevlow.setBounds(650, 520, 60, 30);
         frame.add(sevlow);
         //  var numscho = 0;
 
 
 
-
-        JRadioButton sevmed = new JRadioButton("Med");
-        sevmed.setBounds(515, 520, 60, 30);
+        JButton sevmed = new JButton("Med");
+        sevmed.setBounds(730, 520, 60, 30);
         frame.add(sevmed);
 
-        JRadioButton sevhigh = new JRadioButton("High");
-        sevhigh.setBounds(595, 520, 60, 30);
+        JButton sevhigh = new JButton("High");
+        sevhigh.setBounds(810, 520, 60, 30);
         frame.add(sevhigh);
-
-        ButtonGroup sev = new ButtonGroup();
-        sev.add(sevhigh);
-        sev.add(sevlow);
-        sev.add(sevmed);
 
         //Quarentine required
         JCheckBox quar = new JCheckBox("Quarantine Required");
@@ -365,52 +368,10 @@ public class UI extends JFrame{
 
         //population
 
-        infehigh.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                simSet.setInfectChance(0.8);
-            }
-        });
-
-        infemed.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                simSet.setInfectChance(0.4);
-            }
-        });
-
-        infelow.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                simSet.setInfectChance(0.2);
-            }
-        });
-
-        sevhigh.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Add code later
-            }
-        });
-
-        sevmed.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Add code later
-            }
-        });
-
-        sevlow.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Add code later
-            }
-        });
-
         poppu.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-//                System.out.println("Population: " + poppu.getValue());
+                System.out.println("Population: " + poppu.getValue());
                 simSet.setPopulation(poppu.getValue());
             }
         });
@@ -419,7 +380,7 @@ public class UI extends JFrame{
         dur.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-//                System.out.println("Duration: " +dur.getValue());
+                System.out.println("Duration: " +dur.getValue());
                 simSet.setSimDuration(dur.getValue());
             }
         });
@@ -429,7 +390,7 @@ public class UI extends JFrame{
             @Override
             public void stateChanged(ChangeEvent e) {
                 double fina = insick.getValue() * .01;
-//                System.out.println("Initial Infected: " + fina);
+                System.out.println("Initial Infected: " + fina);
                 simSet.setInitialInfected(fina);
             }
         });
@@ -439,7 +400,7 @@ public class UI extends JFrame{
             @Override
             public void stateChanged(ChangeEvent e) {
                 double fina = vacc.getValue() * .01;
-//                System.out.println("Vaxed: " + fina);
+                System.out.println("Vaxed: " + fina);
                 simSet.setVaxRate(fina);
             }
         });
@@ -449,7 +410,7 @@ public class UI extends JFrame{
             @Override
             public void stateChanged(ChangeEvent e) {
                 double fina = mask.getValue() * .01;
-//                System.out.println("Masked: " + fina);
+                System.out.println("Masked: " + fina);
                 simSet.setMaskRate(fina);
             }
         });
@@ -472,31 +433,31 @@ public class UI extends JFrame{
         popset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                System.out.println("test");
-                frame.setSize(900, 650) ;
+                System.out.println("test");
+                frame.setSize(1000, 650) ;
             }
         });
 
         cust.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frame.setSize(900, 650) ;
+                frame.setSize(1000, 650) ;
             }
         });
 
-        map.addActionListener(new ActionListener() {
+       /* map.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frame.setSize(900, 650) ;
+                frame.setSize(1000, 650) ;
             }
         });
 
         vir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frame.setSize(900, 650) ;
+                frame.setSize(1000, 650) ;
             }
-        });
+        });*/
 
         go.addActionListener(new ActionListener() {
             @Override
@@ -520,7 +481,7 @@ public class UI extends JFrame{
             }
         });
         //Set size
-        frame.setSize(900, 370) ;
+        frame.setSize(1000, 370) ;
         // uses no layout managers
         frame.setLayout(null);
 
