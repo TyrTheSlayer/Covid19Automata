@@ -1,7 +1,9 @@
+"""
+@author
+"""
 from plotgen import plotgen
 import argparse
 from datetime import datetime
-
 
 def main():
     parser = argparse.ArgumentParser()
@@ -16,12 +18,14 @@ def main():
     # plot a density chart
     if (args.density == True):
         plotter.plot_density()
+    # plot line graphs
     if (args.line != None):
         plotter.plot_line(args.line)
+    # plot poeple graph
     if (args.people != None):
         plotter.plot_people()
 
-
+# entry point for generator
 if __name__ == "__main__":
     start_time = datetime.now()
     main()
