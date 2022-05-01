@@ -214,10 +214,11 @@ public class PostSimUI extends JFrame {
             }
         });
         //Set size
-        this.setSize(800, 1000);
+        this.setPreferredSize(new Dimension(800,1000));
         this.getContentPane().setBackground(cream);
         // uses no layout managers
         this.setLayout(null);
+        pack();
         // makes the frame visible
         this.setVisible(true);
     }
