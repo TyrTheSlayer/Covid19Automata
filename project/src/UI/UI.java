@@ -853,21 +853,21 @@ public class UI extends JFrame{
         infehigh.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                simSet.setInfectChance(0.8);
+                simSet.setInfectChance(0.4);
             }
         });
 
         infemed.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                simSet.setInfectChance(0.4);
+                simSet.setInfectChance(0.2);
             }
         });
 
         infelow.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                simSet.setInfectChance(0.2);
+                simSet.setInfectChance(0.05);
             }
         });
 
