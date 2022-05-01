@@ -1,3 +1,9 @@
+"""
+@author Jonathan Carsten
+
+Plot Generator class
+Includes methods for line, population density, and population demographic plots
+"""
 import pandas as pd
 from matplotlib import pyplot as plt
 from matplotlib import patches as mpatches
@@ -34,6 +40,8 @@ class plotgen:
                     rowlist.append(
                         {"age": line2[0], "status": line2[1], "vaccinated": line2[2]})
 
+            self.dflist.append(pd.DataFrame(rowlist))
+
     def printdf(self):
         print(self.table.to_string())
 
@@ -61,26 +69,17 @@ class plotgen:
             dead_bar.append(frame[frame.status == "Dead"].shape[0])
             recovered_bar.append(frame[frame.status == "Recovered"].shape[0])
 
-        alive_bar = [a + b + c + d for a, b, c,
-                     d in zip(alive_bar, infected_bar, recovered_bar, dead_bar)]
-        infected_bar = [a + b + c for a, b, c in zip(infected_bar, recovered_bar, dead_bar)]
-        recovered_bar = [a + b for a, b, in zip(recovered_bar, dead_bar)]
+        plotdf = pd.DataFrame({'Range': x_axis,
+                               'Alive': alive_bar,
+                               'Infected': infected_bar,
+                               'Recovered': recovered_bar,
+                               'Dead': dead_bar})
 
-        sns.barplot(x=x_axis, y=alive_bar, color="green")
-        sns.barplot(x=x_axis, y=infected_bar, color="darkblue")
-        sns.barplot(x=x_axis, y=recovered_bar, color="lightblue")
-        sns.barplot(x=x_axis, y=dead_bar, color="red")
-
-        plt.title("Age Range Population Information", fontsize=13)
-        plt.xlabel("Age Ranges", fontsize=11)
-        plt.ylabel("Population ", fontsize=11)
-
-        bar1 = mpatches.Patch(color='green', label='Alive')
-        bar2 = mpatches.Patch(color='darkblue', label='Infected')
-        bar3 = mpatches.Patch(color='lightblue', label='Recovered')
-        bar4 = mpatches.Patch(color='red', label='Dead')
-        plt.legend(handles=[bar1, bar2, bar3, bar4], bbox_to_anchor=(1, 1))
         plt.tight_layout()
+        plotdf.set_index('Range').plot(kind='bar', stacked=True, color=[
+            'green', 'darkblue', 'lightblue', 'red'], figsize=(6.4, 5.2), rot=360,
+            ylabel="Age Ranges", xlabel="Population", title="Age Range Population Information",
+            fontsize=8)
         plt.savefig("people.png")
 
     def plot_density(self):

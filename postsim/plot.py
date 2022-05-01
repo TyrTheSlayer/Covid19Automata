@@ -1,9 +1,13 @@
 """
-@author
+@author Jonathan Carsten
+
+Entry point for Postsim subsystem
+Handles command line args and calls the plot Generator
 """
+
 from plotgen import plotgen
 import argparse
-from datetime import datetime
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -25,9 +29,7 @@ def main():
     if (args.people != None):
         plotter.plot_people()
 
+
 # entry point for generator
 if __name__ == "__main__":
-    start_time = datetime.now()
     main()
-    end_time = datetime.now()
-    print("Took %s seconds" % (end_time - start_time))

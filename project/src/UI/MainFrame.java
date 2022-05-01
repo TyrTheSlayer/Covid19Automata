@@ -170,7 +170,7 @@ public class MainFrame extends JFrame{
 
                 File pathToExe = new File("postsim\\dist\\plot.exe");
                 File pathToCSV = new File("postsim\\simulation.csv");
-                ProcessBuilder builder = new ProcessBuilder(pathToExe.getAbsolutePath(), "-f", "simulation.csv", "-d");
+                ProcessBuilder builder = new ProcessBuilder(pathToExe.getAbsolutePath(), "-d", "-p");
                 builder.directory(new File("postsim"));
                 builder.redirectErrorStream(true);
                 Process process = null;
