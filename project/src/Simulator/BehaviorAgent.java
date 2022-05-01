@@ -15,7 +15,7 @@ import Grid.Tile;
 import Path.Path;
 
 public class BehaviorAgent {
-    private GridPanel grid;
+    public GridPanel grid;
     private int width;
     private int height;
     public int ticksPerDay;
@@ -78,6 +78,7 @@ public class BehaviorAgent {
         }
         Building b = p.getTarget(ticks, ticksPerDay); // Get a target
         if (b != null) { // If this person has a target, path to it
+            p.maskOn();
             Tile entrance = b.getRandEntrance();
             Path path = new Path(grid, grid.getTile(p.getX(), p.getY())); // This still has the -2 bug
             if (!path.findPath(grid.getTile(p.getX(),p.getY()), entrance)) {
@@ -90,14 +91,19 @@ public class BehaviorAgent {
         // Gen a random intent
         Random rand = new Random();
         Intent in = new Intent(Intent.Behavior.getRandomBehavior(), rand.nextInt(20)); // Generates a random intent with max duration of 20 ticks
+        if (!grid.settings.isQuaranRequired() && in.getIntent() == Intent.Behavior.QUARANTINE)
+            while(in.getIntent() == Intent.Behavior.QUARANTINE) in = new Intent(Intent.Behavior.getRandomBehavior(), rand.nextInt(20));
         if (in.getIntent() == Intent.Behavior.PATHTO) { // Initializes a random destination cell if the person wants to path somewhere
             if (grid.getBuildings().size() > 0 && rand.nextInt(5) == 0) { // Makes 20% of paths go to a building
-                Tile t = grid.getBuildings().get(rand.nextInt(grid.getBuildings().size())).getRandEntrance();
+                b = grid.getBuildings().get(rand.nextInt(grid.getBuildings().size()));
+                if ((b.getMaskMandate() && !p.getFactors().willMask()) || (b.getVaccMandate() && !p.getFactors().isVaccinated()))
+                    return new Intent(Intent.Behavior.SLEEP, rand.nextInt(1));
+                Tile t = b.getRandEntrance();
                 Path path = new Path(grid, grid.getTile(p.getX(), p.getY()));
                 if (!path.findPath(grid.getTile(p.getX(), p.getY()), t))
-                    return new Intent(Intent.Behavior.SLEEP, rand.nextInt(1));
                 in.setIntent(Intent.Behavior.PATHTO, path.getLength());
                 in.setPath(t, path);
+                if (b.getMaskMandate()) p.maskOn();
                 return in;
             }
             int x = rand.nextInt(width);

@@ -32,18 +32,11 @@ public class SimSettings {
     private double vaccination_effectivity;
     private double infectChance;
 
+
     private ArrayList<BuildingType> BuTy;
 
     // VirusType specific attributes
     private VirusType virus;
-    private int minContagiousTime;
-    private int maxContagiousTime;
-    private int minSymptomaticTime;
-    private int maxSymptomaticTime;
-    private int minRecoveryTime ;
-    private int maxRecoveryTime ;
-    private int minDeathTime;
-    private int maxDeathTime;
 
     /**
      * Inits default values for settings. These values are tentative and prone to change.
@@ -68,7 +61,8 @@ public class SimSettings {
         this.infectChance = 0.016;
 
         // VirusType defaults
-        this.virus = new VirusType();
+        this.virus = new VirusType(60, 300, 780, 2280,
+                1053, 3053, 1110, 2800);
 
         this.BuTy = new ArrayList<>();
 
@@ -193,6 +187,10 @@ public class SimSettings {
 
     public VirusType getVirus() {
         return virus;
+    }
+
+    public void setVirus(VirusType virus) {
+        this.virus = virus;
     }
 
     public void setMinContagiousTime(int minContagiousTime) {

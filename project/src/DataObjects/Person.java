@@ -22,7 +22,7 @@ public class Person {
     private Factor factors;
     private DailySchedule schedule;
     private SimSettings settings;
-
+    private boolean masked = false;
     //Constructors
     /**
      * Makes a new, healthy person at the given location, with the given list of factors
@@ -86,8 +86,14 @@ public class Person {
         return this.status;
     }
 
+    public boolean isMasked() {
+        return this.masked;
+    }
 
     //Methods
+
+    public void maskOn() {this.masked = true;}
+    public void maskOff() {this.masked = false;}
     /**
      * Moves a person the given number of tiles vertically or horizontally
      *
@@ -172,7 +178,7 @@ public class Person {
 
         //Calculate the chance using the factors
         double chance = 0.3;
-        chance = this.factors.applyFactorGive(chance);
+        chance = this.factors.applyFactorGive(chance) * (isMasked() ? 0.44 : 1);
 
 
         //Check if a random number beats the calculated chance
