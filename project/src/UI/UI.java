@@ -7,6 +7,7 @@
 
 package UI;
 
+import DataObjects.VirusType;
 import Grid.BuildingType;
 import Simulator.SimSettings;
 
@@ -893,6 +894,32 @@ public class UI extends JFrame{
         JRadioButton sevhigh = new JRadioButton("High");
         sevhigh.setBounds(890, 530, 60, 30);
         frame.add(sevhigh);
+
+        //Make the action listeners for the severity buttons
+        VirusType lowSev = new VirusType(60, 300, 780, 2280,
+                1053, 3053, 1110, 2800); //3% dead
+        VirusType medSev = new VirusType(60, 300, 780, 2280,
+                1039, 5039, 1110, 2800);
+        VirusType highSev = new VirusType(60, 300, 780, 2280,
+                2854, 6854, 1110, 2800);
+        sevlow.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                simSet.setVirus(lowSev);
+            }
+        });
+        sevmed.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                simSet.setVirus(medSev);
+            }
+        });
+        sevhigh.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                simSet.setVirus(highSev);
+            }
+        });
 
         ButtonGroup sev = new ButtonGroup();
         sev.add(sevhigh);

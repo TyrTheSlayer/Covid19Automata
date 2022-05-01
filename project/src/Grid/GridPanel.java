@@ -144,7 +144,8 @@ public class GridPanel extends JPanel implements Runnable {
 
 
         //Make and assign schedules
-        this.assignSchedules(0.7);
+        if(!this.buildings.isEmpty())
+            this.assignSchedules(0.7);
 
         // This basically overwrites the intents of people now occupying buildings
         for (int i = 0; i < buildings.size(); i++) {
@@ -185,7 +186,7 @@ public class GridPanel extends JPanel implements Runnable {
             }
         }
 
-        VirusType basic = new VirusType();
+        VirusType basic = settings.getVirus();
         int numInfected = (int) Math.floor(infected * population);
 
         for(int j = 0; j < numInfected; j++){
