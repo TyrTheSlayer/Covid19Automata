@@ -25,175 +25,175 @@ public class UI extends JFrame{
 
     public static void main(String[] args) {
 
-    SimSettings simSet = new SimSettings();
-    JFrame frame = new JFrame();
+        SimSettings simSet = new SimSettings();
+        JFrame frame = new JFrame();
 
         ArrayList<BuildingType> builArrList = new ArrayList<>();
 
-    try {
-      UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-     //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-    } catch (Exception e) {
-     e.printStackTrace();
-    }
+        try {
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+            //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
-    /**
-     * Create Default, Cufstomize Settings, and Start buttons
-      */
+        /**
+         * Create Default, Cufstomize Settings, and Start buttons
+         */
 
 
-    JButton defalt = new JButton("Default");
-    defalt.setBounds(125, 20, 85, 40);
-    frame.add(defalt);
+        JButton defalt = new JButton("Default");
+        defalt.setBounds(125, 20, 85, 40);
+        frame.add(defalt);
 
-    JButton go = new JButton("Start");
-    go.setBounds(495, 20, 85, 40);
-    frame.add(go);
+        JButton go = new JButton("Start");
+        go.setBounds(495, 20, 85, 40);
+        frame.add(go);
 
-    JButton cust = new JButton("Customize Settings");
-    cust.setBounds(277, 20, 150, 40);
-    frame.add(cust);
-
-
-
-    /**
-     *  Duration Label, Layout, and Slider
-     */
-
-    //Label
-    JLabel durr = new JLabel("Duration (Weeks)");
-    durr.setBounds(493, 120, 110, 30);
-    durr.setFont(new Font("Verdana", Font.PLAIN, 12));
-
-    frame.add(durr);
+        JButton cust = new JButton("Customize Settings");
+        cust.setBounds(277, 20, 150, 40);
+        frame.add(cust);
 
 
-    //slider
-    //To Do: add listener to say current value
-    JSlider dur = new JSlider();
-    dur.setBounds(443, 150, 200, 60);
-    dur.setMinimum(4);
-    dur.setMaximum(52);
-    dur.setMajorTickSpacing(12);
-    dur.setMinorTickSpacing(4);
-    dur.setPaintTicks(true);
-    dur.setPaintLabels(true);
 
-    frame.add(dur);
+        /**
+         *  Duration Label, Layout, and Slider
+         */
 
+        //Label
+        JLabel durr = new JLabel("Duration (Weeks)");
+        durr.setBounds(493, 120, 110, 30);
+        durr.setFont(new Font("Verdana", Font.PLAIN, 12));
 
-    /**
-     *  Population Label, Layout, and Slider
-     */
-
-    //Label
-    JLabel pop = new JLabel("Population");
-    pop.setBounds(110, 120, 65, 30);
-    pop.setFont(new Font("Verdana", Font.PLAIN, 12));
-
-    frame.add(pop);
+        frame.add(durr);
 
 
-    //slider
-    //To Do: add listener to say current value
-    JSlider poppu = new JSlider();
-    poppu.setBounds(40, 150, 200, 60);
-    poppu.setMinimum(100);
-    poppu.setMaximum(1000);
-    poppu.setMajorTickSpacing(300);
-    poppu.setMinorTickSpacing(50);
-    poppu.setPaintTicks(true);
-    poppu.setPaintLabels(true);
+        //slider
+        //To Do: add listener to say current value
+        JSlider dur = new JSlider();
+        dur.setBounds(443, 150, 200, 60);
+        dur.setMinimum(4);
+        dur.setMaximum(52);
+        dur.setMajorTickSpacing(12);
+        dur.setMinorTickSpacing(4);
+        dur.setPaintTicks(true);
+        dur.setPaintLabels(true);
 
-    frame.add(poppu);
-
-
-    /**
-     * Buttons to open more settings for Population, map, and virus
-     */
-
-    // Population button
-    JButton popset = new JButton("More Population Settings");
-    popset.setBounds(37, 280, 200, 20);
-    frame.add(popset);
-
-    // Map button
-    JButton map = new JButton("Modify Map");
-    map.setBounds(293, 280, 100, 20);
-    frame.add(map);
-
-    //Virus Button
-    JButton vir = new JButton("Contagous Level");
-    vir.setBounds(445, 280, 200, 20);
-    frame.add(vir);
-       JSlider insick = new JSlider();
-       JSlider vacc = new JSlider();
-       JSlider mask = new JSlider();
-       JSlider SocDis = new JSlider();
-    /**
-     * Additional settings for Population
-     */
-
-    //% initial sick people
-    JLabel inisick = new JLabel("% Initial Sick People");
-    inisick.setBounds(85, 340, 100, 20);
-    inisick.setFont(new Font("Verdana", Font.PLAIN, 10));
-
-    frame.add(inisick);
-
-   // JSlider insick = new JSlider();
-    insick.setBounds(67, 373, 140, 40);
-    insick.setFont(new Font("Verdana", Font.PLAIN, 8));
-    insick.setMinimum(0);
-    insick.setMaximum(100);
-    insick.setMinorTickSpacing(5);
-    insick.setMajorTickSpacing(50);
-    insick.setPaintTicks(true);
-    insick.setPaintLabels(true);
-
-    frame.add(insick);
-
-    //% Vaccinated
-    JLabel vac = new JLabel("% Vaccinated");
-    vac.setBounds(103, 405, 100, 20);
-    vac.setFont(new Font("Verdana", Font.PLAIN, 10));
-
-   frame.add(vac);
-
-    //JSlider vacc = new JSlider();
-    vacc.setBounds(67, 428, 140, 40);
-    vacc.setFont(new Font("Verdana", Font.PLAIN, 8));
-    vacc.setMinimum(0);
-    vacc.setMaximum(100);
-    vacc.setMinorTickSpacing(5);
-    vacc.setMajorTickSpacing(50);
-    vacc.setPaintTicks(true);
-    vacc.setPaintLabels(true);
-
-    frame.add(vacc);
-
-    //% Masked
-    JLabel mas = new JLabel("% Mask");
-    mas.setBounds(114, 470, 100, 20);
-    mas.setFont(new Font("Verdana", Font.PLAIN, 10));
-
-    frame.add(mas);
-
-  //  JSlider mask = new JSlider();
-    mask.setBounds(67, 492, 140, 40);
-    mask.setFont(new Font("Verdana", Font.PLAIN, 8));
-    mask.setMinimum(0);
-    mask.setMaximum(100);
-    mask.setMinorTickSpacing(5);
-    mask.setMajorTickSpacing(50);
-    mask.setPaintTicks(true);
-    mask.setPaintLabels(true);
-
-    frame.add(mask);
+        frame.add(dur);
 
 
-    // % Social Distanced
+        /**
+         *  Population Label, Layout, and Slider
+         */
+
+        //Label
+        JLabel pop = new JLabel("Population");
+        pop.setBounds(110, 120, 65, 30);
+        pop.setFont(new Font("Verdana", Font.PLAIN, 12));
+
+        frame.add(pop);
+
+
+        //slider
+        //To Do: add listener to say current value
+        JSlider poppu = new JSlider();
+        poppu.setBounds(40, 150, 200, 60);
+        poppu.setMinimum(100);
+        poppu.setMaximum(1000);
+        poppu.setMajorTickSpacing(300);
+        poppu.setMinorTickSpacing(50);
+        poppu.setPaintTicks(true);
+        poppu.setPaintLabels(true);
+
+        frame.add(poppu);
+
+
+        /**
+         * Buttons to open more settings for Population, map, and virus
+         */
+
+        // Population button
+        JButton popset = new JButton("More Population Settings");
+        popset.setBounds(37, 280, 200, 20);
+        frame.add(popset);
+
+        // Map button
+        JButton map = new JButton("Modify Map");
+        map.setBounds(293, 280, 100, 20);
+        frame.add(map);
+
+        //Virus Button
+        JButton vir = new JButton("Contagous Level");
+        vir.setBounds(445, 280, 200, 20);
+        frame.add(vir);
+        JSlider insick = new JSlider();
+        JSlider vacc = new JSlider();
+        JSlider mask = new JSlider();
+        JSlider SocDis = new JSlider();
+        /**
+         * Additional settings for Population
+         */
+
+        //% initial sick people
+        JLabel inisick = new JLabel("% Initial Sick People");
+        inisick.setBounds(85, 340, 100, 20);
+        inisick.setFont(new Font("Verdana", Font.PLAIN, 10));
+
+        frame.add(inisick);
+
+        // JSlider insick = new JSlider();
+        insick.setBounds(67, 373, 140, 40);
+        insick.setFont(new Font("Verdana", Font.PLAIN, 8));
+        insick.setMinimum(0);
+        insick.setMaximum(100);
+        insick.setMinorTickSpacing(5);
+        insick.setMajorTickSpacing(50);
+        insick.setPaintTicks(true);
+        insick.setPaintLabels(true);
+
+        frame.add(insick);
+
+        //% Vaccinated
+        JLabel vac = new JLabel("% Vaccinated");
+        vac.setBounds(103, 405, 100, 20);
+        vac.setFont(new Font("Verdana", Font.PLAIN, 10));
+
+        frame.add(vac);
+
+        //JSlider vacc = new JSlider();
+        vacc.setBounds(67, 428, 140, 40);
+        vacc.setFont(new Font("Verdana", Font.PLAIN, 8));
+        vacc.setMinimum(0);
+        vacc.setMaximum(100);
+        vacc.setMinorTickSpacing(5);
+        vacc.setMajorTickSpacing(50);
+        vacc.setPaintTicks(true);
+        vacc.setPaintLabels(true);
+
+        frame.add(vacc);
+
+        //% Masked
+        JLabel mas = new JLabel("% Mask");
+        mas.setBounds(114, 470, 100, 20);
+        mas.setFont(new Font("Verdana", Font.PLAIN, 10));
+
+        frame.add(mas);
+
+        //  JSlider mask = new JSlider();
+        mask.setBounds(67, 492, 140, 40);
+        mask.setFont(new Font("Verdana", Font.PLAIN, 8));
+        mask.setMinimum(0);
+        mask.setMaximum(100);
+        mask.setMinorTickSpacing(5);
+        mask.setMajorTickSpacing(50);
+        mask.setPaintTicks(true);
+        mask.setPaintLabels(true);
+
+        frame.add(mask);
+
+
+        // % Social Distanced
    /* JLabel socD = new JLabel("% Social Distanced");
     socD.setBounds(88, 535, 100, 20);
     socD.setFont(new Font("Verdana", Font.PLAIN, 10));
@@ -213,16 +213,17 @@ public class UI extends JFrame{
     frame.add(SocDis);*/
 
 
-       /**
-        * Adding Buttons to add Schools, Stores, and Hospitals to the map
-        */
+        /**
+         * Adding Buttons to add Schools, Stores, and Hospitals to the map
+         */
 
-       JButton school = new JButton("Add School");
-       school.setBounds(293, 360, 100, 40);
-       frame.add(school);
-       // JLabel schoLab = new JLabel("whyyy \n test", numscho);
-       // schoLab.setBounds(293, 420, 100, 40);
-      //  schoLab.setFont(new Font("Verdana", Font.PLAIN, 10));
+        JButton school = new JButton("Add School");
+        school.setBounds(293, 360, 100, 40);
+        frame.add(school);
+        var numscho = 0;
+        JLabel schoLab = new JLabel("whyyy \n test", numscho);
+        schoLab.setBounds(293, 420, 100, 40);
+        //  schoLab.setFont(new Font("Verdana", Font.PLAIN, 10));
 
 
         JButton store = new JButton("Add Store");
@@ -239,7 +240,7 @@ public class UI extends JFrame{
             public void actionPerformed(ActionEvent e) {
 
                 builArrList.add(BuildingType.SCHOOL);
-              //  System.out.println(builArrList);
+                //  System.out.println(builArrList);
 
             }
         });
@@ -247,7 +248,7 @@ public class UI extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 builArrList.add(BuildingType.STORE);
-              //  System.out.println(builArrList);
+                //  System.out.println(builArrList);
             }
         });
 
@@ -255,47 +256,76 @@ public class UI extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 builArrList.add(BuildingType.HOSPITAL);
-               // System.out.println(builArrList);
+                // System.out.println(builArrList);
             }
         });
-    /**
-     * Check boxes for virus settings
-     */
+        /**
+         * Check boxes for virus settings
+         */
 
         /**
          * Adding Buttons to add Schools, Stores, and Hospitals to the map
          */
 
-        JButton low = new JButton("Low");
-        low.setBounds(500, 360, 100, 40);
-        frame.add(low);
-      //  var numscho = 0;
+
+        JLabel Inct = new JLabel("Infectivity");
+        Inct.setBounds(720, 350, 110, 30);
+        Inct.setFont(new Font("Verdana", Font.PLAIN, 14));
+        frame.add(Inct);
+
+        JButton infelow = new JButton("Low");
+        infelow.setBounds(650, 400, 60, 30);
+        // infelow.setFont(new Font("Verdana", Font.PLAIN, 5));
+        frame.add(infelow);
+        //  var numscho = 0;
+
+        JButton infemed = new JButton("Med");
+        infemed.setBounds(730, 400, 60, 30);
+        frame.add(infemed);
+
+        JButton infehigh = new JButton("High");
+        infehigh.setBounds(810, 400, 60, 30);
+        frame.add(infehigh);
+
+      /*  JLabel durr = new JLabel("Duration (Weeks)");
+        durr.setBounds(493, 120, 110, 30);
+        durr.setFont(new Font("Verdana", Font.PLAIN, 12));
+        */
+        JLabel Sev = new JLabel("Severity");
+        Sev.setBounds(732, 480, 110, 30);
+        Sev.setFont(new Font("Verdana", Font.PLAIN, 14));
+        frame.add(Sev);
+
+        JButton sevlow = new JButton("Low");
+        sevlow.setBounds(650, 520, 60, 30);
+        frame.add(sevlow);
+        //  var numscho = 0;
 
 
 
-        JButton med = new JButton("Medium");
-        med.setBounds(500, 440, 100, 40);
-        frame.add(med);
+        JButton sevmed = new JButton("Med");
+        sevmed.setBounds(730, 520, 60, 30);
+        frame.add(sevmed);
 
-        JButton high = new JButton("High");
-        high.setBounds(500, 520, 100, 40);
-        frame.add(high);
+        JButton sevhigh = new JButton("High");
+        sevhigh.setBounds(810, 520, 60, 30);
+        frame.add(sevhigh);
 
-    //Quarentine required
-    JCheckBox quar = new JCheckBox("Quarantine Required");
-    quar.setBounds(70, 540, 170, 40);
-    frame.add(quar);
+        //Quarentine required
+        JCheckBox quar = new JCheckBox("Quarantine Required");
+        quar.setBounds(70, 540, 170, 40);
+        frame.add(quar);
 
-    //Treatment Exists
+        //Treatment Exists
 /*
     JCheckBox treat = new JCheckBox("Treatment Exists");
     treat.setBounds(495, 400, 170, 40);
     frame.add(treat);
 */
 
-    /**
-     * Text boxes to enter numbers for virus varients
-     */
+        /**
+         * Text boxes to enter numbers for virus varients
+         */
 /*
 
     JTextField minCon = new JTextField("Contagious Time ");
@@ -317,60 +347,60 @@ public class UI extends JFrame{
 
 
 
-    /**
-     * Updating the SimSettings values when any of the sliders are changed
-     */
+        /**
+         * Updating the SimSettings values when any of the sliders are changed
+         */
 
-    //population
+        //population
 
-            poppu.addChangeListener(new ChangeListener() {
-     @Override
-     public void stateChanged(ChangeEvent e) {
-      System.out.println("Population: " + poppu.getValue());
-      simSet.setPopulation(poppu.getValue());
-     }
-    });
+        poppu.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                System.out.println("Population: " + poppu.getValue());
+                simSet.setPopulation(poppu.getValue());
+            }
+        });
 
-            // duration
-    dur.addChangeListener(new ChangeListener() {
-     @Override
-     public void stateChanged(ChangeEvent e) {
-      System.out.println("Duration: " +dur.getValue());
-      simSet.setSimDuration(dur.getValue());
-     }
-    });
+        // duration
+        dur.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                System.out.println("Duration: " +dur.getValue());
+                simSet.setSimDuration(dur.getValue());
+            }
+        });
 
-    // initial Infected
-    insick.addChangeListener(new ChangeListener() {
-     @Override
-     public void stateChanged(ChangeEvent e) {
-      double fina = insick.getValue() * .01;
-      System.out.println("Initial Infected: " + fina);
-      simSet.setInitialInfected(fina);
-     }
-    });
+        // initial Infected
+        insick.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                double fina = insick.getValue() * .01;
+                System.out.println("Initial Infected: " + fina);
+                simSet.setInitialInfected(fina);
+            }
+        });
 
-    // Vaxinated
-    vacc.addChangeListener(new ChangeListener() {
-     @Override
-     public void stateChanged(ChangeEvent e) {
-      double fina = vacc.getValue() * .01;
-      System.out.println("Vaxed: " + fina);
-      simSet.setVaxRate(fina);
-     }
-    });
+        // Vaxinated
+        vacc.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                double fina = vacc.getValue() * .01;
+                System.out.println("Vaxed: " + fina);
+                simSet.setVaxRate(fina);
+            }
+        });
 
-    // Masked
-    mask.addChangeListener(new ChangeListener() {
-     @Override
-     public void stateChanged(ChangeEvent e) {
-      double fina = mask.getValue() * .01;
-      System.out.println("Masked: " + fina);
-      simSet.setMaskRate(fina);
-     }
-    });
+        // Masked
+        mask.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                double fina = mask.getValue() * .01;
+                System.out.println("Masked: " + fina);
+                simSet.setMaskRate(fina);
+            }
+        });
 
-    // Social Distanced
+        // Social Distanced
     /*SocDis.addChangeListener(new ChangeListener() {
      @Override
      public void stateChanged(ChangeEvent e) {
@@ -380,71 +410,71 @@ public class UI extends JFrame{
      }
     });*/
 
-    // More Population settings
+        // More Population settings
 
-       /**
-        * Expanding frame when a costumize button is pressed
-        */
-       popset.addActionListener(new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        System.out.println("test");
-        frame.setSize(700, 650) ;
+        /**
+         * Expanding frame when a costumize button is pressed
+         */
+        popset.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("test");
+                frame.setSize(900, 650) ;
+            }
+        });
+
+        cust.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.setSize(900, 650) ;
+            }
+        });
+
+        map.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.setSize(900, 650) ;
+            }
+        });
+
+        vir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.setSize(900, 650) ;
+            }
+        });
+
+        go.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                ArrayList<BuildingType> IfNoBuild = new ArrayList<>();
+
+                if(builArrList.size() == 0){
+                    IfNoBuild.add(BuildingType.STORE);
+                    simSet.setBuTy(IfNoBuild);
+                }
+                else {
+                    simSet.setBuTy(builArrList);
+                }
+
+                MainFrame mainFrame = new MainFrame("Simulation", simSet);
+                mainFrame.startWindow();
+                frame.dispose();
+
+
+            }
+        });
+        //Set size
+        frame.setSize(900, 370) ;
+        // uses no layout managers
+        frame.setLayout(null);
+
+        // makes the frame visible
+        frame.setVisible(true);
+
+
     }
-});
-
-cust.addActionListener(new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        frame.setSize(700, 650) ;
-    }
-});
-
-map.addActionListener(new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        frame.setSize(700, 650) ;
-    }
-});
-
-vir.addActionListener(new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        frame.setSize(700, 650) ;
-    }
-});
-
-go.addActionListener(new ActionListener() {
- @Override
- public void actionPerformed(ActionEvent e) {
-
-     ArrayList<BuildingType> IfNoBuild = new ArrayList<>();
-
-     if(builArrList.size() == 0){
-         IfNoBuild.add(BuildingType.STORE);
-         simSet.setBuTy(IfNoBuild);
-     }
-     else {
-         simSet.setBuTy(builArrList);
-     }
-
-     MainFrame mainFrame = new MainFrame("Simulation", simSet);
-  mainFrame.startWindow();
-  frame.dispose();
-
-
- }
-});
-       //Set size
-       frame.setSize(700, 370) ;
-       // uses no layout managers
-       frame.setLayout(null);
-
-       // makes the frame visible
-       frame.setVisible(true);
-
-
-   }
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
