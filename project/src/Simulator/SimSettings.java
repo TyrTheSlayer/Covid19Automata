@@ -122,6 +122,10 @@ public class SimSettings {
         isQuaranRequired = quaranRequired;
     }
 
+    public double getInfectChance() {
+        return infectChance;
+    }
+
     public void setInfectChance(double infectChance) {
         this.infectChance = infectChance;
     }

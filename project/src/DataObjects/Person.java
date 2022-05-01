@@ -221,7 +221,7 @@ public class Person {
             return false;
 
         //Base chance
-        double chance = 0.016;
+        double chance = settings.getInfectChance();
 
         //Apply all the factors to the chance
         chance = this.factors.applyFactorGet(chance);
