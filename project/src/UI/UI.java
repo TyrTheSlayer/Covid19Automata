@@ -307,22 +307,22 @@ public class UI extends JFrame{
 
 
         JLabel Inct = new JLabel("Infectivity");
-        Inct.setBounds(724, 350, 110, 30);
+        Inct.setBounds(790, 370, 110, 30);
         Inct.setFont(new Font("Verdana", Font.PLAIN, 14));
         frame.add(Inct);
 
         JRadioButton infelow = new JRadioButton("Low");
-        infelow.setBounds(650, 400, 60, 30);
+        infelow.setBounds(720, 400, 60, 30);
         // infelow.setFont(new Font("Verdana", Font.PLAIN, 5));
         frame.add(infelow);
         //  var numscho = 0;
 
         JRadioButton infemed = new JRadioButton("Med");
-        infemed.setBounds(730, 400, 60, 30);
+        infemed.setBounds(800, 400, 60, 30);
         frame.add(infemed);
 
         JRadioButton infehigh = new JRadioButton("High");
-        infehigh.setBounds(810, 400, 60, 30);
+        infehigh.setBounds(880, 400, 60, 30);
         frame.add(infehigh);
 
 
@@ -357,23 +357,23 @@ public class UI extends JFrame{
         durr.setFont(new Font("Verdana", Font.PLAIN, 12));
         */
         JLabel Sev = new JLabel("Severity");
-        Sev.setBounds(732, 480, 110, 30);
+        Sev.setBounds(795, 440, 110, 30);
         Sev.setFont(new Font("Verdana", Font.PLAIN, 14));
         frame.add(Sev);
 
         JRadioButton sevlow = new JRadioButton("Low");
-        sevlow.setBounds(650, 520, 60, 30);
+        sevlow.setBounds(720, 470, 60, 30);
         frame.add(sevlow);
         //  var numscho = 0;
 
 
 
         JRadioButton sevmed = new JRadioButton("Med");
-        sevmed.setBounds(730, 520, 60, 30);
+        sevmed.setBounds(800, 470, 60, 30);
         frame.add(sevmed);
 
         JRadioButton sevhigh = new JRadioButton("High");
-        sevhigh.setBounds(810, 520, 60, 30);
+        sevhigh.setBounds(880, 470, 60, 30);
         frame.add(sevhigh);
 
         ButtonGroup sev = new ButtonGroup();
