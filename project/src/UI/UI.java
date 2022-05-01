@@ -269,47 +269,59 @@ public class UI extends JFrame{
 
 
         JLabel Inct = new JLabel("Infectivity");
-        Inct.setBounds(720, 350, 110, 30);
+        Inct.setBounds(515, 350, 110, 30);
         Inct.setFont(new Font("Verdana", Font.PLAIN, 14));
         frame.add(Inct);
 
-        JButton infelow = new JButton("Low");
-        infelow.setBounds(650, 400, 60, 30);
-        // infelow.setFont(new Font("Verdana", Font.PLAIN, 5));
+        JRadioButton infelow = new JRadioButton("Low");
+        infelow.setBounds(435, 400, 60, 30);
         frame.add(infelow);
+        // infelow.setFont(new Font("Verdana", Font.PLAIN, 5));
         //  var numscho = 0;
 
-        JButton infemed = new JButton("Med");
-        infemed.setBounds(730, 400, 60, 30);
+        JRadioButton infemed = new JRadioButton("Med");
+        infemed.setBounds(515, 400, 60, 30);
         frame.add(infemed);
 
-        JButton infehigh = new JButton("High");
-        infehigh.setBounds(810, 400, 60, 30);
+        JRadioButton infehigh = new JRadioButton("High");
+        infehigh.setBounds(595, 400, 60, 30);
         frame.add(infehigh);
+
+
+        ButtonGroup inf = new ButtonGroup();
+        inf.add(infelow);
+        inf.add(infehigh);
+        inf.add(infemed);
 
       /*  JLabel durr = new JLabel("Duration (Weeks)");
         durr.setBounds(493, 120, 110, 30);
         durr.setFont(new Font("Verdana", Font.PLAIN, 12));
         */
         JLabel Sev = new JLabel("Severity");
-        Sev.setBounds(732, 480, 110, 30);
+        Sev.setBounds(517, 480, 110, 30);
         Sev.setFont(new Font("Verdana", Font.PLAIN, 14));
         frame.add(Sev);
 
-        JButton sevlow = new JButton("Low");
-        sevlow.setBounds(650, 520, 60, 30);
+        JRadioButton sevlow = new JRadioButton("Low");
+        sevlow.setBounds(435, 520, 60, 30);
         frame.add(sevlow);
         //  var numscho = 0;
 
 
 
-        JButton sevmed = new JButton("Med");
-        sevmed.setBounds(730, 520, 60, 30);
+
+        JRadioButton sevmed = new JRadioButton("Med");
+        sevmed.setBounds(515, 520, 60, 30);
         frame.add(sevmed);
 
-        JButton sevhigh = new JButton("High");
-        sevhigh.setBounds(810, 520, 60, 30);
+        JRadioButton sevhigh = new JRadioButton("High");
+        sevhigh.setBounds(595, 520, 60, 30);
         frame.add(sevhigh);
+
+        ButtonGroup sev = new ButtonGroup();
+        sev.add(sevhigh);
+        sev.add(sevlow);
+        sev.add(sevmed);
 
         //Quarentine required
         JCheckBox quar = new JCheckBox("Quarantine Required");
@@ -353,10 +365,52 @@ public class UI extends JFrame{
 
         //population
 
+        infehigh.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                simSet.setInfectChance(0.8);
+            }
+        });
+
+        infemed.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                simSet.setInfectChance(0.4);
+            }
+        });
+
+        infelow.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                simSet.setInfectChance(0.2);
+            }
+        });
+
+        sevhigh.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Add code later
+            }
+        });
+
+        sevmed.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Add code later
+            }
+        });
+
+        sevlow.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Add code later
+            }
+        });
+
         poppu.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                System.out.println("Population: " + poppu.getValue());
+//                System.out.println("Population: " + poppu.getValue());
                 simSet.setPopulation(poppu.getValue());
             }
         });
@@ -365,7 +419,7 @@ public class UI extends JFrame{
         dur.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                System.out.println("Duration: " +dur.getValue());
+//                System.out.println("Duration: " +dur.getValue());
                 simSet.setSimDuration(dur.getValue());
             }
         });
@@ -375,7 +429,7 @@ public class UI extends JFrame{
             @Override
             public void stateChanged(ChangeEvent e) {
                 double fina = insick.getValue() * .01;
-                System.out.println("Initial Infected: " + fina);
+//                System.out.println("Initial Infected: " + fina);
                 simSet.setInitialInfected(fina);
             }
         });
@@ -385,7 +439,7 @@ public class UI extends JFrame{
             @Override
             public void stateChanged(ChangeEvent e) {
                 double fina = vacc.getValue() * .01;
-                System.out.println("Vaxed: " + fina);
+//                System.out.println("Vaxed: " + fina);
                 simSet.setVaxRate(fina);
             }
         });
@@ -395,7 +449,7 @@ public class UI extends JFrame{
             @Override
             public void stateChanged(ChangeEvent e) {
                 double fina = mask.getValue() * .01;
-                System.out.println("Masked: " + fina);
+//                System.out.println("Masked: " + fina);
                 simSet.setMaskRate(fina);
             }
         });
@@ -418,7 +472,7 @@ public class UI extends JFrame{
         popset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("test");
+//                System.out.println("test");
                 frame.setSize(900, 650) ;
             }
         });
