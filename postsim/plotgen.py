@@ -56,7 +56,8 @@ class plotgen:
                   "51 to 60",
                   "61 to 70",
                   "71 to 80",
-                  "81 to 90"]
+                  "81 to 90",
+                  "90+"]
 
         alive_bar = list()
         infected_bar = list()
@@ -68,12 +69,6 @@ class plotgen:
             infected_bar.append(frame[frame.status == "Infected"].shape[0])
             dead_bar.append(frame[frame.status == "Dead"].shape[0])
             recovered_bar.append(frame[frame.status == "Recovered"].shape[0])
-
-        print(str(x_axis))
-        print(str(alive_bar))
-        print(str(infected_bar))
-        print(str(recovered_bar))
-        print(str(dead_bar))
 
         plotdf = pd.DataFrame({'Range': x_axis,
                                'Alive': alive_bar,
