@@ -42,6 +42,10 @@ public class MainFrame extends JFrame{
             public void windowClosing(WindowEvent e) {
                 gridPanel.writeData();
 
+                LoadingFrame load = new LoadingFrame();
+                load.setVisible(true);
+                load.repaint();
+
                 File pathToExe = new File("postsim\\dist\\plot.exe");
                 File pathToSIMCSV = new File("postsim\\simulation.csv");
                 ProcessBuilder builder = new ProcessBuilder(pathToExe.getAbsolutePath(), "-d", "-p");
@@ -74,6 +78,9 @@ public class MainFrame extends JFrame{
                 System.out.printf("Process1 exited with result %d and output %s%n", result, text);
                 System.out.printf("Start Process 2\n");
                 PostSimUI postSimUI = new PostSimUI("Post Simulation", settings);
+
+                load.setVisible(false);
+
                 postSimUI.startWindow();
             }
         });
