@@ -8,6 +8,7 @@ package DataObjects;
 
 import Grid.Building;
 import Simulator.Factor;
+import Simulator.SimSettings;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class Person {
     private Virus virus;
     private Factor factors;
     private DailySchedule schedule;
+    private SimSettings settings;
 
     //Constructors
     /**
@@ -29,12 +31,13 @@ public class Person {
      * @param y The y location
      * @param factors The list of factors
      */
-    public Person(int x, int y, Factor factors) {
+    public Person(int x, int y, Factor factors, SimSettings settings) {
         this.x = x;
         this.y = y;
         this.factors = factors;
         this.status = Status.ALIVE;
         this.virus = null;
+        this.settings = settings;
     }
 
 
@@ -218,7 +221,7 @@ public class Person {
             return false;
 
         //Base chance
-        double chance = 0.016;
+        double chance = settings.getInfectChance();
 
         //Apply all the factors to the chance
         chance = this.factors.applyFactorGet(chance);

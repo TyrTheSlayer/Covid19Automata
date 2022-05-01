@@ -9,17 +9,16 @@ def main():
     parser.add_argument("-l", "--line",
                         help="argument should be \"infected\", \"dead\", \"recovered\", or \"susceptible\"")
     parser.add_argument("-p", "--people", action="store_true")
-    parser.add_argument("-f", "--filename", required=True)
     args = parser.parse_args()
 
-    plotter = plotgen(args.filename)
+    plotter = plotgen()
 
     # plot a density chart
     if (args.density == True):
         plotter.plot_density()
-    elif (args.line != None):
+    if (args.line != None):
         plotter.plot_line(args.line)
-    elif (args.people != None):
+    if (args.people != None):
         plotter.plot_people()
 
 

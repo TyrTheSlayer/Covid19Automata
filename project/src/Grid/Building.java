@@ -8,8 +8,6 @@ package Grid;
 
 import DataObjects.Person;
 import Simulator.BehaviorAgent;
-import Simulator.Intent;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
@@ -280,7 +278,6 @@ public class Building {
      * @return An arraylist of buildings
      */
     public static ArrayList<Building> generateBuildings(BuildingType[] types, Tile[][] tiles, BehaviorAgent ba) {
-        int maxHeight = 0; //The max recorded height of a building in the current row
         boolean failFlag = false;
         ArrayList<Building> buildings = new ArrayList<>();
         int plotSize = 15;
@@ -311,20 +308,8 @@ public class Building {
 
             //Check for an error
             if(needed == null) {
-                //Multiple consecutive fails, something is actually wrong
-                if(failFlag) {
-                    System.out.println("Building generation failed");
-                    System.exit(-1);
-                }
-
-                //First fail, we probably just need to move down
-                else {
-                    y += maxHeight + 3;
-                    maxHeight = 0;
-                    x = 3;
-                    failFlag = true;
-                    continue;
-                }
+                System.out.println("Building generation failed");
+                System.exit(-1);
             }
 
             //No error, actually make the building
@@ -334,9 +319,7 @@ public class Building {
             Tile[] exit = new Tile[1];
             exit[0] = tiles[x + (types[i].getW()/2) + 1][y + types[i].getH()];
             exit[0].setExit(true);
-            buildings.add(new Building(entrance, exit, false, false, types[i].getCapacity(), needed, ba));
-            x += types[i].getW() + 3;
-            maxHeight = Math.max(maxHeight, types[i].getH());
+            buildings.add(new Building(entrance, exit, rand.nextBoolean(), rand.nextBoolean(), types[i].getCapacity(), needed, ba));
         }
 
         return buildings;
