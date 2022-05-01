@@ -288,19 +288,46 @@ public class UI extends JFrame{
         Inct.setFont(new Font("Verdana", Font.PLAIN, 14));
         frame.add(Inct);
 
-        JButton infelow = new JButton("Low");
+        JRadioButton infelow = new JRadioButton("Low");
         infelow.setBounds(650, 400, 60, 30);
         // infelow.setFont(new Font("Verdana", Font.PLAIN, 5));
         frame.add(infelow);
         //  var numscho = 0;
 
-        JButton infemed = new JButton("Med");
+        JRadioButton infemed = new JRadioButton("Med");
         infemed.setBounds(730, 400, 60, 30);
         frame.add(infemed);
 
-        JButton infehigh = new JButton("High");
+        JRadioButton infehigh = new JRadioButton("High");
         infehigh.setBounds(810, 400, 60, 30);
         frame.add(infehigh);
+
+
+        ButtonGroup inf = new ButtonGroup();
+        inf.add(infehigh);
+        inf.add(infemed);
+        inf.add(infelow);
+
+        infehigh.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                simSet.setInfectChance(0.8);
+            }
+        });
+
+        infemed.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                simSet.setInfectChance(0.4);
+            }
+        });
+
+        infelow.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                simSet.setInfectChance(0.2);
+            }
+        });
 
       /*  JLabel durr = new JLabel("Duration (Weeks)");
         durr.setBounds(493, 120, 110, 30);
@@ -311,20 +338,25 @@ public class UI extends JFrame{
         Sev.setFont(new Font("Verdana", Font.PLAIN, 14));
         frame.add(Sev);
 
-        JButton sevlow = new JButton("Low");
+        JRadioButton sevlow = new JRadioButton("Low");
         sevlow.setBounds(650, 520, 60, 30);
         frame.add(sevlow);
         //  var numscho = 0;
 
 
 
-        JButton sevmed = new JButton("Med");
+        JRadioButton sevmed = new JRadioButton("Med");
         sevmed.setBounds(730, 520, 60, 30);
         frame.add(sevmed);
 
-        JButton sevhigh = new JButton("High");
+        JRadioButton sevhigh = new JRadioButton("High");
         sevhigh.setBounds(810, 520, 60, 30);
         frame.add(sevhigh);
+
+        ButtonGroup sev = new ButtonGroup();
+        sev.add(sevhigh);
+        sev.add(sevmed);
+        sev.add(sevlow);
 
         //Quarentine required
         JCheckBox quar = new JCheckBox("Quarantine Required");
