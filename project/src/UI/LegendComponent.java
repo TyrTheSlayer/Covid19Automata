@@ -29,6 +29,7 @@ public class LegendComponent extends JComponent {
         leg.setFont(f);
         add(leg);
 
+        //JLabels for Infection Status
         JLabel sus = new JLabel("Susceptible:");
         sus.setForeground(Color.white);
         sus.setBounds(50,100,200,20);
@@ -56,32 +57,24 @@ public class LegendComponent extends JComponent {
         g.setColor(Color.CYAN);
         g.fillOval(200,160,25,25);
 
-        /*JPanel jp = new JPanel();
-        //jp.setSize(2, 4);
+        //JLabels for Entrance/Exits
+        JLabel ent = new JLabel("Entrance:");
+        ent.setForeground(Color.white);
+        ent.setBounds(50,210,200,20);
+        ent.setFont(f);
+        add(ent);
 
-        JLabel sus = new JLabel("Susceptible");
-        JLabel sas = new JLabel("Susceptibl");
-        JLabel sis = new JLabel("Susceptib");
-        JLabel ses = new JLabel("Suscepti");
-        JLabel sos = new JLabel("Suscept");
+        JLabel exit = new JLabel("Exit:");
+        exit.setForeground(Color.white);
+        exit.setBounds(50,240,200,20);
+        exit.setFont(f);
+        add(exit);
 
-        jp.add(sus);
-        jp.add(sas);
-        jp.add(sis);
-        jp.add(ses);
-        jp.add(sos);
+        g.setColor(Color.decode("#009E73"));
+        g.fillRect(200,210,20,20);
 
-        add(jp, BorderLayout.CENTER);
-        repaint();*/
-
-        /*canvas.setColor(new Color(255, 192, 0));
-        canvas.fillOval(150, 150, 200, 200);
-        canvas.setColor(Color.BLACK);
-        canvas.drawOval(150, 150, 200, 200);
-
-        canvas.fillOval(200, 210, 20, 20);
-        canvas.fillOval(280, 210, 20, 20);
-        canvas.drawArc(190, 240, 120, 80, 190, 160);*/
+        g.setColor(Color.decode("#D55E00"));
+        g.fillRect(200,240,20,20);
     }
 }
 
