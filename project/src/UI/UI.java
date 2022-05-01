@@ -152,13 +152,13 @@ public class UI extends JFrame{
 
         //% initial sick people
         JLabel inisick = new JLabel("% Initial Sick People");
-        inisick.setBounds(85, 360, 100, 20);
+        inisick.setBounds(85, 350, 100, 20);
         inisick.setFont(new Font("Verdana", Font.PLAIN, 10));
 
         frame.add(inisick);
 
         // JSlider insick = new JSlider();
-        insick.setBounds(67, 393, 140, 40);
+        insick.setBounds(65, 365, 140, 40);
         insick.setFont(new Font("Verdana", Font.PLAIN, 8));
         insick.setMinimum(0);
         insick.setMaximum(100);
@@ -171,13 +171,13 @@ public class UI extends JFrame{
 
         //% Vaccinated
         JLabel vac = new JLabel("% Vaccinated");
-        vac.setBounds(103, 425, 100, 20);
+        vac.setBounds(100, 405, 100, 20);
         vac.setFont(new Font("Verdana", Font.PLAIN, 10));
 
         frame.add(vac);
 
         //JSlider vacc = new JSlider();
-        vacc.setBounds(67, 448, 140, 40);
+        vacc.setBounds(65, 420, 140, 40);
         vacc.setFont(new Font("Verdana", Font.PLAIN, 8));
         vacc.setMinimum(0);
         vacc.setMaximum(100);
@@ -190,13 +190,13 @@ public class UI extends JFrame{
 
         //% Masked
         JLabel mas = new JLabel("% Mask");
-        mas.setBounds(114, 490, 100, 20);
+        mas.setBounds(113, 460, 100, 20);
         mas.setFont(new Font("Verdana", Font.PLAIN, 10));
 
         frame.add(mas);
 
         //  JSlider mask = new JSlider();
-        mask.setBounds(67, 512, 140, 40);
+        mask.setBounds(65, 475, 140, 40);
         mask.setFont(new Font("Verdana", Font.PLAIN, 8));
         mask.setMinimum(0);
         mask.setMaximum(100);
@@ -207,6 +207,29 @@ public class UI extends JFrame{
 
         frame.add(mask);
 
+        //% Social Distance
+        JLabel SoDis = new JLabel("% Social Distanced");
+        SoDis.setBounds(87, 515, 100, 20);
+        SoDis.setFont(new Font("Verdana", Font.PLAIN, 10));
+
+        frame.add(SoDis);
+
+        //  JSlider mask = new JSlider();
+        SocDis.setBounds(65, 530, 140, 40);
+        SocDis.setFont(new Font("Verdana", Font.PLAIN, 8));
+        SocDis.setMinimum(0);
+        SocDis.setMaximum(100);
+        SocDis.setMinorTickSpacing(5);
+        SocDis.setMajorTickSpacing(50);
+        SocDis.setPaintTicks(true);
+        SocDis.setPaintLabels(true);
+
+        frame.add(SocDis);
+
+        //Quarentine required
+        JCheckBox quar = new JCheckBox("Quarantine Required");
+        quar.setBounds(67, 565, 170, 40);
+        frame.add(quar);
 
         // % Social Distanced
    /* JLabel socD = new JLabel("% Social Distanced");
@@ -358,10 +381,9 @@ public class UI extends JFrame{
         sev.add(sevmed);
         sev.add(sevlow);
 
-        //Quarentine required
-        JCheckBox quar = new JCheckBox("Quarantine Required");
-        quar.setBounds(70, 540, 170, 40);
-        frame.add(quar);
+
+
+
 
         //Treatment Exists
 /*
