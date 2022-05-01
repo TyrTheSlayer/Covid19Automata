@@ -5,13 +5,14 @@ import java.awt.*;
 
 public class LoadingFrame extends JFrame {
     public LoadingFrame() {
-        super("Loading Screen");
+        super("Loading...");
 
         add(new LoadComponent());
         JLabel label = new JLabel("Loading", SwingConstants.CENTER);
         label.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
         add(label, BorderLayout.SOUTH);
         pack();
+        repaint();
     }
 
     public static void main(String[] args) {
