@@ -10,6 +10,7 @@ import DataObjects.Person;
 import Simulator.BehaviorAgent;
 import Simulator.Intent;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -279,14 +280,33 @@ public class Building {
      * @return An arraylist of buildings
      */
     public static ArrayList<Building> generateBuildings(BuildingType[] types, Tile[][] tiles, BehaviorAgent ba) {
-        int x = 3;
-        int y = 3;
         int maxHeight = 0; //The max recorded height of a building in the current row
         boolean failFlag = false;
         ArrayList<Building> buildings = new ArrayList<>();
+        int plotSize = 15;
+
+        //Generate the list of valid plots
+        ArrayList<Point> plots = new ArrayList<>();
+        for(int i = 0; i <= tiles.length - 15; i += plotSize) {
+            for(int j = 0; j <= tiles[0].length - 15; j += plotSize) {
+                plots.add(new Point(i, j));
+            }
+        }
 
         //Loop through the types
+        Random rand = new Random();
         for(int i = 0; i < types.length; i++) {
+            //Check to make sure there's available plots
+            if(plots.isEmpty())
+                return buildings;
+
+            //Get the x and y values
+            int plotIndex = rand.nextInt(plots.size());
+            int x = (int)plots.get(plotIndex).getX();
+            int y = (int)plots.get(plotIndex).getY();
+            plots.remove(plotIndex);
+
+            //Get the list of needed tiles
             ArrayList<Tile> needed = types[i].allocateTiles(tiles, x, y);
 
             //Check for an error
