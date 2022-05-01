@@ -72,7 +72,7 @@ public class GridPanel extends JPanel implements Runnable {
 
 
 
-    private SimSettings settings;
+    public SimSettings settings;
     /**
      * Creates a new GridPanel
      * @param newtileSize the height and width of any particular cell

@@ -17,8 +17,8 @@ public class Building {
     //OpeningTime is when people can enter or exit a building. The tick time % 60, remainder will be time
     private int openingTime;
     private int closingTime;
-    private boolean maskMandate;
-    private boolean vaccMandate;
+    private boolean maskMandate = true;
+    private boolean vaccMandate = false;
     ArrayList<Person> occupants;
     Tile[] entrances;
     Tile[] exits;
@@ -130,6 +130,14 @@ public class Building {
 
     //Getters
 
+    public boolean getMaskMandate() {
+        return this.maskMandate;
+    }
+
+    public boolean getVaccMandate() {
+        return this.vaccMandate;
+    }
+
     public ArrayList<Person> getOccupants() {
         return occupants;
     }
@@ -157,6 +165,7 @@ public class Building {
             if(i.getX() == person.getX() && i.getY() == person.getY()) {
                 //Give the person a bogus position
                 person.setPosition(-2, -2);
+                if (maskMandate) person.maskOn();
                 ba.genIntent(person);
                 i.clearOccupant();
 
@@ -189,6 +198,7 @@ public class Building {
             if(i.getX() == person.getX() && i.getY() == person.getY()) {
                 //Give the person a bogus position
                 person.setPosition(-2, -2);
+                if (maskMandate) person.maskOn();
                 i.clearOccupant();
 
                 //Add them to the building
@@ -227,6 +237,7 @@ public class Building {
         exit.setOccupant(person);
         //Copy it's position
         person.setPosition(exit.getX(), exit.getY());
+        person.maskOff();
 //        ba.genIntent(person);
         //Exit the building arraylist
         this.occupants.remove(person);
@@ -319,7 +330,8 @@ public class Building {
             Tile[] exit = new Tile[1];
             exit[0] = tiles[x + (types[i].getW()/2) + 1][y + types[i].getH()];
             exit[0].setExit(true);
-            buildings.add(new Building(entrance, exit, rand.nextBoolean(), rand.nextBoolean(), types[i].getCapacity(), needed, ba));
+            float maskChance = new Random().nextFloat();
+            buildings.add(new Building(entrance, exit, (maskChance < ba.grid.settings.getMaskRate()), rand.nextBoolean(), types[i].getCapacity(), needed, ba));
         }
 
         return buildings;

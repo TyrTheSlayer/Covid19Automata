@@ -6,12 +6,15 @@
 
 package Simulator;
 
+import java.util.Random;
+
 public class Factor {
     private double severityGet;
     private double severityGive;
     private double age;
     private boolean vaccinated = false;
     private double vaccination_effectivity;
+    private boolean willMask = false;
 
     //Constructors
     /**
@@ -26,6 +29,7 @@ public class Factor {
         this.age = age;
         this.vaccinated = vaccinated;
         this.vaccination_effectivity = vaccination_effectivity;
+        this.willMask = new Random().nextBoolean();
     }
 
     /**
@@ -37,6 +41,7 @@ public class Factor {
         this.age = getPoisson(1.75); //lamda of 1.75 achieves an age range of around 0-80
         this.vaccinated = false;
         this.vaccination_effectivity = 0.5; // Figure out how to pull this from SimSettings
+        this.willMask = new Random().nextBoolean();
     }
 
     /**
@@ -54,6 +59,10 @@ public class Factor {
      */
     public boolean isVaccinated() {
         return this.vaccinated;
+    }
+
+    public boolean willMask() {
+        return this.willMask;
     }
 
     //Methods
