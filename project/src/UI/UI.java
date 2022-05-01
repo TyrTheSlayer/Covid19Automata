@@ -1004,7 +1004,6 @@ QuarNo.addActionListener(new ActionListener() {
         poppu.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                System.out.println("Population: " + poppu.getValue());
                 simSet.setPopulation(poppu.getValue());
             }
         });
@@ -1013,7 +1012,6 @@ QuarNo.addActionListener(new ActionListener() {
         dur.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                System.out.println("Duration: " +dur.getValue());
                 simSet.setSimDuration(dur.getValue());
             }
         });
@@ -1023,7 +1021,6 @@ QuarNo.addActionListener(new ActionListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
                 double fina = insick.getValue() * .01;
-                System.out.println("Initial Infected: " + fina);
                 simSet.setInitialInfected(fina);
             }
         });
@@ -1033,7 +1030,6 @@ QuarNo.addActionListener(new ActionListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
                 double fina = vacc.getValue() * .01;
-                System.out.println("Vaxed: " + fina);
                 simSet.setVaxRate(fina);
             }
         });
@@ -1043,7 +1039,6 @@ QuarNo.addActionListener(new ActionListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
                 double fina = mask.getValue() * .01;
-                System.out.println("Masked: " + fina);
                 simSet.setMaskRate(fina);
             }
         });
@@ -1066,7 +1061,6 @@ QuarNo.addActionListener(new ActionListener() {
         popset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("test");
                 frame.setSize(1000, 650) ;
             }
         });
