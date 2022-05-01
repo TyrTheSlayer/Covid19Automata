@@ -220,9 +220,8 @@ public class UI extends JFrame{
        JButton school = new JButton("Add School");
        school.setBounds(293, 360, 100, 40);
        frame.add(school);
-       var numscho = 0;
-        JLabel schoLab = new JLabel("whyyy \n test", numscho);
-        schoLab.setBounds(293, 420, 100, 40);
+       // JLabel schoLab = new JLabel("whyyy \n test", numscho);
+       // schoLab.setBounds(293, 420, 100, 40);
       //  schoLab.setFont(new Font("Verdana", Font.PLAIN, 10));
 
 
@@ -267,36 +266,20 @@ public class UI extends JFrame{
          * Adding Buttons to add Schools, Stores, and Hospitals to the map
          */
 
-        JButton infelow = new JButton("Low");
-        infelow.setBounds(500, 360, 100, 40);
-        frame.add(infelow);
+        JButton low = new JButton("Low");
+        low.setBounds(500, 360, 100, 40);
+        frame.add(low);
       //  var numscho = 0;
 
 
 
-        JButton infemed = new JButton("Medium");
-        infemed.setBounds(500, 440, 100, 40);
-        frame.add(infemed);
+        JButton med = new JButton("Medium");
+        med.setBounds(500, 440, 100, 40);
+        frame.add(med);
 
-        JButton infehigh = new JButton("High");
-        infehigh.setBounds(500, 520, 100, 40);
-        frame.add(infehigh);
-
-
-        JButton sevlow = new JButton("Low");
-        infelow.setBounds(500, 360, 100, 40);
-        frame.add(infelow);
-        //  var numscho = 0;
-
-
-
-        JButton sevmed = new JButton("Medium");
-        sevmed.setBounds(500, 440, 100, 40);
-        frame.add(sevmed);
-
-        JButton sevhigh = new JButton("High");
-        sevhigh.setBounds(500, 520, 100, 40);
-        frame.add(sevhigh);
+        JButton high = new JButton("High");
+        high.setBounds(500, 520, 100, 40);
+        frame.add(high);
 
     //Quarentine required
     JCheckBox quar = new JCheckBox("Quarantine Required");
@@ -406,28 +389,28 @@ public class UI extends JFrame{
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("test");
-        frame.setSize(900, 650) ;
+        frame.setSize(700, 650) ;
     }
 });
 
 cust.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
-        frame.setSize(900, 650) ;
+        frame.setSize(700, 650) ;
     }
 });
 
 map.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
-        frame.setSize(900, 650) ;
+        frame.setSize(700, 650) ;
     }
 });
 
 vir.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
-        frame.setSize(900, 650) ;
+        frame.setSize(700, 650) ;
     }
 });
 
@@ -453,7 +436,7 @@ go.addActionListener(new ActionListener() {
  }
 });
        //Set size
-       frame.setSize(900, 370) ;
+       frame.setSize(700, 370) ;
        // uses no layout managers
        frame.setLayout(null);
 
