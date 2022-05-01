@@ -9,7 +9,6 @@ import java.util.ArrayList;
 public enum BuildingType {
     SCHOOL(10, 3, 60),
     STORE(5, 5, 50),
-    DAYCARE(3, 3, 20),
     LIBRARY(10, 5, 100),
     DRUGSTORE(2, 2, 30),
     CONCERTHALL(13, 13, 1000),

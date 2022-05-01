@@ -176,7 +176,7 @@ public class GridPanel extends JPanel implements Runnable {
             int randy = rn.nextInt(this.viewableHeight);
             if (this.gridViewable[randx][randy].getOccupant() == null && this.gridViewable[randx][randy].isAccessible()) {
                 Factor f = new Factor();
-                Person p = new Person(randx, randy, f);
+                Person p = new Person(randx, randy, f, this.settings);
                 this.factor.add(f);
                 this.people.add(p);
                 this.intents.add(agent.genIntent(p));
