@@ -11,7 +11,6 @@ public class Factor {
     private double severityGive;
     private double age;
     private boolean vaccinated = false;
-    private double wfr; // Should be bounded between 0 and 1, 0 is unruly, 1 is following all rules always
     private double vaccination_effectivity;
 
     //Constructors
@@ -21,12 +20,11 @@ public class Factor {
      * @param severityGet How much this factor affects inward infection chance
      * @param severityGive How much this factor affects outward infection chance
      */
-    public Factor(double severityGet, double severityGive, double age, boolean vaccinated, double wfr, double vaccination_effectivity) {
+    public Factor(double severityGet, double severityGive, double age, boolean vaccinated, double vaccination_effectivity) {
         this.severityGet = severityGet;
         this.severityGive = severityGive;
         this.age = age;
         this.vaccinated = vaccinated;
-        this.wfr = wfr;
         this.vaccination_effectivity = vaccination_effectivity;
     }
 
@@ -38,7 +36,6 @@ public class Factor {
         this.severityGive = 1;
         this.age = getPoisson(1.75); //lamda of 1.75 achieves an age range of around 0-80
         this.vaccinated = false;
-        this.wfr = 0.5; // Eventually add some randomness here
         this.vaccination_effectivity = 0.5; // Figure out how to pull this from SimSettings
     }
 

@@ -38,8 +38,6 @@ public class MainFrame extends JFrame{
         this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 gridPanel.writeData();
-                PostSimUI postSimUI = new PostSimUI("Post Simulation", settings);
-                postSimUI.startWindow();
 
                 File pathToExe = new File("postsim\\dist\\plot.exe");
                 File pathToCSV = new File("postsim\\simulation.csv");
@@ -69,6 +67,8 @@ public class MainFrame extends JFrame{
                 }
 
                 System.out.printf( "Process exited with result %d and output %s%n", result, text );
+                PostSimUI postSimUI = new PostSimUI("Post Simulation", settings);
+                postSimUI.startWindow();
             }
         });
     }
@@ -82,11 +82,15 @@ public class MainFrame extends JFrame{
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+
         setLayout(new BorderLayout());
         // creates a new gridPanel
         gridPanel = new GridPanel(10, 60, 120, 0, 0, settings);
         gridPanel.setPause_len((long) (1000/60)); // Init the pause len for the sim
         add(gridPanel, BorderLayout.CENTER);
+
         // set minimum size for window
         this.setMinimumSize(new Dimension(gridPanel.gridPixelWidth, gridPanel.gridPixelHeight));
         this.setResizable(false);
@@ -141,22 +145,64 @@ public class MainFrame extends JFrame{
             }
         };
 
+        ActionListener exitSim = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gridPanel.writeData();
+
+                File pathToExe = new File("postsim\\dist\\plot.exe");
+                File pathToCSV = new File("postsim\\simulation.csv");
+                ProcessBuilder builder = new ProcessBuilder(pathToExe.getAbsolutePath(), "-f", "simulation.csv", "-d");
+                builder.directory(new File("postsim"));
+                builder.redirectErrorStream(true);
+                Process process = null;
+                try {
+                    process = builder.start();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+
+                Scanner s = new Scanner(process.getInputStream());
+                StringBuilder text = new StringBuilder();
+                while (s.hasNextLine()) {
+                    text.append(s.nextLine());
+                    text.append("\n");
+                }
+                s.close();
+
+                int result = 0;
+                try {
+                    result = process.waitFor();
+                } catch (InterruptedException interruptedException) {
+                    interruptedException.printStackTrace();
+                }
+
+                System.out.printf( "Process exited with result %d and output %s%n", result, text );
+                PostSimUI postSimUI = new PostSimUI("Post Simulation", settings);
+                postSimUI.startWindow();
+                MainFrame.super.dispose();
+            }
+        };
+
         JPanel buttonPanel = new JPanel();
 
         JButton start = new JButton("Play");
         JButton pause = new JButton("Pause");
         JButton speedUp = new JButton("Speed Up");
         JButton speedDown = new JButton("Slow Down");
+        JButton exit = new JButton("Exit");
 
         start.addActionListener(playSim);
         pause.addActionListener(pauseSim);
         speedUp.addActionListener(speedUpSim);
         speedDown.addActionListener(slowDownSim);
+        exit.addActionListener(exitSim);
 
         buttonPanel.add(start);
         buttonPanel.add(pause);
         buttonPanel.add(speedUp);
         buttonPanel.add(speedDown);
+        buttonPanel.add(exit);
         buttonPanel.add(rateLabel);
 
         add(buttonPanel, BorderLayout.SOUTH);

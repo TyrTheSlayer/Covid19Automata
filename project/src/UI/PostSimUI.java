@@ -44,20 +44,19 @@ public class PostSimUI extends JFrame {
             e.printStackTrace();
         }
         //Grabs postsim directory, pngs are all that are set in dropdown menu
-        File dir = new File("./postsim");
+        File dir = new File("./postsim/");
         File[] directoryListing = dir.listFiles();
         int j = 0;
         if (directoryListing != null) {
-            this.optionsToChoose = new String[directoryListing.length-4];
+            this.optionsToChoose = new String[directoryListing.length-7];
             for (File child : directoryListing) {
                 if(child.getName().contains(".png")){
                     this.optionsToChoose[j] = child.getName().replace(".png", "");
                     j++;
                 }
-
             }
         }
-
+        //On exit, end program
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -85,7 +84,7 @@ public class PostSimUI extends JFrame {
         results.setForeground(periwinkle);
         this.add(results);
 
-        JLabel succeptible = new JLabel("Susceptible: " + finalDayData[0]);
+        JLabel succeptible = new JLabel("Uninfected: " + finalDayData[0]);
         succeptible.setBounds(20, 40, 200, 100);
         succeptible.setFont(new Font("Verdana", Font.PLAIN, 18));
         succeptible.setForeground(periwinkle);
@@ -114,49 +113,56 @@ public class PostSimUI extends JFrame {
         vaxx.setFont(new Font("Verdana", Font.PLAIN, 18));
         vaxx.setForeground(periwinkle);
         this.add(vaxx);
-        //grabs death percent for upper right label
-        Double deadPercent = 0.0;
-        if(isNumeric(finalDayData[3])){
-            deadPercent = (Double.parseDouble(finalDayData[3]) / (double)settings.getPopulation())*100;
-            JLabel population = new JLabel("% of population dead: " + String.format("%.2f", deadPercent) + "%");
-            population.setBounds(300, 0, 300, 100);
-            population.setFont(new Font("Verdana", Font.PLAIN, 18));
-            this.add(population);
-        }else{
-            JLabel population = new JLabel("% of population dead: INVALID");
-            population.setBounds(300, 0, 300, 100);
-            population.setFont(new Font("Verdana", Font.PLAIN, 18));
-            this.add(population);
-        }
-        //get death picture
-        String filename = "";
-        if(deadPercent <= 10){
-            //happy
-            filename = "happy.jpg";
-        }else if(deadPercent <= 25){
-            //medium
-            filename = "awkward.jpg";
-        }else if(deadPercent <= 50){
-            //bad
-            filename = "sad.jpg";
-        }else{
-            //very bad
-            filename = "depression.jpg";
-        }
-        JLabel deadLbl = new JLabel();
-        ImageIcon pic = new ImageIcon("./project/src/UI/"+ filename);
-        deadLbl.setIcon(pic);
-        deadLbl.setBounds(300, 100, 462, 261);
-        deadLbl.setVisible(true);
-        this.add(deadLbl);
+
+        //General Percent Stats
+        JLabel perc = new JLabel("End Of Sim Percentages:");
+        perc.setBounds(300, 10, 400, 30);
+        perc.setFont(new Font("Verdana", Font.PLAIN, 24));
+        perc.setForeground(periwinkle);
+        this.add(perc);
+
+        Double deadPercent = (Double.parseDouble(finalDayData[3]) / (double)settings.getPopulation())*100;
+        JLabel deadPopulation = new JLabel("% dead: " + String.format("%.2f", deadPercent) + "%");
+        deadPopulation.setBounds(300, 20, 300, 100);
+        deadPopulation.setFont(new Font("Verdana", Font.PLAIN, 18));
+        deadPopulation.setForeground(periwinkle);
+        this.add(deadPopulation);
+
+        Double uninfectedPercent = (Double.parseDouble(finalDayData[0]) / (double)settings.getPopulation())*100;
+        JLabel uninfectedPopulation = new JLabel("% uninfected: " + String.format("%.2f", uninfectedPercent) + "%");
+        uninfectedPopulation.setBounds(300, 50, 300, 100);
+        uninfectedPopulation.setFont(new Font("Verdana", Font.PLAIN, 18));
+        uninfectedPopulation.setForeground(periwinkle);
+        this.add(uninfectedPopulation);
+
+        Double infectedPercent = (Double.parseDouble(finalDayData[1]) / (double)settings.getPopulation())*100;
+        JLabel infectedPopulation = new JLabel("% infected: " + String.format("%.2f", infectedPercent) + "%");
+        infectedPopulation.setBounds(300, 90, 300, 100);
+        infectedPopulation.setFont(new Font("Verdana", Font.PLAIN, 18));
+        infectedPopulation.setForeground(periwinkle);
+        this.add(infectedPopulation);
+
+        Double recoveredPercent = (Double.parseDouble(finalDayData[2]) / (double)settings.getPopulation())*100;
+        JLabel recoveredPopulation = new JLabel("% recovered: " + String.format("%.2f", recoveredPercent) + "%");
+        recoveredPopulation.setBounds(300, 130, 300, 100);
+        recoveredPopulation.setFont(new Font("Verdana", Font.PLAIN, 18));
+        recoveredPopulation.setForeground(periwinkle);
+        this.add(recoveredPopulation);
+
+        Double vaxxPercent = (Double.parseDouble(finalDayData[4]) / (double)settings.getPopulation())*100;
+        JLabel vaxxPopulation = new JLabel("% vaccinated: " + String.format("%.2f", vaxxPercent) + "%");
+        vaxxPopulation.setBounds(300, 170, 300, 100);
+        vaxxPopulation.setFont(new Font("Verdana", Font.PLAIN, 18));
+        vaxxPopulation.setForeground(periwinkle);
+        this.add(vaxxPopulation);
 
         JLabel menuLabel = new JLabel("Data Graphs:");
         menuLabel.setBounds(10, 280, 200, 100);
         menuLabel.setFont(new Font("Verdana", Font.PLAIN, 18));
+        menuLabel.setForeground(periwinkle);
         this.add(menuLabel);
 
         //set drop down menu
-
         JComboBox<String> menu = new JComboBox<>(this.optionsToChoose);
         menu.setBounds(10, 350, 160, 25);
         this.add(menu);
@@ -206,6 +212,8 @@ public class PostSimUI extends JFrame {
         //graph border
         Rectangle rect = new Rectangle(20, 415, 640, 480);
         g2.draw(rect);
+        Rectangle rect2 = new Rectangle(300, 35, 310, 240);
+        g2.draw(rect2);
 
     }
 
