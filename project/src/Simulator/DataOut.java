@@ -7,6 +7,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * @author Brenton and Aedan
+ *
+ * Class with methods to aggregate data from the simulation and output both global and specific user CSVs
+ */
 public class DataOut {
 
     /**
