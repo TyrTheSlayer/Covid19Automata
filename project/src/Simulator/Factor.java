@@ -21,6 +21,9 @@ public class Factor {
      *
      * @param severityGet How much this factor affects inward infection chance
      * @param severityGive How much this factor affects outward infection chance
+     * @param age The age of the person
+     * @param vaccinated Whether or not the person is vaccinated
+     * @param vaccination_effectivity How effective the vaccine is
      */
     public Factor(double severityGet, double severityGive, double age, boolean vaccinated, double vaccination_effectivity) {
         this.severityGet = severityGet;
@@ -88,7 +91,7 @@ public class Factor {
     /**
      * gets age
      *
-     * @returns age of person
+     * @return age of person
      */
     public double getAge(){
         return this.age;

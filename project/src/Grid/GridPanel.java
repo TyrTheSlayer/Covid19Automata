@@ -79,6 +79,7 @@ public class GridPanel extends JPanel implements Runnable {
      * @param viewableWidth viewable width of the grid (how many cells are generated + 2)
      * @param topLeftX coordinate of top left X usually 0
      * @param topLeftY coordinate of top left Y usually 0
+     * @param settings The simsettings to use
      */
     public GridPanel(int newtileSize, int viewableHeight, int viewableWidth, int topLeftX, int topLeftY, SimSettings settings) {
         // setup panel
@@ -290,6 +291,7 @@ public class GridPanel extends JPanel implements Runnable {
      *
      * @param x The x location of the tile
      * @param y The y location of the tile
+     * @return An array containing the neighboring tiles
      */
     public Tile[] getNeighborsForTile(int x, int y) {
         //Auto-return null if the x and y are bad

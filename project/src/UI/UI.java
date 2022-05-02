@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * @author Summer Bronson
  * @author Aedan Wells
  *
- * @description UI for users to put in parameters for the simulation
+ * UI for users to put in parameters for the simulation
  */
 public class UI extends JFrame{
 

@@ -11,7 +11,7 @@ import Path.Path;
 /**
  * @author Brenton Candelaria
  *
- * @description A class to handle intelligent behaviors of the automata
+ * A class to handle intelligent behaviors of the automata
  */
 public class BehaviorAgent {
     public GridPanel grid;
@@ -56,6 +56,7 @@ public class BehaviorAgent {
     
     /**
      * Generates a random intent for a cell to act on
+     * @param p The person to generate the intent for
      * @return A fully initialized Intent object
      */
     public Intent genIntent(Person p) {

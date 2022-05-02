@@ -36,6 +36,7 @@ public class Building {
      * @param vaccMandate Whether or not the building has a mask mandate
      * @param capacity The maxiumum number of people that can fit into the buidling
      * @param spaces The tiles that the building occupies
+     * @param ba The behaviour agent to use
      */
     public Building(Tile[] entrances, Tile[] exits, int openingTime, int closingTime, boolean maskMandate,
                     boolean vaccMandate, int capacity, ArrayList<Tile> spaces, BehaviorAgent ba) {
@@ -79,6 +80,7 @@ public class Building {
      * @param vaccMandate Whether or not the building has a mask mandate
      * @param capacity The maxiumum number of people that can fit into the buidling
      * @param spaces The tiles that the building occupies
+     * @param ba The behaviour agent to use
      */
     public Building(Tile[] entrances, Tile[] exits, boolean maskMandate,
                     boolean vaccMandate, int capacity, ArrayList<Tile> spaces, BehaviorAgent ba) {
@@ -285,6 +287,7 @@ public class Building {
      *
      * @param types The types to generate
      * @param tiles The tiles to use
+     * @param ba The behaviour agent to use
      * @return An arraylist of buildings
      */
     public static ArrayList<Building> generateBuildings(BuildingType[] types, Tile[][] tiles, BehaviorAgent ba) {

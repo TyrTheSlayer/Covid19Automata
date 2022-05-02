@@ -20,7 +20,7 @@ import java.util.Scanner;
 /**
  * @author Aedan Wells
  *
- * @description UI for users after simulation completion
+ * UI for users after simulation completion
  */
 public class PostSimUI extends JFrame {
     public Scanner sc;

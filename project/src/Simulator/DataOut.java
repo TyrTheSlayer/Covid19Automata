@@ -106,6 +106,8 @@ public class DataOut {
 
     /**
      * Writes the data to a csv file for postsim processing
+     *
+     * @param people The arraylist containing the people who were involved in the sim
      */
     public void writeOut(ArrayList<Person> people){
         String CSV = "susceptible,infected,recovered,dead,vaccinated\r\n";

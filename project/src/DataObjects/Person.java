@@ -29,6 +29,7 @@ public class Person {
      * @param x The x location
      * @param y The y location
      * @param factors The list of factors
+     * @param settings The simsettings to use
      */
     public Person(int x, int y, Factor factors, SimSettings settings) {
         this.x = x;

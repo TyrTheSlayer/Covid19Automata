@@ -7,7 +7,7 @@ import Grid.Tile;
 /**
  * @author Brenton Candelaria
  *
- * @description A class to handle status/actions for a cell. Stores data to be used by the BehaviorAgent
+ * A class to handle status/actions for a cell. Stores data to be used by the BehaviorAgent
  */
 public class Intent {
     // Enumerate potential actions
@@ -110,6 +110,9 @@ public class Intent {
 
     /**
      * Sets a path for a person if it intends to travel somewhere
+     *
+     * @param dest The destination the intent wants to get to
+     * @param p The path to follow
      */
     public void setPath(Tile dest, Path p) {
         this.intent = Behavior.PATHTO;

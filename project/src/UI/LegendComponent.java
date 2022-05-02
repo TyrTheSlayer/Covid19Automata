@@ -6,7 +6,7 @@ import java.awt.*;
 /**
  * @author Samuel Nix
  *
- * @description Creates a legend for the program
+ * Creates a legend for the program
  */
 public class LegendComponent extends JComponent {
     public LegendComponent() {
