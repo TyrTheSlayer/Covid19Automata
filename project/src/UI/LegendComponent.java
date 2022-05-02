@@ -1,14 +1,13 @@
-/**
- * @author Samuel Nix
- *
- * @description Creates a legend for the program
- */
-
 package UI;
 
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * @author Samuel Nix
+ *
+ * @description Creates a legend for the program
+ */
 public class LegendComponent extends JComponent {
     public LegendComponent() {
         super();

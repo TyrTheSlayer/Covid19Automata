@@ -1,12 +1,11 @@
+package DataObjects;
+import java.util.Random;
+
 /**
  * @author Wesley Camphouse, Aedan Wells, Jonathan Carsten
  *
  * The object representing a type of virus
  */
-
-package DataObjects;
-import java.util.Random;
-
 public class VirusType {
     private int minContagiousTime;
     private int maxContagiousTime;

@@ -1,9 +1,10 @@
+package DataObjects;
+
 /**
  * @author Aedan Wells
  *
  * The status enum for people
  */
-package DataObjects;
 
 public enum Status {
     ALIVE, INFECTED, DEAD, RECOVERED;

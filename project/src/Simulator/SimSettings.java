@@ -1,11 +1,3 @@
-/**
- * @author Jonathan Carsten
- *
- * Data Class that stores settings for simulation
- * Also assigns defaults for settings
- * The idea is that the UI could declare a SimSettings object and then set values as the user adjusts settings
- */
-
 package Simulator;
 
 import DataObjects.VirusType;
@@ -15,6 +7,13 @@ import Grid.BuildingType;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * @author Jonathan Carsten
+ *
+ * Data Class that stores settings for simulation
+ * Also assigns defaults for settings
+ * The idea is that the UI could declare a SimSettings object and then set values as the user adjusts settings
+ */
 public class SimSettings {
     private int population;
     private double initialInfected;

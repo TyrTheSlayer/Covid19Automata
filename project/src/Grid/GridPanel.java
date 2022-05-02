@@ -1,9 +1,3 @@
-/**
- * @author Samuel Nix, Summer Bronson, Aedan Wells, Janathan Carsten
- *
- * Sets up a grid to be displayed by Mainframe
- */
-
 package Grid;
 
 import DataObjects.DailySchedule;
@@ -23,6 +17,11 @@ import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * @author Samuel Nix, Summer Bronson, Aedan Wells, Janathan Carsten
+ *
+ * Sets up a grid to be displayed by Mainframe
+ */
 public class GridPanel extends JPanel implements Runnable {
     // width and height of viewable grid in tiles, excluding the outer border
     public int viewableHeight;

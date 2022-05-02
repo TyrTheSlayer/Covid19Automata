@@ -1,9 +1,3 @@
-/**
- * @author Brenton Candelaria
- *
- * @description A class to handle intelligent behaviors of the automata
- */
-
 package Simulator;
 
 import java.util.Random;
@@ -14,6 +8,11 @@ import Grid.GridPanel;
 import Grid.Tile;
 import Path.Path;
 
+/**
+ * @author Brenton Candelaria
+ *
+ * @description A class to handle intelligent behaviors of the automata
+ */
 public class BehaviorAgent {
     public GridPanel grid;
     private int width;

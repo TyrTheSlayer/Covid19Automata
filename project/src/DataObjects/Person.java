@@ -1,9 +1,3 @@
-/**
- * @author Wesley Camphouse
- *
- * The actual person object, keeps track of all the data related to a given person
- */
-
 package DataObjects;
 
 import Grid.Building;
@@ -14,6 +8,11 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * @author Wesley Camphouse
+ *
+ * The actual person object, keeps track of all the data related to a given person
+ */
 public class Person {
     private Status status;
     private int x;

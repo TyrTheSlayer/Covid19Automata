@@ -1,9 +1,3 @@
-/**
- * @author Wesley Camphouse, Aedan Wells
- *
- * The class that represents a building
- */
-
 package Grid;
 
 import DataObjects.Person;
@@ -12,6 +6,11 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * @author Wesley Camphouse, Aedan Wells
+ *
+ * The class that represents a building
+ */
 public class Building {
     private int capacity;
     //OpeningTime is when people can enter or exit a building. The tick time % 60, remainder will be time

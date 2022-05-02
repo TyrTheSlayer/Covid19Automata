@@ -1,13 +1,12 @@
+package Simulator;
+
+import java.util.Random;
+
 /**
  * @author Wesley Camphouse, Aedan Wells, Samuel Nix
  *
  * The class that represents a single factor influencing infection
  */
-
-package Simulator;
-
-import java.util.Random;
-
 public class Factor {
     private double severityGet;
     private double severityGive;

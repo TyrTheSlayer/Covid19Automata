@@ -1,15 +1,14 @@
-/**
- * @author Brenton Candelaria
- *
- * @description A class to handle status/actions for a cell. Stores data to be used by the BehaviorAgent
- */
-
 package Simulator;
 
 import java.util.Random;
 import Path.Path;
 import Grid.Tile;
 
+/**
+ * @author Brenton Candelaria
+ *
+ * @description A class to handle status/actions for a cell. Stores data to be used by the BehaviorAgent
+ */
 public class Intent {
     // Enumerate potential actions
     public enum Behavior {

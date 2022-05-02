@@ -1,9 +1,3 @@
-/**
- * @author Aedan Wells
- *
- * @description UI for users after simulation completion
- */
-
 package UI;
 
 
@@ -23,6 +17,11 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.Scanner;
 
+/**
+ * @author Aedan Wells
+ *
+ * @description UI for users after simulation completion
+ */
 public class PostSimUI extends JFrame {
     public Scanner sc;
     public String[] finalDayData;
