@@ -52,7 +52,7 @@ public class PostSimUI extends JFrame {
         File[] directoryListing = dir.listFiles();
         int j = 0;
         if (directoryListing != null) {
-            this.optionsToChoose = new String[directoryListing.length-7];
+            this.optionsToChoose = new String[directoryListing.length-10];
             for (File child : directoryListing) {
                 if(child.getName().contains(".png")){
                     this.optionsToChoose[j] = child.getName().replace(".png", "");
@@ -149,26 +149,27 @@ public class PostSimUI extends JFrame {
         this.add(vaxxPopulation);
 
         JLabel menuLabel = new JLabel("Data Graphs:");
-        menuLabel.setBounds(10, 280, 200, 100);
+        menuLabel.setBounds(10, 220, 200, 100);
+        //60 points
         menuLabel.setFont(new Font("Verdana", Font.PLAIN, 18));
         this.add(menuLabel);
 
         //set drop down menu
         JComboBox<String> menu = new JComboBox<>(this.optionsToChoose);
-        menu.setBounds(10, 350, 160, 25);
+        menu.setBounds(10, 290, 160, 25);
         this.add(menu);
 
         //setting up graph pictures
         JLabel lbl = new JLabel();
         this.img = new ImageIcon("./postsim/density.png");
         lbl.setIcon(img);
-        lbl.setBounds(15, 300, 650, 650);
+        lbl.setBounds(15, 240, 650, 650);
         lbl.setVisible(true);
         this.add(lbl);
 
 
         JButton export = new JButton("Export as");
-        export.setBounds(500, 350, 100, 25);
+        export.setBounds(500, 290, 100, 25);
         this.add(export);
 
         JFileChooser exporter = new JFileChooser();
@@ -200,7 +201,7 @@ public class PostSimUI extends JFrame {
             }
         });
         //Set size
-        this.setPreferredSize(new Dimension(800,1000));
+        this.setPreferredSize(new Dimension(800,875));
         this.getContentPane().setBackground(cream);
         // uses no layout managers
         this.setLayout(null);
@@ -228,7 +229,7 @@ public class PostSimUI extends JFrame {
         lin = new Line2D.Float(225, 35, 225, 275);
         g2.draw(lin);
         //graph border
-        Rectangle rect = new Rectangle(20, 415, 640, 480);
+        Rectangle rect = new Rectangle(20, 355, 640, 490);
         g2.draw(rect);
         Rectangle rect2 = new Rectangle(300, 35, 310, 240);
         g2.draw(rect2);
