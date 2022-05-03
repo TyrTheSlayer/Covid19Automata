@@ -24,21 +24,19 @@ public class Building {
     Tile[] exits;
     ArrayList<Tile> space;
     private BehaviorAgent ba;
+    private Color c;
 
     //Constructors
     /**
      * Makes a building with the given sides, entrances, and exits
-     *
-     * @param entrances The entrances to the building
+     *  @param entrances The entrances to the building
      * @param exits The exits to the building
-     * @param openingTime The time the building opens
-     * @param closingTime The time the building closes
      * @param maskMandate Whether or not the building has a mask mandate
      * @param vaccMandate Whether or not the building has a mask mandate
      * @param capacity The maxiumum number of people that can fit into the buidling
      * @param spaces The tiles that the building occupies
      */
-    public Building(Tile[] entrances, Tile[] exits, int openingTime, int closingTime, boolean maskMandate,
+    public Building(Tile[] entrances, Tile[] exits, boolean maskMandate,
                     boolean vaccMandate, int capacity, ArrayList<Tile> spaces, BehaviorAgent ba) {
         //Assign the attributes
         this.entrances = entrances;
@@ -51,6 +49,8 @@ public class Building {
         this.space = spaces;
         this.occupants = new ArrayList<>();
         this.ba = ba;
+      //  this.c = c;
+
 
         //Update the entrances on the tile side
         for(Tile i : this.entrances) {
@@ -67,7 +67,8 @@ public class Building {
                 i.clearOccupant();
             }
 
-            i.setAccessible(false);
+           // i.setAccessible(Color.BLUE);
+         //   i.setAccessible(c);
         }
     }
 
@@ -82,7 +83,7 @@ public class Building {
      * @param spaces The tiles that the building occupies
      */
     public Building(Tile[] entrances, Tile[] exits, boolean maskMandate,
-                    boolean vaccMandate, int capacity, ArrayList<Tile> spaces, BehaviorAgent ba) {
+                    boolean vaccMandate, int capacity, ArrayList<Tile> spaces, BehaviorAgent ba, Color c) {
         //Assign the attributes
         this.entrances = entrances;
         this.exits = exits;
@@ -94,6 +95,7 @@ public class Building {
         this.space = spaces;
         this.occupants = new ArrayList<>();
         this.ba = ba;
+        this.c = c;
 
         //Update the entrances on the tile side
         for(Tile i : this.entrances) {
@@ -110,7 +112,7 @@ public class Building {
                 i.clearOccupant();
             }
 
-            i.setAccessible(false);
+            i.setAccessible(c);
         }
     }
 
@@ -221,7 +223,7 @@ public class Building {
         //Find a valid exit, auto return if we can't
         Tile exit = null;
         for(Tile i : this.exits) {
-            if(i.isAccessible()) {
+            if(i.isAccessible() == null) {
                 exit = i;
                 break;
             } else {
@@ -293,6 +295,7 @@ public class Building {
         ArrayList<Building> buildings = new ArrayList<>();
         int plotSize = 15;
 
+
         //Generate the list of valid plots
         ArrayList<Point> plots = new ArrayList<>();
         for(int i = 0; i <= tiles.length - 15; i += plotSize) {
@@ -317,6 +320,7 @@ public class Building {
             //Get the list of needed tiles
             ArrayList<Tile> needed = types[i].allocateTiles(tiles, x, y);
 
+            Color col = new Color (types[i].getC().getRGB());
             //Check for an error
             if(needed == null) {
                 System.out.println("Building generation failed");
@@ -331,7 +335,11 @@ public class Building {
             exit[0] = tiles[x + (types[i].getW()/2) + 1][y + types[i].getH()];
             exit[0].setExit(true);
             float maskChance = new Random().nextFloat();
-            buildings.add(new Building(entrance, exit, (maskChance < ba.grid.settings.getMaskRate()), rand.nextBoolean(), types[i].getCapacity(), needed, ba));
+            //Color d;
+           // d = new Color(plots.get(c));
+
+
+            buildings.add(new Building(entrance, exit, (maskChance < ba.grid.settings.getMaskRate()), rand.nextBoolean(), types[i].getCapacity(), needed, ba, col));
         }
 
         return buildings;

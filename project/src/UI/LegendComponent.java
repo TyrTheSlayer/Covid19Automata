@@ -31,6 +31,7 @@ public class LegendComponent extends JComponent {
         g.fillRect(0,0,1500,1000);
 
         Font f = new Font("Verdana", Font.PLAIN, 20);
+        Font bf = new Font("Verdana", Font.PLAIN,17);
 
         JLabel leg = new JLabel("Legend:");
         leg.setForeground(Color.white);
@@ -86,6 +87,80 @@ public class LegendComponent extends JComponent {
         g.setColor(Color.decode("#D55E00"));
         g.fillRect(200,240,20,20);
 
+
+        //Jlabels for Buildings
+        JLabel buildings = new JLabel("Buildings:");
+        buildings.setForeground(Color.WHITE);
+        buildings.setBounds(50,290, 200,25);
+        buildings.setFont(f);
+        add(buildings);
+
+        JLabel sch = new JLabel("School");
+        sch.setFont(bf);
+        sch.setForeground(Color.WHITE);
+        sch.setBounds(90, 310, 100,50);
+        add(sch);
+        g.setColor(Color.decode("#9e746f"));
+        g.fillRect(70,350,100,30);
+
+        JLabel sto = new JLabel("Store");
+        sto.setFont(bf);
+        sto.setForeground(Color.WHITE);
+        sto.setBounds(243, 310, 100,50);
+        add(sto);
+        g.setColor(Color.decode("#9e7f6f"));
+        g.fillRect(240,350,50,50);
+
+        JLabel lib = new JLabel("Library");
+        lib.setFont(bf);
+        lib.setForeground(Color.WHITE);
+        lib.setBounds(390, 310, 100,50);
+        add(lib);
+        g.setColor(Color.decode("#9e936f"));
+        g.fillRect(370,350,100,50);
+
+        JLabel drugs = new JLabel("Drug Store");
+        drugs.setFont(bf);
+        drugs.setForeground(Color.WHITE);
+        drugs.setBounds(520, 310, 100,50);
+        add(drugs);
+        g.setColor(Color.decode("#889e6f"));
+        g.fillRect(560,350,20,20);
+
+        JLabel con = new JLabel("Concert Hall");
+        con.setFont(bf);
+        con.setForeground(Color.WHITE);
+        con.setBounds(78, 420, 150,30);
+        add(con);
+        g.setColor(Color.decode("#6f9e97"));
+        g.fillRect(70,460,130,130);
+
+        JLabel cas = new JLabel("Casino");
+        cas.setFont(bf);
+        cas.setForeground(Color.WHITE);
+        cas.setBounds(273, 420, 100,50);
+        add(cas);
+        g.setColor(Color.decode("#6f769e"));
+        g.fillRect(270,460,70,70);
+
+        JLabel quack = new JLabel("Rubber Duck Factory");
+        quack.setFont(bf);
+        quack.setForeground(Color.WHITE);
+        quack.setBounds(370, 420, 300,50);
+        add(quack);
+        g.setColor(Color.decode("#826f9e"));
+        g.fillRect(410,460,100,80);
+
+        JLabel hos = new JLabel("Hospital");
+        hos.setFont(bf);
+        hos.setForeground(Color.WHITE);
+        hos.setBounds(592, 420, 100,50);
+        add(hos);
+        g.setColor(Color.decode("#9d6f9e"));
+        g.fillRect(580,460,100,100);
+
+
+
         canvas.setColor(new Color(255, 192, 0));
         canvas.fillOval(850, 175, 200, 200);
         canvas.setColor(Color.BLACK);
@@ -94,6 +169,8 @@ public class LegendComponent extends JComponent {
         canvas.fillOval(900, 235, 20, 20);
         canvas.fillOval(980, 235, 20, 20);
         canvas.drawArc(890, 265, 120, 80, 190, 160);
+
+
     }
 }
 

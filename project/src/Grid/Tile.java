@@ -8,13 +8,15 @@ package Grid;
 
 import DataObjects.Person;
 import DataObjects.Status;
+import Simulator.SimSettings;
 
+import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
 
 public class Tile {
 	private Person occupant;
 	private Building entranceTo = null;
-	private boolean accessible;
+	private  Color accessible;
 	private boolean selected = false;
 	private boolean isEntrance = false;
 	private boolean isExit = false;
@@ -30,7 +32,7 @@ public class Tile {
 	public Tile(int x, int y) {
 		this.occupant = null;
 		this.entranceTo = null;
-		this.accessible = true;
+		this.accessible = null;
 		changeCoordinates(x, y);
 	}
 
@@ -66,7 +68,7 @@ public class Tile {
 	 * A boolean that determines if this tile is accessible
 	 * @return Whether this tile is in fact accessible
 	 */
-	public boolean isAccessible() { return this.accessible; }
+	public Color isAccessible() { return this.accessible; }
 
 	/**
 	 * A getter for the building it's an entrance to
@@ -112,7 +114,7 @@ public class Tile {
 	public void setOccupant(Person person) {
 		this.occupant = person;
 		this.occupant.setPosition(this.x, this.y);
-		this.setAccessible(false);
+		this.setAccessible(Color.CYAN);
 	}
 
 	/**
@@ -120,7 +122,7 @@ public class Tile {
 	 *
 	 * @param accessible True if it should be, false otherwise
 	 */
-	public void setAccessible(boolean accessible) {
+	public void setAccessible(Color accessible) {
 		this.accessible = accessible;
 	}
 
@@ -142,7 +144,7 @@ public class Tile {
 	 */
 	public void clearOccupant() {
 		this.occupant = null;
-		this.setAccessible(true);
+		this.setAccessible(null);
 	}
 
 	/**
@@ -155,7 +157,7 @@ public class Tile {
 		if (tile.occupant == null) return;
 		this.occupant = tile.occupant;
 		this.occupant.setPosition(this.x, this.y);
-		this.setAccessible(false);
+		this.setAccessible(Color.BLUE);
 		tile.clearOccupant();
 		if (this.entranceTo != null) {
 			this.entranceTo.enter(this.occupant);
@@ -175,20 +177,56 @@ public class Tile {
 	 * @param size The size
 	 * @param canvas The graphics environment
 	 */
+	public int i = 0;
 	public void draw(int size, Graphics2D canvas) {
 		//Store the old color
 		Color oldCol = canvas.getColor();
 
 		//Draw the fill of the tile
-		if(this.isExit)
-			canvas.setColor(Color.decode("#D55E00"));
-		else if (this.isEntrance)
-			canvas.setColor(Color.decode("#009E73"));
-		else if (!this.accessible && this.occupant == null)
-			canvas.setColor(Color.LIGHT_GRAY);
-		else
+		if(this.isExit) {
+			canvas.setColor(Color.decode("#D55E00"));}
+			//canvas.fillRect(size * this.x, size * this.y, size, size);}
+		else if (this.isEntrance) {
+				canvas.setColor(Color.decode("#009E73"));
+		//	canvas.fillRect(size * this.x, size * this.y, size, size);
+			}
+		//else if (this.accessible.getRGB(this.accessible)) == "#9e746f"){
+
+		//}
+		else if (this.accessible != null && this.occupant == null){
+				//ColorUIResource col = new ColorUIResource(this.accessible.getRGB());
+				Color cool = new Color(this.accessible.getRGB());
+
+				canvas.setColor(cool);
+
+				/*if(i%0 == 0) {
+					canvas.setColor(Color.red);
+					i++;
+
+				}
+				else {
+					canvas.setColor(Color.BLUE);
+					i++;
+					canvas.fillRect(size * this.x, size * this.y, size, size);
+				}*/
+			//canvas.setColor(Color.WHITE);
+			//if(this.isAccessible()== BuildingType.LIBRARY.getC()){
+			//	canvas.setColor(Color.RED);
+			//}
+			//canvas.fillRect(size * this.x, size * this.y, size, size);
+		//	canvas.setColor(Color.);
+				//System.out.println(cool);
+
+
+			//canvas.setColor(Color.LIGHT_GRAY);
+		}
+		else{
 			canvas.setColor(Color.DARK_GRAY);
+		//	canvas.fillRect(size * this.x, size * this.y, size, size);
+		}
+		//canvas.setColor(oldCol);
 		canvas.fillRect(size * this.x, size * this.y, size, size);
+		//System.out.println(this.accessible.getRGB(Gri));
 
 		//If there's an occupant, have them draw themselves
 		if(this.occupant != null) {

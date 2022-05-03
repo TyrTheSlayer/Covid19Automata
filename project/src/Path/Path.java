@@ -9,6 +9,7 @@ package Path;
 import Grid.GridPanel;
 import Grid.Tile;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Path {
@@ -31,7 +32,7 @@ public class Path {
         for (int i = 0; i < grid.viewableWidth; i++) { // Iterate over the whole grid
             for(int j = 0; j < grid.viewableHeight; j++) {
                 gridDist[i][j] = -2; // Denote undiscovered cells with -2
-                if(!grid.getTile(i, j).isAccessible()) gridDist[i][j] = -1; // Denote inaccessible cells with -1
+                if(grid.getTile(i, j).isAccessible() != null) gridDist[i][j] = -1; // Denote inaccessible cells with -1
             }
         }
         gridDist[src.getX()][src.getY()] = 0; // Set our start to 0, base case
@@ -107,7 +108,7 @@ public class Path {
             this.Path = null;
             return null;
         }
-        if (!Path.get(0).isAccessible() && (Path.get(0).getOccupant() == null)) return null; // If we have no occupant, but are not accessible
+        if (Path.get(0).isAccessible() != null && (Path.get(0).getOccupant() == null)) return null; // If we have no occupant, but are not accessible
         if (Path.size() < 3) { // If we have finished pathing
             Tile t = Path.get(0);
             Path.remove(0);
@@ -115,13 +116,13 @@ public class Path {
             return t;
         }
         Tile t = Path.get(1); // Get next step
-        if (t.isAccessible()) { // Assuming it's valid, return that
+        if (t.isAccessible() == null) { // Assuming it's valid, return that
             Path.remove(0);
             return t;
         }
         // T isn't accessible, repath
         int i = 2;
-        for(;i < Path.size() && !Path.get(i).isAccessible(); i++); // Find first candidate
+        for(;i < Path.size() && Path.get(i).isAccessible() != null; i++); // Find first candidate
         if (i == Path.size()) return Path.get(0); // Return same tile if no candidates in remainder of path
         Path p = new Path(this.grid, Path.get(0)); // Make a new path from here to candidate
         p.findPath(Path.get(0), Path.get(i));
@@ -130,7 +131,7 @@ public class Path {
         p.getPath().remove(0);
         Path.subList(1,i-1).clear(); // Remove old (bad) path steps
         for (i = 0; i < p.getPath().size(); i++) Path.add(i + 1, p.getPath().get(i)); // Replace with repath
-        if (!t.isAccessible()) return Path.get(0);
+        if (t.isAccessible() != null) return Path.get(0);
         t = Path.get(1);
         Path.remove(0);
         return t;
@@ -150,7 +151,7 @@ public class Path {
                 int y = Path.get(0).getY() + j;
                 if (!inBounds(x,y)) continue; // Bound checking
                 Tile t = grid.getTile(x, y);
-                if (t.isAccessible()) { // If we can step there
+                if (t.isAccessible() == null) { // If we can step there
                     Path.add(0, t); // Prepend it to the path
                     return t; // Return that tile
                 }
@@ -166,7 +167,7 @@ public class Path {
      * @return True on success, false o/w
      */
     public boolean findPath(Tile src, Tile dest) {
-        if (!dest.isAccessible()) return false;
+        if (dest.isAccessible() != null) return false;
         if (greedyBFS(src, dest)) { // Try GBFS
             buildPath(dest);
             return true;
@@ -234,10 +235,10 @@ public class Path {
                 for(int i = -1; i < 2; i++) { // Match the x coord, change y
                     if (selection == 0) {
                         if (!inBounds(src.getX() + 1, src.getY() + i) || i == 0) continue;
-                        gridDist[src.getX() + 1][src.getY() + i] = grid.getTile(src.getX(), src.getY() + i).isAccessible() ? dist + 1 : -1;
+                        gridDist[src.getX() + 1][src.getY() + i] = grid.getTile(src.getX(), src.getY() + i).isAccessible() == null ? dist + 1 : -1;
                     } else {
                         if (!inBounds(src.getX() - 1, src.getY() + i) || i == 0) continue;
-                        gridDist[src.getX() - 1][src.getY() + i] = grid.getTile(src.getX(), src.getY() + i).isAccessible() ? dist + 1 : -1;
+                        gridDist[src.getX() - 1][src.getY() + i] = grid.getTile(src.getX(), src.getY() + i).isAccessible() == null ? dist + 1 : -1;
                     }
                 }
                 if (selection == 0) {
@@ -248,10 +249,10 @@ public class Path {
                 for(int i = -1; i < 2; i++) {
                     if (selection == 2) {
                         if (!inBounds(src.getX() + i, src.getY() + 1) || i == 0) continue;
-                        gridDist[src.getX() + i][src.getY()] = grid.getTile(src.getX() + i, src.getY() + 1).isAccessible() ? dist + 1 : -1;
+                        gridDist[src.getX() + i][src.getY()] = grid.getTile(src.getX() + i, src.getY() + 1).isAccessible() == null ? dist + 1 : -1;
                     } else {
                         if (!inBounds(src.getX() + i, src.getY() - 1) || i == 0) continue;
-                        gridDist[src.getX() + i][src.getY()] = grid.getTile(src.getX() + i, src.getY() - 1).isAccessible() ? dist + 1 : -1;
+                        gridDist[src.getX() + i][src.getY()] = grid.getTile(src.getX() + i, src.getY() - 1).isAccessible() == null ? dist + 1 : -1;
                     }
                 }
                 if (selection == 2) {
@@ -262,35 +263,35 @@ public class Path {
         } else { // Diagonal
             if (selection > 4) { // need to check 6
                 if (inBounds(src.getX(), src.getY() - 1))
-                    gridDist[src.getX()][src.getY()-1] = grid.getTile(src.getX(), src.getY() - 1).isAccessible() ? dist + 1 : -1;
+                    gridDist[src.getX()][src.getY()-1] = grid.getTile(src.getX(), src.getY() - 1).isAccessible() == null ? dist + 1 : -1;
             } else { // Need to check 2
                 if (inBounds(src.getX(), src.getY() + 1))
-                    gridDist[src.getX()][src.getY()+1] = grid.getTile(src.getX(), src.getY() + 1).isAccessible() ? dist + 1 : -1;
+                    gridDist[src.getX()][src.getY()+1] = grid.getTile(src.getX(), src.getY() + 1).isAccessible() == null ? dist + 1 : -1;
             }
 
             if ((selection - 1) % 6 == 0) { // Need to check 0
                 if (inBounds(src.getX() + 1, src.getY()))
-                    gridDist[src.getX() + 1][src.getY()] = grid.getTile(src.getX() + 1, src.getY()).isAccessible() ? dist + 1 : -1;
+                    gridDist[src.getX() + 1][src.getY()] = grid.getTile(src.getX() + 1, src.getY()).isAccessible() == null ? dist + 1 : -1;
             } else {
                 if (inBounds(src.getX() - 1, src.getY()))
-                    gridDist[src.getX() - 1][src.getY()] = grid.getTile(src.getX() - 1, src.getY()).isAccessible() ? dist + 1 : -1;
+                    gridDist[src.getX() - 1][src.getY()] = grid.getTile(src.getX() - 1, src.getY()).isAccessible() == null ? dist + 1 : -1;
             }
             switch (selection) {
                 case 1:
                     if (!inBounds(src.getX() + 1, src.getY() + 1)) return false;
-                    gridDist[src.getX() + 1][src.getY() + 1] = grid.getTile(src.getX() + 1, src.getY() + 1).isAccessible() ?  dist + 1 : -1;
+                    gridDist[src.getX() + 1][src.getY() + 1] = grid.getTile(src.getX() + 1, src.getY() + 1).isAccessible() == null ?  dist + 1 : -1;
                     return greedyBFS(grid.getTile(src.getX() + 1, src.getY() + 1), dest);
                 case 3:
                     if (!inBounds(src.getX() - 1, src.getY() + 1)) return false;
-                    gridDist[src.getX() - 1][src.getY() + 1] = grid.getTile(src.getX() - 1, src.getY() + 1).isAccessible() ? dist + 1 : -1;
+                    gridDist[src.getX() - 1][src.getY() + 1] = grid.getTile(src.getX() - 1, src.getY() + 1).isAccessible() == null ? dist + 1 : -1;
                     return greedyBFS(grid.getTile(src.getX() - 1, src.getY() + 1), dest);
                 case 5:
                     if (!inBounds(src.getX() - 1, src.getY() - 1)) return false;
-                    gridDist[src.getX() - 1][src.getY() - 1] = grid.getTile(src.getX() -1, src.getY() - 1).isAccessible() ? dist + 1 : -1;
+                    gridDist[src.getX() - 1][src.getY() - 1] = grid.getTile(src.getX() -1, src.getY() - 1).isAccessible() == null ? dist + 1 : -1;
                     return greedyBFS(grid.getTile(src.getX() - 1, src.getY() - 1), dest);
                 case 7:
                     if (!inBounds(src.getX() + 1, src.getY() - 1)) return false;
-                    gridDist[src.getX() + 1][src.getY() - 1] = grid.getTile(src.getX() + 1, src.getY() - 1).isAccessible() ? dist + 1 : -1;
+                    gridDist[src.getX() + 1][src.getY() - 1] = grid.getTile(src.getX() + 1, src.getY() - 1).isAccessible() == null ? dist + 1 : -1;
                     return greedyBFS(grid.getTile(src.getX() + 1, src.getY() - 1), dest);
                 default:
                     break;
@@ -347,8 +348,8 @@ public class Path {
                     // if cases are pathing for different directions
                     if(gridDist[src.getX() + i * (int) Math.signum(dx) ][src.getY() + j * (int) Math.signum(dy) ] == -2) {
                         int q = findMinNeighbor(src.getX() + i * (int) Math.signum(dx), src.getY() + j * (int) Math.signum(dy));
-                        boolean accessible = grid.getTile(src.getX() + i * (int) Math.signum(dx), src.getY() + j * (int) Math.signum(dy)).isAccessible();
-                        gridDist[src.getX() + i * (int) Math.signum(dx)][src.getY() + j * (int) Math.signum(dy)] = ((q >= 0) && accessible ? q + 1 : -1);
+                        Color accessible = grid.getTile(src.getX() + i * (int) Math.signum(dx), src.getY() + j * (int) Math.signum(dy)).isAccessible();
+                        gridDist[src.getX() + i * (int) Math.signum(dx)][src.getY() + j * (int) Math.signum(dy)] = ((q >= 0) && accessible == null  ? q + 1 : -1);
                     }
                 }
             }

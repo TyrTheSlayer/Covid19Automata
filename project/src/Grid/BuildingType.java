@@ -4,21 +4,23 @@
 
 package Grid;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public enum BuildingType {
-    SCHOOL(10, 3, 60),
-    STORE(5, 5, 50),
-    LIBRARY(10, 5, 100),
-    DRUGSTORE(3, 2, 30),
-    CONCERTHALL(13, 13, 1000),
-    CASINO(7, 7, 300),
-    RUBBERDUCKFACTORY(10, 8, 200),
-    HOSPITAL(10, 10, 300);
+    SCHOOL(10, 3, 60, Color.decode("#9e746f")),
+    STORE(5, 5, 50, Color.decode("#9e7f6f")),
+    LIBRARY(10, 5, 100, Color.decode("#9e936f")),
+    DRUGSTORE(2, 2, 30, Color.decode("#889e6f")),
+    CONCERTHALL(13, 13, 1000, Color.decode("#6f9e97")),
+    CASINO(7, 7, 300, Color.decode("#6f769e")),
+    RUBBERDUCKFACTORY(10, 8, 200, Color.decode("#826f9e")),
+    HOSPITAL(10, 10, 300, Color.decode("#9d6f9e"));
 
     private int w;
     private int h;
     private int capacity;
+    private Color c;
 
 
     /**
@@ -28,10 +30,11 @@ public enum BuildingType {
      * @param h The height
      * @param cap The capacity
      */
-    BuildingType(int w, int h, int cap) {
+    BuildingType(int w, int h, int cap, Color c) {
         this.w = w;
         this.h = h;
         this.capacity = cap;
+        this.c = c;
     }
 
     /**
@@ -61,6 +64,14 @@ public enum BuildingType {
         return capacity;
     }
 
+    public Color getC() {
+        return c;
+    }
+
+    public void setC(Color c) {
+        this.c = c;
+    }
+
     /**
      * Allocates tiles for the building. Does nothing with the tiles, just tells which ones they are.
      *
@@ -84,6 +95,8 @@ public enum BuildingType {
         for(int i = 0; i < w; i++) {
             for(int j = 0; j < h; j++) {
                 needed.add(tiles[i + x][j + y]);
+                this.setC(this.c);
+                System.out.println(getC().toString());
             }
         }
 

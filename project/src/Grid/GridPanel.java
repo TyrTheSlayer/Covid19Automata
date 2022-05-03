@@ -183,7 +183,7 @@ public class GridPanel extends JPanel implements Runnable {
         while(i < population) {
             int randx = rn.nextInt(this.viewableWidth);
             int randy = rn.nextInt(this.viewableHeight);
-            if (this.gridViewable[randx][randy].getOccupant() == null && this.gridViewable[randx][randy].isAccessible()) {
+            if (this.gridViewable[randx][randy].getOccupant() == null && this.gridViewable[randx][randy].isAccessible() == null) {
                 Factor f = new Factor();
                 Person p = new Person(randx, randy, f, this.settings);
                 this.factor.add(f);
@@ -337,7 +337,7 @@ public class GridPanel extends JPanel implements Runnable {
                     Random rn = new Random();
                     int randx = rn.nextInt(this.viewableWidth);
                     int randy = rn.nextInt(this.viewableHeight);
-                    while (!this.gridViewable[randx][randy].isAccessible()) {
+                    while (this.gridViewable[randx][randy].isAccessible() != null) {
                         randx = rn.nextInt(this.viewableWidth);
                         randy = rn.nextInt(this.viewableHeight);
                     }

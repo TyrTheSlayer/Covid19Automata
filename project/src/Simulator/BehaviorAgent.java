@@ -108,7 +108,7 @@ public class BehaviorAgent {
             }
             int x = rand.nextInt(width);
             int y = rand.nextInt(height);
-            while (!grid.getTile(x, y).isAccessible()) {
+            while (grid.getTile(x, y).isAccessible() != null) {
                 x = rand.nextInt(width);
                 y = rand.nextInt(height);
             }
@@ -183,7 +183,7 @@ public class BehaviorAgent {
                 if (grid.getTile(p.getX(), p.getY()) == null) return -1;
                 if ((grid.getTile(p.getX(), p.getY()) == t) && (path.getLength() > 2)){
                     t = path.courtesyStep();
-                    if (!t.isAccessible()) return i.tickIntent();
+                    if (t.isAccessible() != null) return i.tickIntent();
                 }
                 t.takePerson(grid.getTile(p.getX(), p.getY()));
                 return i.tickIntent();
@@ -236,7 +236,7 @@ public class BehaviorAgent {
 
         // Check destination tile for occupancy
         Tile tile = grid.getTile(x,y);
-        if (tile.isAccessible()) {
+        if (tile.isAccessible() == null) {
 //            System.out.println("Tile ("+x+", "+y+") is taking from ("+p.getX()+", "+p.getY()+")");
             if (tile.isEntranceTo() == null || p.getX() >= 0)
                 tile.takePerson(grid.getTile(p.getX(), p.getY()));
