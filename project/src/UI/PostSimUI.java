@@ -179,7 +179,6 @@ public class PostSimUI extends JFrame {
                     try {
                         if (!Files.exists(exporter.getSelectedFile().toPath()))
                             exporter.getSelectedFile().createNewFile();
-                        System.out.println("What're you gonna do? Kill yourself?");
                         Files.copy(new File("./postsim/" + menu.getItemAt(menu.getSelectedIndex()) + ".png").toPath(), exporter.getSelectedFile().toPath(), StandardCopyOption.REPLACE_EXISTING);
                     } catch (Exception err) {
                         err.printStackTrace();
