@@ -1,9 +1,3 @@
-/**
- * @author Samuel Nix, Summer Bronson, Aedan Wells, Janathan Carsten
- *
- * Sets up a grid to be displayed by Mainframe
- */
-
 package Grid;
 
 import DataObjects.DailySchedule;
@@ -15,8 +9,7 @@ import Simulator.Intent;
 import Simulator.SimSettings;
 import DataObjects.VirusType;
 import Simulator.DataOut;
-import UI.UI;
-
+import UI.MainFrame;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -24,13 +17,19 @@ import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * @author Samuel Nix, Summer Bronson, Aedan Wells, Janathan Carsten
+ *
+ * Sets up a grid to be displayed by Mainframe
+ */
 public class GridPanel extends JPanel implements Runnable {
     // width and height of viewable grid in tiles, excluding the outer border
     public int viewableHeight;
     public int viewableWidth;
     private int ticks = 0;
-    private final int TICKS_PER_RECORD = 360;
-
+    private final int TICKS_PER_RECORD = 800;
+    private MainFrame mf;
+    private boolean hasTerminated = false;
 
 
     // width and height of window in pixels, including visible borders
@@ -72,7 +71,7 @@ public class GridPanel extends JPanel implements Runnable {
 
 
 
-    private SimSettings settings;
+    public SimSettings settings;
     /**
      * Creates a new GridPanel
      * @param newtileSize the height and width of any particular cell
@@ -80,6 +79,7 @@ public class GridPanel extends JPanel implements Runnable {
      * @param viewableWidth viewable width of the grid (how many cells are generated + 2)
      * @param topLeftX coordinate of top left X usually 0
      * @param topLeftY coordinate of top left Y usually 0
+     * @param settings The simsettings to use
      */
     public GridPanel(int newtileSize, int viewableHeight, int viewableWidth, int topLeftX, int topLeftY, SimSettings settings) {
         // setup panel
@@ -144,7 +144,8 @@ public class GridPanel extends JPanel implements Runnable {
 
 
         //Make and assign schedules
-        this.assignSchedules(0.7);
+        if(!this.buildings.isEmpty())
+            this.assignSchedules(0.7);
 
         // This basically overwrites the intents of people now occupying buildings
         for (int i = 0; i < buildings.size(); i++) {
@@ -160,6 +161,13 @@ public class GridPanel extends JPanel implements Runnable {
 
     }
 
+    public boolean hasData() {
+        return (data.recordLength() > 0);
+    }
+
+    public void setMf(MainFrame mf) {
+        this.mf = mf;
+    }
 
     /**
      * Populate People arraylist
@@ -168,15 +176,21 @@ public class GridPanel extends JPanel implements Runnable {
      * @param population total population
      */
 
+
     public void initPeople(double infected, int population){
         Random rn = new Random();
         int i = 0;
+        int k = 0;
         while(i < population) {
             int randx = rn.nextInt(this.viewableWidth);
             int randy = rn.nextInt(this.viewableHeight);
             if (this.gridViewable[randx][randy].getOccupant() == null && this.gridViewable[randx][randy].isAccessible()) {
                 Factor f = new Factor();
-                Person p = new Person(randx, randy, f);
+                if (k < 10) {
+                    f.setAge(1 + 10 * k);
+                    k++;
+                }
+                Person p = new Person(randx, randy, f, this.settings);
                 this.factor.add(f);
                 this.people.add(p);
                 this.intents.add(agent.genIntent(p));
@@ -185,7 +199,7 @@ public class GridPanel extends JPanel implements Runnable {
             }
         }
 
-        VirusType basic = new VirusType();
+        VirusType basic = settings.getVirus();
         int numInfected = (int) Math.floor(infected * population);
 
         for(int j = 0; j < numInfected; j++){
@@ -277,6 +291,7 @@ public class GridPanel extends JPanel implements Runnable {
      *
      * @param x The x location of the tile
      * @param y The y location of the tile
+     * @return An array containing the neighboring tiles
      */
     public Tile[] getNeighborsForTile(int x, int y) {
         //Auto-return null if the x and y are bad
@@ -417,6 +432,8 @@ public class GridPanel extends JPanel implements Runnable {
         }
     }
 
+    public boolean isExpired() { return (ticks >= (settings.getSimDuration() * TICKS_PER_RECORD)); }
+
     /**
      * A simple method that handles writing the data at the end of execution
      */
@@ -462,7 +479,11 @@ public class GridPanel extends JPanel implements Runnable {
                 }
                 data.addRecord(s, i, r, d, v);
             }
-
+            if (isExpired()) {
+                if(!hasTerminated)
+                    mf.closeSim();
+                hasTerminated = true;
+            };
 
             // Final code, to maintain framerate
             long diff = System.currentTimeMillis() - old; // Find exTime

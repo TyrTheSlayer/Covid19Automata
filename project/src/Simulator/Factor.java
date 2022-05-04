@@ -1,17 +1,19 @@
+package Simulator;
+
+import java.util.Random;
+
 /**
  * @author Wesley Camphouse, Aedan Wells, Samuel Nix
  *
  * The class that represents a single factor influencing infection
  */
-
-package Simulator;
-
 public class Factor {
     private double severityGet;
     private double severityGive;
     private double age;
     private boolean vaccinated = false;
     private double vaccination_effectivity;
+    private boolean willMask = false;
 
     //Constructors
     /**
@@ -19,6 +21,9 @@ public class Factor {
      *
      * @param severityGet How much this factor affects inward infection chance
      * @param severityGive How much this factor affects outward infection chance
+     * @param age The age of the person
+     * @param vaccinated Whether or not the person is vaccinated
+     * @param vaccination_effectivity How effective the vaccine is
      */
     public Factor(double severityGet, double severityGive, double age, boolean vaccinated, double vaccination_effectivity) {
         this.severityGet = severityGet;
@@ -26,6 +31,7 @@ public class Factor {
         this.age = age;
         this.vaccinated = vaccinated;
         this.vaccination_effectivity = vaccination_effectivity;
+        this.willMask = new Random().nextBoolean();
     }
 
     /**
@@ -37,6 +43,7 @@ public class Factor {
         this.age = getPoisson(1.75); //lamda of 1.75 achieves an age range of around 0-80
         this.vaccinated = false;
         this.vaccination_effectivity = 0.5; // Figure out how to pull this from SimSettings
+        this.willMask = new Random().nextBoolean();
     }
 
     /**
@@ -54,6 +61,10 @@ public class Factor {
      */
     public boolean isVaccinated() {
         return this.vaccinated;
+    }
+
+    public boolean willMask() {
+        return this.willMask;
     }
 
     //Methods
@@ -80,27 +91,25 @@ public class Factor {
     /**
      * gets age
      *
-     * @returns age of person
+     * @return age of person
      */
     public double getAge(){
         return this.age;
     }
 
 
-    /**
-     * A really rough approximation of the gamma function
-     * @param z An double
-     * @return The gamma(z)
-     */
-    private double gamma(double z) {
-        int upperLim = 100;
-        int subDiv = 10;
-        double result = 0;
-        for (int k = 1; k < upperLim * subDiv; k++) {
-            result += Math.pow(Math.E, -((double)k/subDiv)) * Math.pow((double)k/subDiv, z - 1);
-        }
-        return result;
+    public void setAge(double age) {
+        this.age = age;
     }
+
+    static double logGamma(double x) {
+        double tmp = (x - 0.5) * Math.log(x + 4.5) - (x + 4.5);
+        double ser = 1.0 + 76.18009173    / (x + 0)   - 86.50532033    / (x + 1)
+                + 24.01409822    / (x + 2)   -  1.231739516   / (x + 3)
+                +  0.00120858003 / (x + 4)   -  0.00000536382 / (x + 5);
+        return tmp + Math.log(ser * Math.sqrt(2 * Math.PI));
+    }
+    static double gamma(double x) { return Math.exp(logGamma(x)); }
 
     /**
      * The age multiplier for this person's age. Should look somewhat like a negative poisson distribution
@@ -109,7 +118,7 @@ public class Factor {
      */
     private double getAgeMultiplier(int age) {
         double lambda = 3;
-        double baseRate = Math.pow(lambda, age)/(gamma((double) 80/10.0 + 1.0)) * Math.pow(Math.E, -lambda);
+        double baseRate = (Math.pow(lambda, (double)age/10.0)/(gamma((double) age/10.0 + 1.0))) * Math.pow(Math.E, -lambda);
         return 1.0 - (4.0 * baseRate);
 
     }

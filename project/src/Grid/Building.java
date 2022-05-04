@@ -1,26 +1,23 @@
+package Grid;
+
+import DataObjects.Person;
+import Simulator.BehaviorAgent;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Random;
+
 /**
  * @author Wesley Camphouse, Aedan Wells
  *
  * The class that represents a building
  */
-
-package Grid;
-
-import DataObjects.Person;
-import Simulator.BehaviorAgent;
-import Simulator.Intent;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Random;
-
 public class Building {
     private int capacity;
     //OpeningTime is when people can enter or exit a building. The tick time % 60, remainder will be time
     private int openingTime;
     private int closingTime;
-    private boolean maskMandate;
-    private boolean vaccMandate;
+    private boolean maskMandate = true;
+    private boolean vaccMandate = false;
     ArrayList<Person> occupants;
     Tile[] entrances;
     Tile[] exits;
@@ -39,6 +36,7 @@ public class Building {
      * @param vaccMandate Whether or not the building has a mask mandate
      * @param capacity The maxiumum number of people that can fit into the buidling
      * @param spaces The tiles that the building occupies
+     * @param ba The behaviour agent to use
      */
     public Building(Tile[] entrances, Tile[] exits, int openingTime, int closingTime, boolean maskMandate,
                     boolean vaccMandate, int capacity, ArrayList<Tile> spaces, BehaviorAgent ba) {
@@ -82,6 +80,7 @@ public class Building {
      * @param vaccMandate Whether or not the building has a mask mandate
      * @param capacity The maxiumum number of people that can fit into the buidling
      * @param spaces The tiles that the building occupies
+     * @param ba The behaviour agent to use
      */
     public Building(Tile[] entrances, Tile[] exits, boolean maskMandate,
                     boolean vaccMandate, int capacity, ArrayList<Tile> spaces, BehaviorAgent ba) {
@@ -132,6 +131,14 @@ public class Building {
 
     //Getters
 
+    public boolean getMaskMandate() {
+        return this.maskMandate;
+    }
+
+    public boolean getVaccMandate() {
+        return this.vaccMandate;
+    }
+
     public ArrayList<Person> getOccupants() {
         return occupants;
     }
@@ -159,6 +166,7 @@ public class Building {
             if(i.getX() == person.getX() && i.getY() == person.getY()) {
                 //Give the person a bogus position
                 person.setPosition(-2, -2);
+                if (maskMandate) person.maskOn();
                 ba.genIntent(person);
                 i.clearOccupant();
 
@@ -191,6 +199,7 @@ public class Building {
             if(i.getX() == person.getX() && i.getY() == person.getY()) {
                 //Give the person a bogus position
                 person.setPosition(-2, -2);
+                if (maskMandate) person.maskOn();
                 i.clearOccupant();
 
                 //Add them to the building
@@ -229,6 +238,7 @@ public class Building {
         exit.setOccupant(person);
         //Copy it's position
         person.setPosition(exit.getX(), exit.getY());
+        person.maskOff();
 //        ba.genIntent(person);
         //Exit the building arraylist
         this.occupants.remove(person);
@@ -277,10 +287,10 @@ public class Building {
      *
      * @param types The types to generate
      * @param tiles The tiles to use
+     * @param ba The behaviour agent to use
      * @return An arraylist of buildings
      */
     public static ArrayList<Building> generateBuildings(BuildingType[] types, Tile[][] tiles, BehaviorAgent ba) {
-        int maxHeight = 0; //The max recorded height of a building in the current row
         boolean failFlag = false;
         ArrayList<Building> buildings = new ArrayList<>();
         int plotSize = 15;
@@ -311,20 +321,8 @@ public class Building {
 
             //Check for an error
             if(needed == null) {
-                //Multiple consecutive fails, something is actually wrong
-                if(failFlag) {
-                    System.out.println("Building generation failed");
-                    System.exit(-1);
-                }
-
-                //First fail, we probably just need to move down
-                else {
-                    y += maxHeight + 3;
-                    maxHeight = 0;
-                    x = 3;
-                    failFlag = true;
-                    continue;
-                }
+                System.out.println("Building generation failed");
+                System.exit(-1);
             }
 
             //No error, actually make the building
@@ -334,9 +332,8 @@ public class Building {
             Tile[] exit = new Tile[1];
             exit[0] = tiles[x + (types[i].getW()/2) + 1][y + types[i].getH()];
             exit[0].setExit(true);
-            buildings.add(new Building(entrance, exit, false, false, 999, needed, ba));
-            x += types[i].getW() + 3;
-            maxHeight = Math.max(maxHeight, types[i].getH());
+            float maskChance = new Random().nextFloat();
+            buildings.add(new Building(entrance, exit, (maskChance < ba.grid.settings.getMaskRate()), rand.nextBoolean(), types[i].getCapacity(), needed, ba));
         }
 
         return buildings;

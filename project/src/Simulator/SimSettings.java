@@ -1,11 +1,3 @@
-/**
- * @author Jonathan Carsten
- *
- * Data Class that stores settings for simulation
- * Also assigns defaults for settings
- * The idea is that the UI could declare a SimSettings object and then set values as the user adjusts settings
- */
-
 package Simulator;
 
 import DataObjects.VirusType;
@@ -15,6 +7,13 @@ import Grid.BuildingType;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * @author Jonathan Carsten
+ *
+ * Data Class that stores settings for simulation
+ * Also assigns defaults for settings
+ * The idea is that the UI could declare a SimSettings object and then set values as the user adjusts settings
+ */
 public class SimSettings {
     private int population;
     private double initialInfected;
@@ -30,19 +29,13 @@ public class SimSettings {
     private int simDuration;
     private int ticksPerDay;
     private double vaccination_effectivity;
+    private double infectChance;
+
 
     private ArrayList<BuildingType> BuTy;
 
     // VirusType specific attributes
     private VirusType virus;
-    private int minContagiousTime;
-    private int maxContagiousTime;
-    private int minSymptomaticTime;
-    private int maxSymptomaticTime;
-    private int minRecoveryTime ;
-    private int maxRecoveryTime ;
-    private int minDeathTime;
-    private int maxDeathTime;
 
     /**
      * Inits default values for settings. These values are tentative and prone to change.
@@ -64,9 +57,11 @@ public class SimSettings {
         this.simDuration = 150; // user defines duration in terms of days
         this.ticksPerDay = 60; // tentative, for now say 60 ticks = 1 day, (60 fps -> 1 sec = 1 day, idk)
         this.vaccination_effectivity = 0.8; // Vaccination is 80% effective, reduces transmission by 80%
+        this.infectChance = 0.2;
 
         // VirusType defaults
-        this.virus = new VirusType();
+        this.virus = new VirusType(60, 300, 780, 2280,
+                1053, 3053, 1110, 2800);
 
         this.BuTy = new ArrayList<>();
 
@@ -118,6 +113,14 @@ public class SimSettings {
 
     public void setQuaranRequired(boolean quaranRequired) {
         isQuaranRequired = quaranRequired;
+    }
+
+    public double getInfectChance() {
+        return infectChance;
+    }
+
+    public void setInfectChance(double infectChance) {
+        this.infectChance = infectChance;
     }
 
     public void setVaccination_effectivity(float vaccination_effectivity) { this.vaccination_effectivity = vaccination_effectivity; }
@@ -183,6 +186,10 @@ public class SimSettings {
 
     public VirusType getVirus() {
         return virus;
+    }
+
+    public void setVirus(VirusType virus) {
+        this.virus = virus;
     }
 
     public void setMinContagiousTime(int minContagiousTime) {

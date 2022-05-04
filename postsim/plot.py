@@ -1,6 +1,12 @@
+"""
+@author Jonathan Carsten
+
+Entry point for Postsim subsystem
+Handles command line args and calls the plot Generator
+"""
+
 from plotgen import plotgen
 import argparse
-from datetime import datetime
 
 
 def main():
@@ -9,22 +15,21 @@ def main():
     parser.add_argument("-l", "--line",
                         help="argument should be \"infected\", \"dead\", \"recovered\", or \"susceptible\"")
     parser.add_argument("-p", "--people", action="store_true")
-    parser.add_argument("-f", "--filename", required=True)
     args = parser.parse_args()
 
-    plotter = plotgen(args.filename)
+    plotter = plotgen()
 
     # plot a density chart
     if (args.density == True):
         plotter.plot_density()
-    elif (args.line != None):
+    # plot line graphs
+    if (args.line != None):
         plotter.plot_line(args.line)
-    elif (args.people != None):
+    # plot poeple graph
+    if (args.people != None):
         plotter.plot_people()
 
 
+# entry point for generator
 if __name__ == "__main__":
-    start_time = datetime.now()
     main()
-    end_time = datetime.now()
-    print("Took %s seconds" % (end_time - start_time))

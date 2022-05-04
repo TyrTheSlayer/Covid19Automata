@@ -1,12 +1,10 @@
+package DataObjects;
+
 /**
  * @author Wesley Camphouse
  *
  * The class used to represent a given instance of a virus
  */
-
-
-package DataObjects;
-
 public class Virus {
     private VirusType type;
     private int timeToContagious;

@@ -7,6 +7,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * @author Brenton and Aedan
+ *
+ * Class with methods to aggregate data from the simulation and output both global and specific user CSVs
+ */
 public class DataOut {
 
     /**
@@ -100,8 +105,14 @@ public class DataOut {
         vaccinated.add(v);
     }
 
+    public int recordLength() {
+        return this.susceptible.size;
+    }
+
     /**
      * Writes the data to a csv file for postsim processing
+     *
+     * @param people The arraylist containing the people who were involved in the sim
      */
     public void writeOut(ArrayList<Person> people){
         String CSV = "susceptible,infected,recovered,dead,vaccinated\r\n";

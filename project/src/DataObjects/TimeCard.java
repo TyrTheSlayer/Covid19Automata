@@ -1,12 +1,11 @@
+package DataObjects;
+import Grid.Building;
+
 /**
  * Written by Wesley Camphouse
  *
  * Simple data storage for a scheduled obligation a person might have
  */
-
-package DataObjects;
-import Grid.Building;
-
 public class TimeCard {
     private Building target;
 

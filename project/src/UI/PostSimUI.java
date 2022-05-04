@@ -1,9 +1,3 @@
-/**
- * @author Aedan Wells
- *
- * @description UI for users after simulation completion
- */
-
 package UI;
 
 
@@ -16,9 +10,18 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.geom.Line2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.Scanner;
 
+/**
+ * @author Aedan Wells
+ *
+ * UI for users after simulation completion
+ */
 public class PostSimUI extends JFrame {
     public Scanner sc;
     public String[] finalDayData;
@@ -48,7 +51,7 @@ public class PostSimUI extends JFrame {
         File[] directoryListing = dir.listFiles();
         int j = 0;
         if (directoryListing != null) {
-            this.optionsToChoose = new String[directoryListing.length-7];
+            this.optionsToChoose = new String[directoryListing.length-10];
             for (File child : directoryListing) {
                 if(child.getName().contains(".png")){
                     this.optionsToChoose[j] = child.getName().replace(".png", "");
@@ -75,13 +78,13 @@ public class PostSimUI extends JFrame {
             e.printStackTrace();
         }
         //color definition
-        Color periwinkle = Color.decode("#5284ff");
         Color cream = Color.decode("#fff9ea");
         //setting up labels for data
         JLabel results = new JLabel("Final Results:");
         results.setBounds(20, 10, 400, 30);
         results.setFont(new Font("Verdana", Font.PLAIN, 24));
         this.add(results);
+
 
         JLabel succeptible = new JLabel("Uninfected: " + finalDayData[0]);
         succeptible.setBounds(20, 40, 200, 100);
@@ -145,22 +148,49 @@ public class PostSimUI extends JFrame {
         this.add(vaxxPopulation);
 
         JLabel menuLabel = new JLabel("Data Graphs:");
-        menuLabel.setBounds(10, 280, 200, 100);
+        menuLabel.setBounds(10, 220, 200, 100);
+        //60 points
         menuLabel.setFont(new Font("Verdana", Font.PLAIN, 18));
         this.add(menuLabel);
 
         //set drop down menu
         JComboBox<String> menu = new JComboBox<>(this.optionsToChoose);
-        menu.setBounds(10, 350, 160, 25);
+        menu.setBounds(10, 290, 160, 25);
         this.add(menu);
 
         //setting up graph pictures
         JLabel lbl = new JLabel();
         this.img = new ImageIcon("./postsim/density.png");
         lbl.setIcon(img);
-        lbl.setBounds(15, 300, 650, 650);
+        lbl.setBounds(15, 240, 650, 650);
         lbl.setVisible(true);
         this.add(lbl);
+
+
+        JButton export = new JButton("Export as");
+        export.setBounds(500, 290, 100, 25);
+        this.add(export);
+
+        JFileChooser exporter = new JFileChooser();
+        ActionListener toExport = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (exporter.showSaveDialog(exporter.getParent()) == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        if (!Files.exists(exporter.getSelectedFile().toPath()))
+                            exporter.getSelectedFile().createNewFile();
+                        System.out.println("What're you gonna do? Kill yourself?");
+                        Files.copy(new File("./postsim/" + menu.getItemAt(menu.getSelectedIndex()) + ".png").toPath(), exporter.getSelectedFile().toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    } catch (Exception err) {
+                        err.printStackTrace();
+                    }
+                }
+            }
+        };
+
+        export.addActionListener(toExport);
+
+
 
         menu.addActionListener(new ActionListener() {
             @Override
@@ -170,10 +200,11 @@ public class PostSimUI extends JFrame {
             }
         });
         //Set size
-        this.setSize(800, 1000);
+        this.setPreferredSize(new Dimension(800,875));
         this.getContentPane().setBackground(cream);
         // uses no layout managers
         this.setLayout(null);
+        pack();
         // makes the frame visible
         this.setVisible(true);
     }
@@ -197,7 +228,7 @@ public class PostSimUI extends JFrame {
         lin = new Line2D.Float(225, 35, 225, 275);
         g2.draw(lin);
         //graph border
-        Rectangle rect = new Rectangle(20, 415, 640, 480);
+        Rectangle rect = new Rectangle(20, 355, 640, 490);
         g2.draw(rect);
         Rectangle rect2 = new Rectangle(300, 35, 310, 240);
         g2.draw(rect2);

@@ -1,18 +1,18 @@
-/**
- * @author Wesley Camphouse
- *
- * The actual person object, keeps track of all the data related to a given person
- */
-
 package DataObjects;
 
 import Grid.Building;
 import Simulator.Factor;
+import Simulator.SimSettings;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * @author Wesley Camphouse
+ *
+ * The actual person object, keeps track of all the data related to a given person
+ */
 public class Person {
     private Status status;
     private int x;
@@ -20,7 +20,8 @@ public class Person {
     private Virus virus;
     private Factor factors;
     private DailySchedule schedule;
-
+    private SimSettings settings;
+    private boolean masked = false;
     //Constructors
     /**
      * Makes a new, healthy person at the given location, with the given list of factors
@@ -28,13 +29,15 @@ public class Person {
      * @param x The x location
      * @param y The y location
      * @param factors The list of factors
+     * @param settings The simsettings to use
      */
-    public Person(int x, int y, Factor factors) {
+    public Person(int x, int y, Factor factors, SimSettings settings) {
         this.x = x;
         this.y = y;
         this.factors = factors;
         this.status = Status.ALIVE;
         this.virus = null;
+        this.settings = settings;
     }
 
 
@@ -83,8 +86,14 @@ public class Person {
         return this.status;
     }
 
+    public boolean isMasked() {
+        return this.masked;
+    }
 
     //Methods
+
+    public void maskOn() {this.masked = true;}
+    public void maskOff() {this.masked = false;}
     /**
      * Moves a person the given number of tiles vertically or horizontally
      *
@@ -169,7 +178,7 @@ public class Person {
 
         //Calculate the chance using the factors
         double chance = 0.3;
-        chance = this.factors.applyFactorGive(chance);
+        chance = this.factors.applyFactorGive(chance) * (isMasked() ? 0.44 : 1);
 
 
         //Check if a random number beats the calculated chance
@@ -218,7 +227,7 @@ public class Person {
             return false;
 
         //Base chance
-        double chance = 0.016;
+        double chance = settings.getInfectChance();
 
         //Apply all the factors to the chance
         chance = this.factors.applyFactorGet(chance);
