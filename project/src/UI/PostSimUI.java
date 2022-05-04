@@ -234,25 +234,4 @@ public class PostSimUI extends JFrame {
         g2.draw(rect2);
 
     }
-
-    /**
-     * Checks to see if a string is a number
-     *
-     * @param str string being checked
-     * @return true if it is a string, false otherwise
-     */
-    public boolean isNumeric(String str) {
-        //if the string is not null
-        if (str == null) {
-            return false;
-        }
-        try {
-            //try parsing
-            int d = Integer.parseInt(str);
-        } catch (NumberFormatException nfe) {
-            //if it is not a number, return false
-            return false;
-        }
-        return true;
-    }
 }
