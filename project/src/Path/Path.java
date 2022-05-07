@@ -1,9 +1,3 @@
-/**
- * @author Samuel Nix, Summer Bronson, Brenton Candelaria
- *
- * Pathing algorithms
- */
-
 package Path;
 
 import Grid.GridPanel;
@@ -12,6 +6,11 @@ import Grid.Tile;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * @author Samuel Nix, Summer Bronson, Brenton Candelaria
+ *
+ * Pathing algorithms
+ */
 public class Path {
     private ArrayList<Tile> Path; // Used to store steps
     private GridPanel grid; // The grid

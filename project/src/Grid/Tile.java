@@ -1,9 +1,3 @@
-/**
- * @author Wesley Camphouse, Samuel Nix
- *
- * Creates tiles for the simulation
- */
-
 package Grid;
 
 import DataObjects.Person;
@@ -13,6 +7,11 @@ import Simulator.SimSettings;
 import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
 
+/**
+ * @author Wesley Camphouse, Samuel Nix
+ *
+ * Creates tiles for the simulation
+ */
 public class Tile {
 	private Person occupant;
 	private Building entranceTo = null;

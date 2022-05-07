@@ -1,11 +1,3 @@
-/**
- * @author Samuel Nix
- * @author Summer Bronson
- * @author Aedan Wells
- *
- * A frame to display the simulation
- */
-
 package UI;
 
 import Grid.GridPanel;
@@ -23,6 +15,13 @@ import java.io.IOException;
 import java.lang.Runtime;
 import java.util.Scanner;
 
+/**
+ * @author Samuel Nix
+ * @author Summer Bronson
+ * @author Aedan Wells
+ *
+ * A frame to display the simulation
+ */
 public class MainFrame extends JFrame{
     public GridPanel gridPanel;
     public LegendComponent leg;

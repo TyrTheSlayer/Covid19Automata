@@ -1,9 +1,3 @@
-/**
- * @author Wesley Camphouse
- *
- * The actual person object, keeps track of all the data related to a given person
- */
-
 package DataObjects;
 
 import Grid.Building;
@@ -14,6 +8,11 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * @author Wesley Camphouse
+ *
+ * The actual person object, keeps track of all the data related to a given person
+ */
 public class Person {
     private Status status;
     private int x;
@@ -30,6 +29,7 @@ public class Person {
      * @param x The x location
      * @param y The y location
      * @param factors The list of factors
+     * @param settings The simsettings to use
      */
     public Person(int x, int y, Factor factors, SimSettings settings) {
         this.x = x;

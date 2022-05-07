@@ -1,13 +1,12 @@
+package Simulator;
+
+import java.util.Random;
+
 /**
  * @author Wesley Camphouse, Aedan Wells, Samuel Nix
  *
  * The class that represents a single factor influencing infection
  */
-
-package Simulator;
-
-import java.util.Random;
-
 public class Factor {
     private double severityGet;
     private double severityGive;
@@ -22,6 +21,9 @@ public class Factor {
      *
      * @param severityGet How much this factor affects inward infection chance
      * @param severityGive How much this factor affects outward infection chance
+     * @param age The age of the person
+     * @param vaccinated Whether or not the person is vaccinated
+     * @param vaccination_effectivity How effective the vaccine is
      */
     public Factor(double severityGet, double severityGive, double age, boolean vaccinated, double vaccination_effectivity) {
         this.severityGet = severityGet;
@@ -89,12 +91,16 @@ public class Factor {
     /**
      * gets age
      *
-     * @returns age of person
+     * @return age of person
      */
     public double getAge(){
         return this.age;
     }
 
+
+    public void setAge(double age) {
+        this.age = age;
+    }
 
     static double logGamma(double x) {
         double tmp = (x - 0.5) * Math.log(x + 4.5) - (x + 4.5);

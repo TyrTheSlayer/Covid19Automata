@@ -1,14 +1,13 @@
-/**
- * @author Samuel Nix
- *
- * @description Creates a frame with a smiley face :)
- */
-
 package UI;
 
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * @author Samuel Nix
+ *
+ * Creates a frame with a smiley face :)
+ */
 public class LoadingFrame extends JFrame {
     public LoadingFrame() {
         super("Loading...");

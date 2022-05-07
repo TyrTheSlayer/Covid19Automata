@@ -1,12 +1,12 @@
+package DataObjects;
+import Grid.Building;
+import java.util.ArrayList;
+
 /**
  * Written by Wesley Camphouse
  *
  * A daily schedule, to help people figure out where to go
  */
-
-package DataObjects;
-import Grid.Building;
-import java.util.ArrayList;
 
 public class DailySchedule {
     //Static list of valid schedules

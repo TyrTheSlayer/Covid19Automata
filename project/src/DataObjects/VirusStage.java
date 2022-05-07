@@ -1,11 +1,10 @@
+package DataObjects;
+
 /**
  * @author Wesley Camphouse
  *
  * The enumeration for the stage a virus is at
  */
-
-package DataObjects;
-
 public enum VirusStage {
     INCUBATING, CONTAGIOUS, SYMPTOMATIC, FATAL, RECOVERED;
 

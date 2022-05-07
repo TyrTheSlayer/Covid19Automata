@@ -1,12 +1,13 @@
-/**
- * A basic enum to track building types
- */
-
 package Grid;
 
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * @author Wesley Camphouse
+ *
+ * A basic enum to track building types
+ */
 public enum BuildingType {
     SCHOOL(10, 3, 60, Color.decode("#9e746f")),
     STORE(5, 5, 50, Color.decode("#9e7f6f")),

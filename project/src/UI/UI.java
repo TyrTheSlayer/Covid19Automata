@@ -1,10 +1,3 @@
-/**
- * @author Summer Bronson
- * @author Aedan Wells
- *
- * @description UI for users to put in parameters for the simulation
- */
-
 package UI;
 
 import DataObjects.VirusType;
@@ -23,8 +16,12 @@ import java.awt.image.ImageObserver;
 import java.text.AttributedCharacterIterator;
 import java.util.ArrayList;
 
-
-
+/**
+ * @author Summer Bronson
+ * @author Aedan Wells
+ *
+ * UI for users to put in parameters for the simulation
+ */
 public class UI extends JFrame{
 
 

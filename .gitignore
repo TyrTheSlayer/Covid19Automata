@@ -1,4 +1,5 @@
 out/*
+postsim/__pycache__/*
 postsim/*.csv
-postsim/density.png
+postsim/*.png
 .idea/*
